@@ -1,0 +1,13 @@
+.first_content{
+   padding-left: 20%;
+   padding-top: 20vh;
+   top: 0;
+   background-color: transparent;
+   color: white;
+   z-index: 1;
+}
+
+
+.first_content li{
+   list-style-type: none;
+}
