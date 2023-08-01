@@ -32,12 +32,16 @@
 
 #dropdown_list div{
    margin-bottom: 10px;
-   border-bottom: 1px solid gray;
+   border-bottom: 3px solid gray;
 }
 #dropdown_list{
+   color: white;
    display: none;
    padding: 20px;
-   background-color: white;
+   background-color: rgba(0, 0, 0, 0.888);
+   position: absolute;
+   right: 10px;
+   margin-top: -5px;
 }
 
 @media only screen and (max-width: 920px) {
