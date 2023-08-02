@@ -1,5 +1,5 @@
-import React, { memo } from "react";
-import "./HomePageOne.css";
+import React from "react";
+import "./static_css/HomePageOne.css";
 import { CaretRightFilled } from "@ant-design/icons";
 import Button from "./Button.js";
 

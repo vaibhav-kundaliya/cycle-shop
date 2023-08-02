@@ -1,0 +1,15 @@
+.outerMost{
+  /* background-color: red; */
+  margin-bottom: 10vh;
+}
+
+.rowC{
+  height: 70vh;
+  justify-content: center;
+}
+
+@media only screen and (max-width: 840px) {
+  .column{
+    flex: 100% !important;
+  }
+}

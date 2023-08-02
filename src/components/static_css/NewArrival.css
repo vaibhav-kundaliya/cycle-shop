@@ -1,0 +1,13 @@
+.na_outermost{
+   padding: 10px;
+   min-height: 90vh;
+   margin-bottom: 10vh;
+}
+
+
+
+.responsive_list{
+   display: flex;
+   flex-wrap: wrap;
+   gap: 10px
+}

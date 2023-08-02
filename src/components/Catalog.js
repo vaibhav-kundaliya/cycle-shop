@@ -1,0 +1,45 @@
+import React from 'react'
+import Catagories from './Catagories'
+import img from "./imgs/bicycle-1.jpg";
+import img1 from "./imgs/bicycle-2.jpg";
+import img2 from "./imgs/bicycle-3.jpg";
+
+export default function Catalog() {
+   
+
+   let templates = [
+      {
+        id:1,
+        img: `linear-gradient(rgba(8, 82, 156, 0), rgba(0, 0, 0, 0.655), rgb(0, 0, 0)
+        ),  url(${img})`,
+        catagories: "Mountain Bikes",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing edivt. Ut edivt tellus, luctus nec ullamcorper mattis, pulvinar dapibus.",
+        key_points: ["Lorem ipsum dolor sit amet.","Lorem ipsum dolor sit amet.","Lorem ipsum dolor sit amet.",
+                      "Lorem ipsum dolor sit amet.","Lorem ipsum dolor sit amet.","Lorem ipsum dolor sit amet."]
+      },
+      {
+        id:2,
+        img: `linear-gradient(rgba(8, 82, 156, 0), rgba(0, 0, 0, 0.655), rgb(0, 0, 0)
+        ),  url(${img1})`,
+        catagories: "City Bikes",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing edivt. Ut edivt tellus, luctus nec ullamcorper mattis, pulvinar dapibus."
+        ,key_points: ["Lorem ipsum dolor sit amet.","Lorem ipsum dolor sit amet.","Lorem ipsum dolor sit amet.",
+                      "Lorem ipsum dolor sit amet.","Lorem ipsum dolor sit amet.","Lorem ipsum dolor sit amet."]
+      },
+      {
+        id:3,
+        img: `linear-gradient(rgba(8, 82, 156, 0), rgba(0, 0, 0, 0.655), rgb(0, 0, 0)
+        ),  url(${img2})`,
+        catagories: "Speciality Bikes",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing edivt. Ut edivt tellus, luctus nec ullamcorper mattis, pulvinar dapibus.",
+        key_points: ["Lorem ipsum dolor sit amet.","Lorem ipsum dolor sit amet.","Lorem ipsum dolor sit amet.",
+                      "Lorem ipsum dolor sit amet.","Lorem ipsum dolor sit amet.","Lorem ipsum dolor sit amet."]
+      }
+   ]
+   
+   const iter = templates.map((element)=>{
+      return (<div key={element.id}><Catagories element={element}></Catagories></div>)
+   })
+
+   return iter
+}

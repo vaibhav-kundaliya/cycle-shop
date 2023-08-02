@@ -1,0 +1,36 @@
+import React from "react";
+import Header from "./Header";
+import { Col, Row } from "antd";
+import ImageWithText from "./ImageWithText";
+import img from "./imgs/bicycle-1.jpg";
+import "./static_css/AboutUs.css"
+
+export default function AboutUs() {
+   return (
+      <div className="outerMost">
+         <div>
+            <Header header="Why Choose KRYO?" />
+         </div>
+         <div className="imagesTable">
+            <Row className="rowC" gutter={[20, 20]}>
+               <Col className="column" xs={18} sm={10}>
+                  <ImageWithText title="title" text="desc" height="100%"  img={img} />
+               </Col>
+               <Col className="column" xs={18} sm={10}>
+                  <ImageWithText title="title" text="desc" height="100%"  img={img} />
+               </Col>
+
+               <Col className="column" xs={18}  sm={6}>
+                  <ImageWithText title="title" text="desc" height="100%"  img={img} />
+               </Col>
+               <Col className="column" xs={18} sm={6}>
+                  <ImageWithText title="title" text="desc" height="100%"  img={img} />
+               </Col>
+               <Col className="column" xs={18} sm={6}>
+                  <ImageWithText title="title" text="desc" height="100%"  img={img} />
+               </Col>
+            </Row>
+         </div>
+      </div>
+   );
+}

@@ -1,11 +1,11 @@
 .first_content{
-   padding-top: 5%;
-   padding-left: 10%;
-   top: 0;
    background-color: transparent;
+   top:0;
    color: white;
-   z-index: 2;
-   
+   z-index: 1;
+   height: 83vh;
+   padding-left: 10%;
+   padding-top: 5vh;
 }
 
 

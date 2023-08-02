@@ -1,5 +1,5 @@
 .Navbar{
-   height: 64px;
+   height: 10vh;
    display: flex;
    flex-direction: row;
    justify-content: space-between;

@@ -1,6 +1,6 @@
 import React from "react";
-import "./Navbar.css";
-import logoimg from "./logo-1-80x48.png";
+import "./static_css/Navbar.css";
+import logoimg from "./imgs/logo-1-80x48.png";
 import { Badge } from "antd";
 import { ShoppingFilled, MenuOutlined } from "@ant-design/icons";
 import NavigationList from "./NavigationList";
