@@ -12,7 +12,7 @@ export default function Catagories({element}) {
       backgroundPosition: "center",
       backgroundRepeat: "no-repeat",
       backgroundSize: "cover",
-      minHeight: "95vh",
+      minHeight: "90vh",
       width: "100%",
       display: "flex",
       flexDirection: "row",
@@ -37,7 +37,7 @@ export default function Catagories({element}) {
                   <li><CaretRightFilled />{element.key_points[5]}</li>
                 </div>
               </div>
-
+              <br></br>
               <Button text="Explore More" />
             </div>
         </div>

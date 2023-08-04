@@ -29,14 +29,10 @@
    max-height: 200px;
    flex-direction: row;
    flex-wrap: wrap;
-   gap: 50px;
+   gap: 50px 10px;
 }
 
-.button{
-   margin-top: 100px;
-}
-
-@media only screen and (max-width: 560px ){
+@media only screen and (max-width: 760px ){
    .points{
       display: block;
       flex-direction: column;

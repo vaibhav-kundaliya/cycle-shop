@@ -1,0 +1,14 @@
+.feature_content{
+   width: 70%;
+   margin: auto;
+   height: 100%;
+   padding: 10%;
+   text-align: center;
+   /* display: flex;
+   flex-direction: column;
+   justify-content: center; */
+}
+
+.feature_content h2{
+   margin-top: 0;
+}

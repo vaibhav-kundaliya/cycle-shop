@@ -29,7 +29,7 @@ function HomePageOne() {
                   <CaretRightFilled /> Steel Hardtail Frame
                </li>
             </div>
-
+            <br></br>
             <Button href="/" text="Buy Now"></Button>
          </div>
       </>

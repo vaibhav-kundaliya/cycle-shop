@@ -8,6 +8,7 @@ import NavigationList from "./NavigationList";
 function Navbar(props) {
    let items_count = 10;
    let total_money = 0.0;
+
    function display_hide_list() {
       let dropdownlist = document.getElementById("dropdown_list");
       if (dropdownlist.style.display === "block") {
@@ -16,6 +17,7 @@ function Navbar(props) {
          dropdownlist.style.display = "block";
       }
    }
+
    return (
       <>
          <div className="Navbar" style={{ backgroundColor: props.color }}>
@@ -30,11 +32,11 @@ function Navbar(props) {
             <div className="cart" id="totalAmount">
                ${total_money}
                <div>
-                  <ShoppingFilled className="cart_logo" style={{ fontSize: "20px", paddingLeft: "8px", marginRight: "-5px" }} />
+                  <ShoppingFilled onClick={props.open_close} className="cart_logo" style={{ fontSize: "20px", paddingLeft: "8px", marginRight: "-5px", cursor:"pointer" }} />
                   <Badge count={items_count} size="small" style={{ top: "-10px" }} />
                </div>
                <div className="hide_dropdown_button" onClick={display_hide_list}>
-                  <MenuOutlined style={{ display: "block" }} />
+                  <MenuOutlined style={{ fontSize:"24px", display: "block" }} />
                </div>
             </div>
          </div>

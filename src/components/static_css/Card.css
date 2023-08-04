@@ -1,0 +1,15 @@
+.addtocart-icon{
+   display: none;
+   background-color: gray;
+   width: fit-content;
+   position: absolute;
+   top: 0;
+   right: 0;
+   margin: 10px;
+   padding: 8px;
+   border-radius: 24px;
+}
+
+.addtocart-icon:hover{
+   background-color: rgb(177, 176, 176);
+}

@@ -1,0 +1,43 @@
+.event_div{
+   background-color: bisque;
+   padding-bottom: 50px;
+   padding: 10px 10px 30px 10px;
+}
+
+
+.event_video{
+   color: white;
+   height: 500px;
+   width: 70%;
+   margin: auto;
+   background-repeat: no-repeat;
+   background-size: cover;
+   background-position: center;
+   display: flex;
+   flex-direction: column;
+   justify-content: end;
+   padding: 0px 10px 10px 10px;
+}
+
+.text-button{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   width: 70%;
+   margin: 10px auto 40px auto;
+}
+
+.text{
+   width: 60%;
+}
+
+@media only screen and (max-width: 900px) {
+   .text-button{
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+   }
+   .text{
+      width: 100%;
+   }
+}

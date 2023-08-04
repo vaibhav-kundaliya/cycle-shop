@@ -1,0 +1,29 @@
+.footer{
+   color: white !important;
+   background-color: black;
+   padding: 5% 10% 5% 10%;
+}
+
+.links{
+   margin-top: 5px;
+   font-size: 16px;
+   font-weight: bold;
+   width: fit-content;
+}
+
+.links:hover{
+   color: rgba(255, 0, 0, 0.5);
+   cursor: pointer;
+}
+
+hr{
+   margin: 0;
+}
+
+.lower-footer{
+   background-color: black;
+   color: white !important;
+   padding: 10px 10px 10px 10px;
+   display: flex;
+   justify-content: space-between;
+}

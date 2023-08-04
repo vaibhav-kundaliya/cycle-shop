@@ -5,8 +5,12 @@ import "./App.css";
 import NewArrival from "./components/NewArrival";
 import Catalog from "./components/Catalog";
 import AboutUs from "./components/AboutUs";
-import ExploreAccessories from "./components/ExploreAccessories";
 import Button from "./components/Button";
+import Events from "./components/Events";
+import FeaturedCycle from "./components/FeaturedCycle";
+import Footer from "./components/Footer";
+import LeftDrover from "./components/LeftDrover";
+import { useEffect, useState, useRef } from "react";
 
 function App() {
    let NavbarColor = "none";
@@ -17,7 +21,7 @@ function App() {
          price: "$350.00",
          img: require("./components/imgs/bicycle-1.jpg"),
          rating: 4,
-         description: "Product Description"
+         description: "Product Description",
       },
       {
          id: 2,
@@ -25,7 +29,7 @@ function App() {
          price: "$350.00",
          img: require("./components/imgs/bicycle-2.jpg"),
          rating: 1,
-         description: "Product Description"
+         description: "Product Description",
       },
       {
          id: 3,
@@ -33,7 +37,7 @@ function App() {
          price: "$350.00",
          img: require("./components/imgs/bicycle-3.jpg"),
          rating: 5,
-         description: "Product Description"
+         description: "Product Description",
       },
       {
          id: 4,
@@ -41,7 +45,7 @@ function App() {
          price: "$350.00",
          img: require("./components/imgs/bicycle-4.jpg"),
          rating: 0,
-         description: "Product Description"
+         description: "Product Description",
       },
    ];
 
@@ -84,25 +88,38 @@ function App() {
       },
    ];
 
+   const [isvisible, setisvisible] = useState("none");
+
+   const open_close = () => {
+      if (isvisible == "none") setisvisible("block");
+      else setisvisible("none");
+   };
+
    return (
+
       <div>
-         <Navbar color={NavbarColor} />
+            <LeftDrover isvisible={isvisible} setisvisible={setisvisible} open_close={open_close} />
+
+         <Navbar color={NavbarColor} open_close={open_close} />
          <div className="outermost">
             <div className="leftmost"></div>
             <div className="rightmost"></div>
          </div>
          <HomePageOne />
-         <NewArrival title="New Arrivals" product_list={new_arrivals_list}/>
+         <NewArrival title="New Arrivals" product_list={new_arrivals_list} />
          <Catalog />
-
          <AboutUs />
 
-            <NewArrival title="Explore Accessory" product_list={accessory} />
-
-            <div style={{display:"flex", justifyContent:"center", marginTop:"-20px", marginBottom:"20px"}}>
+         <NewArrival title="Explore Accessory" product_list={accessory} />
+         <div style={{ display: "flex", justifyContent: "center", marginTop: "-20px", marginBottom: "20px" }}>
             <Button text="View All" />
-            </div>
-         
+         </div>
+
+         <Events />
+
+         <FeaturedCycle />
+
+         <Footer />
       </div>
    );
 }
