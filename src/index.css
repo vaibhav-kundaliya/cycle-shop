@@ -1,12 +1,51 @@
+:root{
+  --font-family: 'Racing Sans One', display;
+  --navbar-color: red;
+  --website-color: red
+}
+
+.Navbar{
+  background-color: var(--navbar-color);
+}
+
+.group-1, h1{
+  font-family: var(--font-family);
+  font-size: 5.13rem;
+}
+
+.group-2{
+  font-family: var(--font-family);
+  font-size: 2.25rem;
+}
+
+.group-3{
+  font-family: var(--font-family);
+  font-size: 3.25rem;
+}
+
+.group-4{
+  font-family: var(--font-family);
+  font-size: 1.375rem;
+}
+
+.group-5{
+  font-family: var(--font-family);
+  font-size: 1.56rem;
+}
+
 body {
-  overflow-y: scroll;
   margin: 0px;
+  /* padding: 0px; */
+  overflow-x: hidden;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+
+
 body::-webkit-scrollbar {
   display: none;
 }
@@ -14,4 +53,23 @@ body::-webkit-scrollbar {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+
+@media only screen and (max-width: 921) {
+  .group-1{
+    font-size: 65px;
+  }
+  
+  .group-2{
+    font-size: 36px;
+  }
+  
+  .group-3{
+    font-size: 36px;
+  }
+  
+  .group-4{
+    font-size: 22px;
+  }
 }

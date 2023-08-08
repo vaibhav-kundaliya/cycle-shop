@@ -9,7 +9,7 @@ import "./static_css/Card.css";
 const { Meta } = Card;
 
 
-function Cards({ element }) {
+function Cards({ element, style }) {
    const [price, setPrice] = useState(element.price);
    const [visibility, setVisibility] = useState("none");
    
@@ -19,11 +19,8 @@ function Cards({ element }) {
             onMouseOver={()=>setVisibility("block")}
             onMouseLeave={()=>setVisibility("none")}
             hoverable
-            style={{
-               width: 270,
-               backgroundColor: "rgba(188, 180, 118, 0.42)",
-            }}
-            cover={<img alt={element.name} src={element.img} />}
+            style={style}
+            cover={<img alt={element.name} src={element.img} style={{borderRadius: "0px"}}/>}
          >
             <Meta description="Bicycle" />
             <b>{element.name}</b>

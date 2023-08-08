@@ -4,9 +4,10 @@
    height: 100%;
    padding: 10%;
    text-align: center;
-   /* display: flex;
-   flex-direction: column;
-   justify-content: center; */
+}
+
+.feature_content .group-3 h3{
+   margin: 20px;
 }
 
 .feature_content h2{

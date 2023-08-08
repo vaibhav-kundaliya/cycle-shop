@@ -1,10 +1,10 @@
 .na_outermost{
-   padding: 10px;
-   /* min-height: 90vh; */
    margin-bottom: 10vh;
 }
 
-
+.na_outermost .group-3 h3{
+   text-align: center;
+}
 
 .responsive_list{
    display: flex;

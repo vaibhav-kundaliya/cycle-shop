@@ -22,8 +22,8 @@ export default function Catagories({element}) {
       <>
          <div key={element.id} style={content_css}>
          <div className="content" >
-              <div className="upper_title">Discover The Collection</div>
-              <div className="title">{element.catagories}</div>
+              <div className="group-4">Discover The Collection</div>
+              <div className="group-2"><h3>{element.catagories}</h3></div>
               <div className="description">{element.description}</div>
               <div className="points">
                 <div>
@@ -38,7 +38,7 @@ export default function Catagories({element}) {
                 </div>
               </div>
               <br></br>
-              <Button text="Explore More" />
+              <Button text="EXPLORE NOW" style={{marginTop: "30px"}} />
             </div>
         </div>
       </>

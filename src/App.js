@@ -11,9 +11,9 @@ import FeaturedCycle from "./components/FeaturedCycle";
 import Footer from "./components/Footer";
 import LeftDrover from "./components/LeftDrover";
 import { useEffect, useState, useRef } from "react";
+import ProductDescription from "./components/ProductDescription";
 
 function App() {
-   let NavbarColor = "none";
    let new_arrivals_list = [
       {
          id: 1,
@@ -98,10 +98,10 @@ function App() {
    return (
 
       <div>
-            <LeftDrover isvisible={isvisible} setisvisible={setisvisible} open_close={open_close} />
+         <LeftDrover isvisible={isvisible} setisvisible={setisvisible} open_close={open_close} />
 
-         <Navbar color={NavbarColor} open_close={open_close} />
-         <div className="outermost">
+         <Navbar open_close={open_close} />
+         {/* <div className="outermost">
             <div className="leftmost"></div>
             <div className="rightmost"></div>
          </div>
@@ -117,7 +117,9 @@ function App() {
 
          <Events />
 
-         <FeaturedCycle />
+         <FeaturedCycle /> */}
+         
+         <ProductDescription />
 
          <Footer />
       </div>

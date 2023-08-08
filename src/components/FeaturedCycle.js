@@ -13,18 +13,18 @@ export default function FeaturedCycle() {
       backgroundPosition: "center",
       backgroundRepeat: "no-repeat",
       backgroundSize: "cover",
-      minHeight: "50vh",
+      minHeight: "100vh",
       width: "100%",
    };
    return (
       <>
          <div style={content_css}>
             <div className="feature_content">
-               <div>
-                  <h2>The All New</h2>
-               </div>
-               <div>
-                  <h1>Kryo X26 MTB Is Here</h1>
+            <div className="group-2">
+               <h4>The All New</h4>
+            </div>
+               <div className="group-3">
+                  <h3>Kryo X26 MTB Is Here</h3>
                </div>
                <div>
                   Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non mauris vitae erat consequat auctor eu in elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
@@ -32,7 +32,7 @@ export default function FeaturedCycle() {
                </div>
                <div>
                   <br />
-                  <Button text="Shop Now" />
+                  <Button text="SHOP NOW" />
                </div>
             </div>
          </div>

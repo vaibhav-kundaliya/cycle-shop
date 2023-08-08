@@ -7,18 +7,14 @@ function HomePageOne() {
    return (
       <>
          <div className="first_content">
-            <div style={{ fontSize: "2rem" }}>
-               <b>
-                  <i>Newly Launched</i>
-               </b>
+            <div className="group-3">
+               <h3>Newly Launched</h3>
             </div>
-            <div style={{ fontSize: "3.69rem" }}><b>Kryo X26 MTB</b></div>
-            <div style={{ fontSize: "2rem", marginTop:"30px" }}>
-               <b>
-                  <i>Specifications:</i>
-               </b>
+            <div className="group-1"><h1>Kryo X26 MTB</h1></div>
+            <div className="group-3">
+               <h4>Specification: </h4>
             </div>
-            <div style={{ fontSize: "1.5rem" }}>
+            <div>
                <li>
                   <CaretRightFilled /> Lightweight 18" Frame
                </li>
@@ -30,7 +26,7 @@ function HomePageOne() {
                </li>
             </div>
             <br></br>
-            <Button href="/" text="Buy Now"></Button>
+            <Button href="/" text="BUY NOW"></Button>
          </div>
       </>
    );

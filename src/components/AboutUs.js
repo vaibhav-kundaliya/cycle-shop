@@ -9,7 +9,9 @@ export default function AboutUs() {
    return (
       <div className="outerMost">
          <div>
-            <Header header="Why Choose KRYO?" />
+            <div className="group-3">
+               <h3>Why Choose KRYO?</h3>
+            </div>
          </div>
          <div className="imagesTable">
             <Row className="rowC" gutter={[20, 20]}>

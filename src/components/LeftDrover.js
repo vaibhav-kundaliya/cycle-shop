@@ -8,15 +8,18 @@ import img from "./imgs/bicycle-1.jpg";
 export default function LeftDrover({ isvisible, setisvisible, open_close }) {
    // const [isvisible, setisvisible] = useState("none");
 
-   const bodyRef = useRef(document.querySelector("extra_container"));
-   
-
+   const bodyRef = useRef(document.querySelector("body"));
+   const extraRef = useRef(null)
+   const cart_list_ = useRef(null)
    useEffect(() => {
       if (isvisible === "block") {
-         console.log(bodyRef.current)
          bodyRef.current.style.overflow = "hidden";
+         extraRef.current.style.display = "block";
+         cart_list_.current.style.right = "0"
       } else
       {
+         extraRef.current.style.display = "none";
+         cart_list_.current.style.right = "-2000px"
          bodyRef.current.style.cursor = "";
          bodyRef.current.style.overflow = "scroll";
       }
@@ -105,10 +108,10 @@ export default function LeftDrover({ isvisible, setisvisible, open_close }) {
 
    return (
       <>
-         <div className="extra_container" style={{ display: isvisible }} onClick={open_close}>
+         <div className="extra_container" ref={extraRef} onClick={open_close}>
 
          </div>
-         <div className="l_drover" style={{ display: isvisible }}>
+         <div className="l_drover" ref={cart_list_}>
             <div className="closed_sign">
                <CloseOutlined style={{ fontSize: "24px", cursor: "pointer" }} onClick={open_close} />
             </div>

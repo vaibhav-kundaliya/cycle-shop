@@ -16,8 +16,8 @@
    cursor: pointer;
 }
 
-hr{
-   margin: 0;
+.footer + hr{
+   margin: 0px;
 }
 
 .lower-footer{

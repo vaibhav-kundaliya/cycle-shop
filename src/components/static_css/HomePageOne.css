@@ -1,6 +1,5 @@
 .first_content{
    background-color: transparent;
-   top:0;
    color: white;
    z-index: 1;
    height: 83vh;
@@ -8,7 +7,23 @@
    padding-top: 5vh;
 }
 
+.first_content h1{
+   width: 30%;
+   margin: 0;
+   line-height: 1;
+}
+
+.first_content h3, h4{
+   margin: 0;
+}
 
 .first_content li{
    list-style-type: none;
+}
+
+
+@media only screen and (max-width: 921px){
+   .first_content h1{
+      width: 100%;
+   }
 }

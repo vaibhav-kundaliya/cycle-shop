@@ -14,8 +14,8 @@ export default function Catalog() {
         ),  url(${img})`,
         catagories: "Mountain Bikes",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing edivt. Ut edivt tellus, luctus nec ullamcorper mattis, pulvinar dapibus.",
-        key_points: ["Lorem ipsum dolor sit amet.","Lorem ipsum dolor sit amet.","Lorem ipsum dolor sit amet.",
-                      "Lorem ipsum dolor sit amet.","Lorem ipsum dolor sit amet.","Lorem ipsum dolor sit amet."]
+        key_points: ["Lorem sit amet.","Lorem sit amet.","Lorem sit amet.",
+                      "Lorem sit amet.","Lorem sit amet.","Lorem sit amet."]
       },
       {
         id:2,
@@ -23,8 +23,8 @@ export default function Catalog() {
         ),  url(${img1})`,
         catagories: "City Bikes",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing edivt. Ut edivt tellus, luctus nec ullamcorper mattis, pulvinar dapibus."
-        ,key_points: ["Lorem ipsum dolor sit amet.","Lorem ipsum dolor sit amet.","Lorem ipsum dolor sit amet.",
-                      "Lorem ipsum dolor sit amet.","Lorem ipsum dolor sit amet.","Lorem ipsum dolor sit amet."]
+        ,key_points: ["Lorem sit amet.","Lorem sit amet.","Lorem sit amet.",
+                      "Lorem sit amet.","Lorem sit amet.","Lorem sit amet."]
       },
       {
         id:3,
@@ -32,8 +32,8 @@ export default function Catalog() {
         ),  url(${img2})`,
         catagories: "Speciality Bikes",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing edivt. Ut edivt tellus, luctus nec ullamcorper mattis, pulvinar dapibus.",
-        key_points: ["Lorem ipsum dolor sit amet.","Lorem ipsum dolor sit amet.","Lorem ipsum dolor sit amet.",
-                      "Lorem ipsum dolor sit amet.","Lorem ipsum dolor sit amet.","Lorem ipsum dolor sit amet."]
+        key_points: ["Lorem sit amet asdd.","Lorem sit amet.","Lorem sit amet.",
+                      "Lorem sit amet asdasd.","Lorem sit amet.","Lorem sit amet."]
       }
    ]
    

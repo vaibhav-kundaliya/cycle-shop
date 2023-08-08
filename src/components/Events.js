@@ -7,21 +7,25 @@ import Button from "./Button";
 export default function Events() {
    return (
       <div className="event_div">
-         <Header header="Join #GoEcoBiking Programme" />
+         <div>
+            <div className="group-3">
+               <h3>Join #GoEcoBiking Programme</h3>
+            </div>
+         </div>
 
          <div className="event_video" style={{backgroundImage:` linear-gradient(rgba(8, 82, 156, 0), rgba(0, 0, 0, 0.655), rgb(0, 0, 0)
         ), url(${img})`}}>
-            <div>
+            <div className="video_symbol">
                <PlayCircleFilled style={{fontSize:"60px", cursor:"pointer"}}/>
             </div>
-            <div>
-               <h1>Watch Full Video</h1>
+            <div className="group-4">
+               <h4>Watch Full Video</h4>
             </div>
 
          </div>
             <div className="text-button">
-               <div className="text">
-                  <h1>Duis aute irure dolor in reprehenderit velit.</h1>
+               <div className="text group-4">
+                  <h2>Duis aute irure dolor in reprehenderit velit.</h2>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis.
                </div>
                <br></br>

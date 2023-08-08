@@ -20,7 +20,7 @@ function Navbar(props) {
 
    return (
       <>
-         <div className="Navbar" style={{ backgroundColor: props.color }}>
+         <div className="Navbar">
             <div className="logo">
                <img src={logoimg} />
             </div>
