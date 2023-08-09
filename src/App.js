@@ -96,29 +96,40 @@ function App() {
    };
 
    return (
-
       <div>
          <LeftDrover isvisible={isvisible} setisvisible={setisvisible} open_close={open_close} />
 
          <Navbar open_close={open_close} />
-         {/* <div className="outermost">
+         <div className="outermost">
             <div className="leftmost"></div>
             <div className="rightmost"></div>
          </div>
          <HomePageOne />
-         <NewArrival title="New Arrivals" product_list={new_arrivals_list} />
+         <div>
+            <div className="NewArraivalTitle group-3">
+               <h3>New Arrivals</h3>
+            </div>
+            <div className="NewArraivalList">
+               <NewArrival product_list={new_arrivals_list} width={300} />
+            </div>
+         </div>
          <Catalog />
          <AboutUs />
 
-         <NewArrival title="Explore Accessory" product_list={accessory} />
+         <div className="NewArraivalTitle group-3">
+            <h3>Explore Accesory</h3>
+         </div>
+         <div className="NewArraivalList">
+            <NewArrival title="Explore Accessory" product_list={accessory} width={300} />
+         </div>
          <div style={{ display: "flex", justifyContent: "center", marginTop: "-20px", marginBottom: "20px" }}>
             <Button text="View All" />
          </div>
 
          <Events />
 
-         <FeaturedCycle /> */}
-         
+         <FeaturedCycle />
+
          <ProductDescription />
 
          <Footer />

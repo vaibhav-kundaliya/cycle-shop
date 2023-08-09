@@ -85,7 +85,8 @@ export default function ProductDescription() {
                   <br />
                   <SubNavbar></SubNavbar>
                   <div>
-                     <NewArrival title="Related products" product_list={accessory} />
+                     <div className="group-3">Related Products</div>
+                     <NewArrival title="Related products" product_list={accessory} width={200}/>
                   </div>
                </div>
             </div>
