@@ -1,0 +1,15 @@
+.na_outermost{
+   margin-bottom: 10vh;
+}
+
+.na_outermost .group-3 h3{
+   text-align: center;
+}
+
+.responsive_list{
+   display: flex;
+   flex-wrap: wrap;
+   gap: 20px;
+   /* justify-content: center; */
+   
+}
