@@ -12,12 +12,12 @@ const userSignUp_SignIn = (url, body) => {
             console.log("Response:", response);
             resolve(response);
          } else {
-            reject("Request failed with status:", xhr.status);
+            reject(new Error("Request failed with status:"), xhr.status);
          }
       };
 
       xhr.onerror = function () {
-         reject("Request error occurred");
+         reject(new Error("Request error occurred"));
       };
       xhr.send(JSON.stringify(body));
    });

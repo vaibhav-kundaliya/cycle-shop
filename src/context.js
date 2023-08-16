@@ -1,7 +1,22 @@
-import { React, useContext, createContext, useEffect, useReducer } from "react";
+import { React, useContext, useState, createContext, useEffect, useReducer } from "react";
+import { message } from "antd";
 import reducer from "./reducer";
 import getResponse from "./API/fetchCityStateCountry";
 import userSignUp_SignIn from "./API/userSignUp_SignIn";
+
+// const [messageApi, contextHolder] = message.useMessage();
+// const onSuccessLogin = (firstname) => {
+//    messageApi.open({
+//       type: "success",
+//       content: `Hello ${firstname}, Welcome to our shop !!`,
+//    });
+// };
+// const onFailedLogin = (error) => {
+//    messageApi.open({
+//       type: "error",
+//       content: `Oops, ${error}`,
+//    });
+// };
 
 const addressAPI = "https://www.universal-tutorial.com/api/";
 const singUpAPI = "http://localhost:8001/signup";
@@ -18,6 +33,7 @@ const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
    const [state, dispatch] = useReducer(reducer, initialState);
+   const [authmessages, handleAuthMessages] = useState({content:"", type:""});
 
    const fetchCountry = async () => {
       const country_list = await getResponse(addressAPI + "countries", "COUNTRY");
@@ -41,9 +57,12 @@ const AppProvider = ({ children }) => {
       dispatch({ type: "SET_LOADING" });
       try {
          const response = await userSignUp_SignIn(singUpAPI, req_body);
-         if (response.status === "success") sessionStorage.setItem("loggedInUser", req_body.email);
-      } catch {
-         console.log(" in catchError");
+         if (response.status === "success") {
+            sessionStorage.setItem("loggedInUser", req_body.email);
+            handleAuthMessages({ content: `Hello ${req_body.firstname}, Welcome to our store`, type: "success" });
+         }
+      } catch (error) {
+         handleAuthMessages({ content: error.message, type: "error" });
       } finally {
          dispatch({ type: "SET_LOADING" });
       }
@@ -61,7 +80,7 @@ const AppProvider = ({ children }) => {
       fetchCountry();
    }, [1]);
 
-   return <AppContext.Provider value={{ ...state, fetchState, fetchCity, userSignUp, userLogIn }}>{children}</AppContext.Provider>;
+   return <AppContext.Provider value={{ ...state, fetchState, fetchCity, userSignUp, userLogIn, authmessages }}>{children}</AppContext.Provider>;
 };
 
 const useGlobalContext = () => {

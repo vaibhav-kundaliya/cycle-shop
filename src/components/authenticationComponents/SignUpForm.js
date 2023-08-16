@@ -1,8 +1,9 @@
 import { React, useState, useEffect } from "react";
-import { Form, Input, Button, InputNumber, Select } from "antd";
+import { Form, Input, Button, InputNumber, Select, message } from "antd";
 import css from "./design/SignUpForm.module.css";
 import { LoadingOutlined } from "@ant-design/icons";
 import { useGlobalContext } from "../../context";
+
 export default function SignUpForm() {
    const [form] = Form.useForm();
    const { states, country, city, fetchState, fetchCity, userSignUp, isLoading } = useGlobalContext();
@@ -238,7 +239,9 @@ export default function SignUpForm() {
             </Form.Item>
             <div className={css.buttons}>
                {isLoading ? onLoading() : onStatic()}
-               <Button htmlType="reset" onClick={onStatic}>Reset</Button>
+               <Button htmlType="reset" onClick={onStatic}>
+                  Reset
+               </Button>
             </div>
          </Form>
       </div>

@@ -18,23 +18,15 @@
 }
 
 .product_description_img {
-   width: 100%;
-   background-position: center;
-   background-repeat: no-repeat;
-   background-size: cover;
-   padding: 10px;
-   display: flex;
-   top: -1000px;
-   flex-direction: row-reverse;
+   position: relative;
+   display: block;
+   overflow: hidden;
+   
 }
 
-.product_desc_search {
-   background-color: rgb(220, 220, 220);
-   width: fit-content;
-   height: fit-content;
-   padding: 8px;
-   border-radius: 24px;
-   line-height: 0;
+.zoom-image{
+   width: 100%;
+   transition: transform 0.03s;
 }
 
 .product_description_text .path {
@@ -115,7 +107,7 @@
       flex-direction: column;
    }
 
-   .product_description_img {
-      height: 50vh;
+   .product_description_img img {
+      height: 80%;
    }
 }

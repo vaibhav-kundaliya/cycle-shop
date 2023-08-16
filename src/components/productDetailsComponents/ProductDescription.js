@@ -7,7 +7,7 @@ import CustomButton from "../buttonComponents/CustomButton";
 import SubNavbar from "./SubNavbar";
 import CardList from "../cardListComponents/CardList";
 import PriceRange from "./PriceRange";
-import { Button } from "antd";
+import { Button, Image } from "antd";
 import "./design/PriceRange.css";
 
 export default function ProductDescription() {
@@ -96,17 +96,38 @@ export default function ProductDescription() {
          );
       });
    }
+
+   const fun = (e) => {
+      const container = document.querySelector(".product_description_img");
+      const containerRect = container.getBoundingClientRect();
+      const centerX = containerRect.left + container.offsetWidth / 2;
+      const centerY = containerRect.top + container.offsetHeight / 2;
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+
+      const deltaX = centerX - mouseX;
+      const deltaY = centerY - mouseY;
+
+      const image = container.querySelector(".zoom-image");
+      image.style.transform = `translate(${deltaX * 0.5}px, ${deltaY * 0.5}px) scale(1.8)`;
+   };
+
+   const revfun = (e) => {
+      const container = document.querySelector(".product_description_img");
+      const image = container.querySelector(".zoom-image");
+      image.style.transform = `translate(${0 * 0.5}px, ${0 * 0.5}px) scale(1)`;
+   };
+
    return (
       <>
          <div className="outer_product_desc">
             <div className="product_description">
                <div className="product_description_inner">
                   <div className="img_text">
-                     <div className="product_description_img" style={{ backgroundImage: `url(${product.img})` }}>
-                        <div className="product_desc_search">
-                           <img src={search_img} alt="" width={26} height={26} />
-                        </div>
+                     <div className="product_description_img">
+                        <Image className="zoom-image" src={product.img} onMouseMove={fun} onMouseLeave={revfun} alt="Image" />
                      </div>
+
                      <div className="product_description_text">
                         <div className="path">
                            Home / {product.catagory} / {product.name}
