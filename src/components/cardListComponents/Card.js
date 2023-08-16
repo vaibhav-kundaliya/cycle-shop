@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Card, Rate } from "antd";
 import PriceRange from "../productDetailsComponents/PriceRange";
-import Button from "../buttonComponents/Button";
+import CustomButton from "../buttonComponents/CustomButton";
 import { ShoppingFilled } from "@ant-design/icons";
 import "./design/Card.css";
 
 const { Meta } = Card;
 
 
-function Cards({ element, style }) {
+function Cards({ element, style, width }) {
    const [price, setPrice] = useState(element.price);
    const [visibility, setVisibility] = useState("none");
    
@@ -24,11 +24,14 @@ function Cards({ element, style }) {
             
             hoverable
             style={style}
-            cover={<img alt={element.name} onClick={gotoProductDetails} src={element.img} style={{borderRadius: "0px"}}/>}
+            cover={<img alt={element.name} width={width} className="cardImage" onClick={gotoProductDetails} src={element.img} style={{borderRadius: "0px"}}/>}
          >
             <Meta description="Bicycle" />
             <b>{element.name}</b>
-            <Rate disabled defaultValue={element.rating} />
+            <div>
+            <Rate disabled defaultValue={element.rating} style={{color:"gray"}} />
+
+            </div>
             <Meta title={price} />
             <br />
             <PriceRange setPrice={setPrice} price_pair={element.pair} />

@@ -68,7 +68,8 @@
 }
 
 .card_remove:hover {
-   color: red;
+   color: var(--website-color);
+   cursor: pointer;
 }
 
 .subtotal{

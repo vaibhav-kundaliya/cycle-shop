@@ -2,7 +2,7 @@ import React from "react";
 import { Col, Row } from "antd";
 import ImageWithText from "./ImageWithText";
 import img from "../../assets/imgs/bicycle-1.jpg";
-import "./design/AboutUs.css"
+import "./design/AboutUs.css";
 
 export default function AboutUs() {
    return (
@@ -13,24 +13,33 @@ export default function AboutUs() {
             </div>
          </div>
          <div className="imagesTable">
-            <Row className="rowC" gutter={[20, 20]}>
-               <Col className="column" xs={18} sm={10}>
-                  <ImageWithText title="title" text="desc" height="100%"  img={img} />
-               </Col>
-               <Col className="column" xs={18} sm={10}>
-                  <ImageWithText title="title" text="desc" height="100%"  img={img} />
-               </Col>
-
-               <Col className="column" xs={18}  sm={6}>
-                  <ImageWithText title="title" text="desc" height="100%"  img={img} />
-               </Col>
-               <Col className="column" xs={18} sm={6}>
-                  <ImageWithText title="title" text="desc" height="100%"  img={img} />
-               </Col>
-               <Col className="column" xs={18} sm={6}>
-                  <ImageWithText title="title" text="desc" height="100%"  img={img} />
-               </Col>
-            </Row>
+            <div className="firstLine">
+               <div>
+                  <ImageWithText
+                     title="Light weight"
+                     text="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quidem laudantium eos assumenda reiciendis hic officiis, accusamus fugit, quis odio "
+                     img={img}
+                  />
+               </div>
+               <div>
+                  <ImageWithText
+                     title="Lifetime Warrenty"
+                     text="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quidem laudantium eos assumenda reiciendis hic officiis, accusamus fugit, quis odio "
+                     img={img}
+                  />
+               </div>
+            </div>
+            <div className="secondLine">
+               <div>
+                  <ImageWithText title="Biggest Service Network" img={img} />
+               </div>
+               <div>
+                  <ImageWithText title="99% Assembled Delivery" img={img} />
+               </div>
+               <div>
+                  <ImageWithText title="Free First Bike Service" img={img} />
+               </div>
+            </div>
          </div>
       </div>
    );

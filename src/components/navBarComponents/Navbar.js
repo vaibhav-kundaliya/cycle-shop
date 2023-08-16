@@ -4,11 +4,15 @@ import logoimg from "../../assets/imgs/logo-1-80x48.png";
 import { Badge } from "antd";
 import { ShoppingFilled, MenuOutlined } from "@ant-design/icons";
 import NavigationList from "./NavigationList";
+import { useLocation } from "react-router-dom";
 
 function Navbar(props) {
    
    let items_count = 10;
    let total_money = 0.0;
+
+   const location = useLocation();
+   const style = location.pathname==="/"?{backgroundColor:"transparent"}:{}
 
    function display_hide_list() {
       let dropdownlist = document.getElementById("dropdown_list");
@@ -21,13 +25,13 @@ function Navbar(props) {
 
    return (
       <>
-         <div className="Navbar">
+         <div className="Navbar" style={style}>
             <div className="logo">
                <img src={logoimg} />
             </div>
 
             <div className="navigation">
-               <NavigationList />
+               <NavigationList showModal={props.showModal} />
             </div>
 
             <div className="cart" id="totalAmount">
@@ -43,7 +47,7 @@ function Navbar(props) {
          </div>
 
          <div id="dropdown_list">
-            <NavigationList />
+            <NavigationList showModal={props.showModal} />
          </div>
       </>
    );

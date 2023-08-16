@@ -1,11 +1,16 @@
-import React from 'react'
-import HomePageOne from "../components/homePageComponents/HomePageOne"
-import CardList from "../components/cardListComponents/CardList"
-import Catalog from "../components/homePageComponents/Catalog"
-import AboutUs from "../components/homePageComponents/AboutUs"
-import Events from "../components/homePageComponents/Events"
-import Button from '../components/buttonComponents/Button'
-import FeaturedCycle from "../components/homePageComponents/FeaturedCycle"
+import React from "react";
+import HomePageOne from "../components/homePageComponents/HomePageOne";
+import Card from "../components/cardListComponents/Card";
+import CardList from "../components/cardListComponents/CardList";
+import Catalog from "../components/homePageComponents/Catalog";
+import AboutUs from "../components/homePageComponents/AboutUs";
+import Events from "../components/homePageComponents/Events";
+import CustomButton from "../components/buttonComponents/CustomButton";
+import FeaturedCycle from "../components/homePageComponents/FeaturedCycle";
+import { useLocation } from "react-router-dom";
+import { List } from "antd";
+import "./design/Home.css";
+
 export default function Home() {
    let new_arrivals_list = [
       {
@@ -81,34 +86,71 @@ export default function Home() {
       },
    ];
 
-  return (
-    <div>
-      <div className="outermost">
+   const location = useLocation();
+
+   return (
+      <div>
+         {location.pathname}
+         <div className="outermost">
             <div className="leftmost"></div>
             <div className="rightmost"></div>
          </div>
          <HomePageOne />
          <div>
             <div className="NewArraivalTitle group-3">
-               <h3>New Arrivals</h3>
+               <>New Arrivals</>
             </div>
             <div className="NewArraivalList">
-               <CardList product_list={new_arrivals_list} width={300} />
+               <List
+                  grid={{
+                     gutter: 16,
+                     xs: 1,
+                     sm: 2,
+                     md: 4,
+                     lg: 4,
+                     xl: 4,
+                     xxl: 4,
+                  }}
+                  dataSource={new_arrivals_list}
+                  renderItem={(element) => (
+                     <List.Item>
+                        <Card element={element} width={"25px"} style={{ borderRadius: "0px" }} />
+                     </List.Item>
+                  )}
+               />
             </div>
          </div>
          <Catalog />
          <AboutUs />
-         <div className="NewArraivalTitle group-3">
-            <h3>Explore Accesory</h3>
-         </div>
-         <div className="NewArraivalList">
-            <CardList title="Explore Accessory" product_list={accessory} width={300} />
-         </div>
-         <div style={{ display: "flex", justifyContent: "center", marginTop: "-20px", marginBottom: "20px" }}>
-            <Button text="View All" />
+         <div>
+            <div className="NewArraivalTitle group-3">
+               <>Explore Accesory</>
+            </div>
+            <div className="NewArraivalList">
+               <List
+                  grid={{
+                     gutter: 16,
+                     xs: 1,
+                     sm: 2,
+                     md: 4,
+                     lg: 4,
+                     xl: 4,
+                     xxl: 4,
+                  }}
+                  dataSource={accessory}
+                  renderItem={(element) => (
+                     <List.Item>
+                        <Card element={element} width={"25px"} style={{ borderRadius: "0px" }} />
+                     </List.Item>
+                  )}
+               />
+               </div>
+            <div style={{ display: "flex", justifyContent: "center", marginBottom: "20px" }}>
+               <CustomButton text="View All" />
+            </div>
          </div>
          <Events />
          <FeaturedCycle />
-    </div>
-  )
+      </div>
+   );
 }

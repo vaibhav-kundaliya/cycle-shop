@@ -101,12 +101,12 @@ export default function LeftDrover({ isvisible, setisvisible, open_close }) {
                <div className="price">$1,1500</div>
             </div>
             <hr />
-            <Button className="cart_btn" type="primary" danger block>
+            <Button className="cart_btn" type="primary" block>
                View Cart
             </Button>
             <br />
             <br />
-            <Button className="cart_btn" type="primary" danger block>
+            <Button className="cart_btn" type="primary" block>
                Checkout
             </Button>
          </div>

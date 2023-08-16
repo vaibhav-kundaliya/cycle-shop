@@ -1,8 +1,9 @@
 import { React, useState } from "react";
 import css from "./design/DisplayItems.module.css";
-import { Select, Input, Slider } from "antd";
-import CardList from "../cardListComponents/CardList";
-import Button from "../buttonComponents/Button";
+import { Select, Input, Slider, List } from "antd";
+import Card from "../cardListComponents/Card";
+import CustomButton from "../buttonComponents/CustomButton";
+import { useLocation } from "react-router-dom";
 const { Search } = Input;
 
 export default function DisplayItems() {
@@ -57,20 +58,28 @@ export default function DisplayItems() {
 
    const [range, setRange] = useState([20, 350]);
 
+   const location = useLocation();
+
    const displayRange = (element) => {
-      console.log(element[0], element[1]);
       setRange([element[0], element[1]]);
    };
 
    const handleChange = (value) => {
-      console.log("Helo");
       console.log(`Selected: ${value}`);
    };
+
+   let path = location.pathname.trim().split("/");
+   path.map((e, index) => {
+      path[index] = e ? e[0].toUpperCase() + e.slice(1) : "";
+   });
+   path = path.join("/ ");
    return (
       <div className={css.itemsandfilters}>
          <div className={css.displayItems}>
-            Home / Bicycles
-            <div className={css.title + " group-3"}><h1>Bicycles</h1></div>
+            Home {path}
+            <div className={css.title + " group-3"}>
+               <h1>Bicycle</h1>
+            </div>
             <div className={css.listitems}>
                <div className={css.resultCount}>
                   <p>Showing all 4 results</p>
@@ -90,19 +99,32 @@ export default function DisplayItems() {
                </div>
             </div>
             <div className={css.cardlist}>
-               <CardList product_list={items} width={200} />
+               <List
+                  grid={{
+                     gutter: 16,
+                     xs: 1,
+                     sm: 2,
+                     md: 2,
+                     lg: 3,
+                     xl: 3,
+                     xxl: 3,
+                  }}
+                  dataSource={items}
+                  renderItem={(element) => (
+                     <List.Item>
+                        <Card element={element} width={"20px"} style={{ borderRadius: "0px" }} />
+                     </List.Item>
+                  )}
+               />
             </div>
          </div>
 
          <div className={css.filters}>
             <div className={css.searchbar}>
-               <span>Search</span>
-               <Search
-                  placeholder="Search Products..."
-                  enterButton
-                  size="large"
-                  style={{ borderRadius: 0 }}
-               />
+               <div className="group-4">
+                  <span>Search</span>
+               </div>
+               <Search placeholder="Search Products..." enterButton size="large" style={{ borderRadius: 0 }} />
             </div>
 
             <div className={css.filterbar}>
@@ -125,9 +147,9 @@ export default function DisplayItems() {
                </div>
                <div className={css.filterbuttons}>
                   <div onClick={() => setRange([20, 350])}>
-                     <Button text="RESET" />
+                     <CustomButton text="RESET" />
                   </div>
-                  <Button text="APPLY"></Button>
+                  <CustomButton text="APPLY"></CustomButton>
                </div>
             </div>
 

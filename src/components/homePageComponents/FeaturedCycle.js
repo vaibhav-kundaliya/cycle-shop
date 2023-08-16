@@ -1,6 +1,6 @@
 import React from "react";
 import "./design/FeaturedCycle.css";
-import Button from "../buttonComponents/Button";
+import CustomButton from "../buttonComponents/CustomButton";
 import img from "../../assets/imgs/bicycle-1.jpg";
 
 
@@ -32,7 +32,7 @@ export default function FeaturedCycle() {
                </div>
                <div>
                   <br />
-                  <Button text="SHOP NOW" />
+                  <CustomButton text="SHOP NOW" />
                </div>
             </div>
          </div>

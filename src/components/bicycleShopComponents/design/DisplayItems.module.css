@@ -11,6 +11,7 @@
 .title {
    margin-top: 15px;
    margin-bottom: 45px;
+   color: var(--website-color);
 }
 
 .listitems {
@@ -25,15 +26,6 @@
    margin-bottom: 0;
 }
 
-.sortingOptions {
-}
-
-.searchbar {
-}
-
-.filterbar {
-}
-
 .filterbaramount {
    display: flex;
    justify-content: space-between;
@@ -44,9 +36,6 @@
    justify-content: end;
    gap: 10px;
    margin-top: 10px;
-}
-
-.filtercatagory {
 }
 
 .filtercatagory li,
@@ -106,6 +95,14 @@
    }
 
 @media only screen and (max-width: 920px) {
+   .displayItems{
+      padding: 10%;
+   }
+   
+   .displayItems h1{
+      font-size: 3.23rem;
+   }
+   
    .itemsandfilters {
       display: flex;
       flex-direction: column;
@@ -119,7 +116,7 @@
    
    .filters{
       width: inherit;
-      
+      margin-left: 0;
    }
    .displayItems{
       width: inherit;
@@ -129,5 +126,9 @@
 @media only screen and (max-width: 450px) {
    .listitems {
       flex-direction: column;
+   }
+
+   .displayItems h1{
+      font-size: 2.1rem;
    }
 }

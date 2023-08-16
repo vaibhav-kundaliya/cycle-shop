@@ -1,32 +1,31 @@
 import React from "react";
-import "./design/HomePageOne.css";
+import css from "./design/HomePageOne.module.css";
 import { CaretRightFilled } from "@ant-design/icons";
-import Button from "../buttonComponents/Button";
+import CustomButton from "../buttonComponents/CustomButton";
 
 function HomePageOne() {
    return (
       <>
-         <div className="first_content">
-            <div className="group-4">
-               <h3>Newly Launched</h3>
-            </div>
-            <div className="group-1"><h1>Kryo X26 MTB</h1></div>
-            <div className="group-3">
-               <h4>Specification: </h4>
-            </div>
-            <div>
+         <div className={css.first_content}>
+            <div className="group-6">Newly Launched</div>
+            <div className={css.title + " group-1"}>Kryo X26 MTB</div>
+            <div className={css.specification + " group-4"}>Specification:</div>
+            <div className={css.spec_list}>
                <li>
-                  <CaretRightFilled /> Lightweight 18" Frame
+                  <i className="fas fa-bullseye bullet_points"></i>&nbsp;&nbsp;
+                  <span>Lightweight 18" Frame</span>
                </li>
                <li>
-                  <CaretRightFilled /> Steel Suspension Fork
+                  <i className="fas fa-bullseye bullet_points"></i>&nbsp;&nbsp;
+                  <span>Steel Suspension Fork </span>
                </li>
                <li>
-                  <CaretRightFilled /> Steel Hardtail Frame
+                  <i className="fas fa-bullseye bullet_points"></i>&nbsp;&nbsp;
+                  <span>Steel Hardtail Frame</span>
                </li>
             </div>
             <br></br>
-            <Button href="/" text="BUY NOW"></Button>
+            <CustomButton href="/" text="BUY NOW"></CustomButton>
          </div>
       </>
    );

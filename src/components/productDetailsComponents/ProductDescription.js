@@ -3,7 +3,7 @@ import "./design/ProductDescription.css";
 import img from "../../assets/imgs/bicycle-1.jpg";
 import search_img from "../../assets/imgs/search-icon.svg";
 import { ShoppingFilled } from "@ant-design/icons";
-import Buttons from "../buttonComponents/Button";
+import CustomButton from "../buttonComponents/CustomButton";
 import SubNavbar from "./SubNavbar";
 import CardList from "../cardListComponents/CardList";
 import PriceRange from "./PriceRange";
@@ -57,9 +57,15 @@ export default function ProductDescription() {
       catagory: "Accessories",
    };
 
+   let initial_visibility;
+   let iter;
+
+   if (product.pair) initial_visibility = true;
+   else initial_visibility = false;
+
    const [price, setPrice] = useState(product.price);
    const [memory, setMemory] = useState(null);
-   const [disabled, setDisability] = useState(true);
+   const [disabled, setDisability] = useState(initial_visibility);
 
    const div_show_hide = useRef(null);
    const clearButton = useRef(null);
@@ -79,7 +85,6 @@ export default function ProductDescription() {
       }
    };
 
-   let iter;
    if (product.pair) {
       iter = Object.keys(product.pair).map((element) => {
          return (
@@ -109,7 +114,7 @@ export default function ProductDescription() {
                         <div className="catagory">
                            <h3>Bicycles</h3>
                         </div>
-                        <div className="product_name">{product.name}</div>
+                        <div className="product_name group-3">{product.name}</div>
                         <div className="cost">
                            <div className="amount">{product.price}</div> & Free Shipping
                         </div>
@@ -145,7 +150,7 @@ export default function ProductDescription() {
                               <input type="number" name="quantity" defaultValue={1} min={1} />
                            </div>
                            <div>
-                              <Buttons disabled={disabled} text="ADD TO CART" />
+                              <CustomButton disabled={disabled} text="ADD TO CART" />
                            </div>
                         </div>
                         <hr />
@@ -158,7 +163,7 @@ export default function ProductDescription() {
                   <br />
                   <SubNavbar></SubNavbar>
                   <div>
-                     <div className="group-3">Related Products</div>
+                     <div className="group-3 related_product_title">Related Products</div>
                      <CardList title="Related products" product_list={accessory} width={200} />
                   </div>
                </div>

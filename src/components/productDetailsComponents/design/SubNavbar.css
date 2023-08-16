@@ -12,7 +12,7 @@
 }
 
 .subnavbar #desc{
-   border-color: red;
+   border-color: var(--website-color);
 }
 
 table{

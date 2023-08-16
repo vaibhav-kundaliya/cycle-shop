@@ -1,0 +1,29 @@
+.inline_fields{
+   display: flex;
+   justify-content: space-between;
+}
+
+.two_inline_fields input{
+   width: 220px;
+}
+
+
+.three_inline_fields input{
+   width: 140px;
+}
+
+
+.buttons{
+   display: flex;
+   gap: 10px;
+   justify-content: end;
+}
+
+@media only screen and (max-width:535px) {
+   .inline_fields{
+      display: block;
+   }
+   .inline_fields input{
+      width: 100% !important;
+   }  
+}

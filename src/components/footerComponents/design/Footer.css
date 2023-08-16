@@ -12,7 +12,8 @@
 }
 
 .links:hover{
-   color: rgba(255, 0, 0, 0.5);
+   color: var(--website-color);
+   opacity: 0.5;
    cursor: pointer;
 }
 

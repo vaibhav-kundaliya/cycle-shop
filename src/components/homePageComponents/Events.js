@@ -2,13 +2,13 @@ import React from "react";
 import "./design/Events.css"
 import img from "../../assets/imgs/cycling-img.jpg"
 import {PlayCircleFilled} from "@ant-design/icons"
-import Button from "../buttonComponents/Button";
+import CustomButton from "../buttonComponents/CustomButton";
 export default function Events() {
    return (
       <div className="event_div">
          <div>
             <div className="group-3">
-               <h3>Join #GoEcoBiking Programme</h3>
+               Join #GoEcoBiking Programme
             </div>
          </div>
 
@@ -29,7 +29,7 @@ export default function Events() {
                </div>
                <br></br>
                <div className="button">
-                  <Button text="Join Telegram Group"/>
+                  <CustomButton text="Join Telegram Group"/>
                </div>
             </div>
       </div>
