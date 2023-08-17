@@ -14,8 +14,8 @@ const list = [
       name:"Additional information",
       content:(
          <table>
-            <td>Size</td>
-            <td>L, XL, XXL</td>
+            <td >Size</td>
+            <td >L, XL, XXL</td>
          </table>
       )
    },

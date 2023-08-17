@@ -4,6 +4,13 @@
    width: 100%;
 }
 
+.cartTable td, .cartTable thead{
+   border: 1px solid rgba(68, 68, 68, 0.58);
+}
+
+.cartTable th{
+   line-height: 3;
+}
 
 .tableFooter{
    display: flex;

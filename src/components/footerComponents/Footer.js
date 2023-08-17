@@ -1,8 +1,8 @@
 import React from "react";
-import "./design/Footer.css";
+import css from "./design/Footer.module.css";
 import logoimg from "../../assets/imgs/logo-1-80x48.png";
 import { createFromIconfontCN, InstagramOutlined, FacebookOutlined, YoutubeOutlined, TwitterOutlined } from "@ant-design/icons";
-import { Col, Divider, Row } from "antd";
+import { Col, Row } from "antd";
 
 import { Space } from "antd";
 
@@ -13,36 +13,36 @@ const IconFont = createFromIconfontCN({
 export default function Footer() {
    return (
       <>
-         <div className="footer">
+         <div className={css.footer}>
             <Row gutter={[0, 10]}>
                <Col xs={24} sm={6}>
                   <img src={logoimg} height="90px" />
                </Col>
                <Col xs={24} sm={6}>
-                  <h1 className="group-5">Usefull Links</h1>
-                  <p className="links">Home</p>
-                  <p className="links">Shop</p>
-                  <p className="links">About Us</p>
-                  <p className="links">Contact Us</p>
+                  <div className="group-5">Usefull Links</div>
+                  <p className={css.links}>Home</p>
+                  <p className={css.links}>Shop</p>
+                  <p className={css.links}>About Us</p>
+                  <p className={css.links}>Contact Us</p>
                </Col>
                <Col xs={24} sm={6}>
-                  <h1 className="group-5">Our Collection</h1>
-                  <p className="links">Mountain Bikes</p>
-                  <p className="links">City Bikes</p>
-                  <p className="links">Speciality Bikes</p>
-                  <p className="links">Electric Bikes</p>
+                  <div className="group-5">Our Collection</div>
+                  <p className={css.links}>Mountain Bikes</p>
+                  <p className={css.links}>City Bikes</p>
+                  <p className={css.links}>Speciality Bikes</p>
+                  <p className={css.links}>Electric Bikes</p>
                </Col>
                <Col xs={24} sm={6}>
-                  <h1 className="group-5">Account</h1>
-                  <p className="links">Customer Login</p>
-                  <p className="links">Dealer Login</p>
-                  <p className="links">Address</p>
-                  <p className="links">Payment Methods</p>
+                  <div className="group-5">Account</div>
+                  <p className={css.links}>Customer Login</p>
+                  <p className={css.links}>Dealer Login</p>
+                  <p className={css.links}>Address</p>
+                  <p className={css.links}>Payment Methods</p>
                </Col>
             </Row>
          </div>
          <hr />
-         <div className="lower-footer">
+         <div className={css.lower_footer}>
             <div>Copyright © 2023 Cycle Shop</div>
             <div>
                <Space>

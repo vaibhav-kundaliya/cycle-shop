@@ -4,12 +4,11 @@
    z-index: 1;
    height: 83vh;
    padding-left: 10%;
-   padding-top: 5vh;
+   padding-top: 10rem;
 }
 
 .title{
    width: 45%;
-   margin: 0;
    line-height: 1;
 }
 

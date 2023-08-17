@@ -1,6 +1,6 @@
 import React from "react";
 import "./design/CardList.css";
-import { Col, Row, List } from "antd";
+import { List } from "antd";
 import Card from "./Card";
 
 export default function CardList({ product_list, width, grid }) {

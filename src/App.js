@@ -23,6 +23,7 @@ function App() {
       else setisvisible("none");
    };
    const [isModalOpen, setIsModalOpen] = useState(false);
+   
    const showModal = () => {
       setIsModalOpen(true);
    };

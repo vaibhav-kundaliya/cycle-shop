@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Button, Drawer, theme } from "antd";
 import css from "./design/ThemePallate.module.css";
 import themelogo from "../../assets/imgs/icons8-theme-50.png";
 import { useEffect, useRef } from "react";

@@ -10,6 +10,10 @@
    padding: 0;
 }
 
+.title{
+   font-size: 28px !important;
+}
+
 .user_details_fields{
    width: 100%;
    display: flex;

@@ -1,5 +1,5 @@
 import React from "react";
-import "./design/FeaturedCycle.css";
+import css from  "./design/FeaturedCycle.module.css";
 import CustomButton from "../buttonComponents/CustomButton";
 import img from "../../assets/imgs/bicycle-1.jpg";
 
@@ -19,12 +19,12 @@ export default function FeaturedCycle() {
    return (
       <>
          <div style={content_css}>
-            <div className="feature_content">
+            <div className={css.feature_content}>
             <div className="group-2">
-               <h4>The All New</h4>
+               <>The All New</>
             </div>
                <div className="group-3">
-                  <h3>Kryo X26 MTB Is Here</h3>
+                  <>Kryo X26 MTB Is Here</>
                </div>
                <div>
                   Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non mauris vitae erat consequat auctor eu in elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per

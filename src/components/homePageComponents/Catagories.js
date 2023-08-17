@@ -1,6 +1,5 @@
 import React from "react";
-import { CaretRightFilled } from "@ant-design/icons";
-import "./design/Catagories.css";
+import css from "./design/Catagories.module.css";
 import CustomButton from "../buttonComponents/CustomButton";
 
 
@@ -21,16 +20,15 @@ export default function Catagories({ element }) {
    return (
       <>
          <div key={element.id} style={content_css}>
-            <div className="content">
+            <div className={css.content}>
                <div className="group-4">Discover The Collection</div>
                <div className="group-3">
                   {element.catagories}
                </div>
-               <div className="description">{element.description}</div>
-               <div className="points">
+               <div className={css.description}>{element.description}</div>
+               <div className={css.points}>
                   <div>
                      <li>
-              
                         <i className="fas fa-bullseye bullet_points"></i>&nbsp;&nbsp;
                         <span>{element.key_points[0]}</span>
                      </li>

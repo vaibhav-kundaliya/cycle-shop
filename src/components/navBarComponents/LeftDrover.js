@@ -1,8 +1,9 @@
 import React from "react";
-import "./design/LeftDrover.css";
+import css from "./design/LeftDrover.module.css";
 import { useEffect, useRef } from "react";
 import { CloseOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import { Divider, Button } from "antd";
+import { Link } from "react-router-dom";
 import img from "../../assets/imgs/bicycle-1.jpg";
 
 export default function LeftDrover({ isvisible, setisvisible, open_close }) {
@@ -66,17 +67,17 @@ export default function LeftDrover({ isvisible, setisvisible, open_close }) {
    const iter = cart_list.map((item) => {
       return (
          <div key={item.id}>
-            <div className="card_item">
-               <div className="card_img">
+            <div className={css.card_item}>
+               <div className={css.card_img}>
                   <img src={item.img} alt={item.img} />
                </div>
-               <div className="card_details">
-                  <div className="card_name">{item.name}</div>
-                  <div className="card_price">
+               <div className={css.card_details}>
+                  <div className={css.card_name}>{item.name}</div>
+                  <div className={css.card_price}>
                      {item.quantity} X {item.price}
                   </div>
                </div>
-               <div className="card_remove">
+               <div className={css.card_remove}>
                   <CloseCircleOutlined />
                </div>
             </div>
@@ -87,26 +88,26 @@ export default function LeftDrover({ isvisible, setisvisible, open_close }) {
 
    return (
       <>
-         <div className="extra_container" ref={extraRef} onClick={open_close}>
+         <div className={css.extra_container} ref={extraRef} onClick={open_close}>
 
          </div>
-         <div className="l_drover" ref={cart_list_}>
-            <div className="closed_sign">
+         <div className={css.l_drover} ref={cart_list_}>
+            <div className={css.closed_sign}>
                <CloseOutlined style={{ fontSize: "24px", cursor: "pointer" }} onClick={open_close} />
             </div>
-            <div className="cart_list">{iter}</div>
+            <div className={css.cart_list}>{iter}</div>
             <hr />
-            <div className="subtotal">
-               <div className="label">Subtotal:</div>
-               <div className="price">$1,1500</div>
+            <div className={css.subtotal}>
+               <div className={css.label}>Subtotal:</div>
+               <div className={css.price}>$1,1500</div>
             </div>
             <hr />
-            <Button className="cart_btn" type="primary" block>
-               View Cart
+            <Button className={css.cart_btn} type="primary" block>
+            <Link to="/shopping-cart">View Cart</Link>
             </Button>
             <br />
             <br />
-            <Button className="cart_btn" type="primary" block>
+            <Button className={css.cart_btn} type="primary" block>
                Checkout
             </Button>
          </div>

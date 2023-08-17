@@ -1,4 +1,4 @@
-.addtocart-icon{
+.addtocart_icon{
    display: none;
    background-color: gray;
    width: fit-content;
@@ -10,10 +10,7 @@
    border-radius: 24px;
 }
 
-/* .cardImage{
-   width: 25px;
-} */
 
-.addtocart-icon:hover{
+.addtocart_icon:hover{
    background-color: rgb(177, 176, 176);
 }

@@ -1,28 +1,10 @@
-.subnavbar{
-   display: flex;
-   gap: 20px;
-}
-
-.subnavbar div{
-   cursor: pointer;
-   font-weight: bold;
-   border-top: 3px solid transparent;
-   margin-top: -9px;
-   padding-top: 9px;
-}
-
-.subnavbar #desc{
-   border-color: var(--website-color);
-}
-
 table{
    border-collapse: collapse;
-   border:1px solid black;
    width: 100%;
    font-weight: bold;
 }
 td{  
    border-collapse: collapse;
-   border:1px solid black;
+   border:1px solid rgba(89, 89, 89, 0.532);
    padding: 12px;
 }

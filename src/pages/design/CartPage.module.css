@@ -25,16 +25,16 @@
 .cardTitle{
    background-color: var(--bg-color);
    padding: 15px;
-   border-bottom: 1px solid;
+   border-bottom: 1px solid rgba(68, 68, 68, 0.58);
 }
 
 .amount table, .amount td{
-   border: 0px solid;
+   border: 0px solid ;
    width: 100%;
 }
 
 .amount tr{
-   border-bottom: 1px solid;
+   border-bottom: 1px solid rgba(68, 68, 68, 0.58);
 }
 
 .buttonRow{
@@ -42,7 +42,7 @@
 }
 
 .cartCard{
-   border: 1px solid;
+   border: 1px solid rgba(68, 68, 68, 0.58);
 }
 
 @media only screen and (max-width: 921px) {

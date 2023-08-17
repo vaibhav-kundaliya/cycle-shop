@@ -1,7 +1,6 @@
 import React from "react";
 import HomePageOne from "../components/homePageComponents/HomePageOne";
 import Card from "../components/cardListComponents/Card";
-import CardList from "../components/cardListComponents/CardList";
 import Catalog from "../components/homePageComponents/Catalog";
 import AboutUs from "../components/homePageComponents/AboutUs";
 import Events from "../components/homePageComponents/Events";
@@ -9,7 +8,7 @@ import CustomButton from "../components/buttonComponents/CustomButton";
 import FeaturedCycle from "../components/homePageComponents/FeaturedCycle";
 import { useLocation } from "react-router-dom";
 import { List } from "antd";
-import "./design/Home.css";
+import css from "./design/Home.module.css";
 
 export default function Home() {
    let new_arrivals_list = [
@@ -90,17 +89,16 @@ export default function Home() {
 
    return (
       <div>
-         {location.pathname}
-         <div className="outermost">
-            <div className="leftmost"></div>
-            <div className="rightmost"></div>
+         <div className={css.outermost}>
+            <div className={css.leftmost}></div>
+            <div className={css.rightmost}></div>
          </div>
          <HomePageOne />
          <div>
-            <div className="NewArraivalTitle group-3">
+            <div className={css.NewArraivalTitle+" group-3"}>
                <>New Arrivals</>
             </div>
-            <div className="NewArraivalList">
+            <div className={css.NewArraivalList}>
                <List
                   grid={{
                      gutter: 16,
@@ -123,10 +121,10 @@ export default function Home() {
          <Catalog />
          <AboutUs />
          <div>
-            <div className="NewArraivalTitle group-3">
+            <div className={css.NewArraivalTitle+" group-3"}>
                <>Explore Accesory</>
             </div>
-            <div className="NewArraivalList">
+            <div className={css.NewArraivalList}>
                <List
                   grid={{
                      gutter: 16,

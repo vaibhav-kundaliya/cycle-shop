@@ -1,9 +1,143 @@
-import React from 'react'
+import React from "react";
+import css from "./design/ContactUs.module.css";
+import { Form, Input} from "antd";
+import { ShopFilled, ToolOutlined, FundOutlined } from "@ant-design/icons";
+import CustomButtons from "../components/buttonComponents/CustomButton";
 
 export default function ContactUs() {
-  return (
-    <div>
-      Contact Us
-    </div>
-  )
+   const [form] = Form.useForm();
+   const onFinish = () => {};
+   const onFinishFailed = () => {};
+   return (
+      <>
+         <div className={css.title_div}>
+            <div className="group-1">Contact Us</div>
+         </div>
+         <br />
+         <div className={css.map_div}>
+            {/* <img src={dummy_map} alt="" width={"100%"} />
+             */}
+             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d917.8937173963029!2d72.56520133353041!3d23.039376732291313!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e848acdd45649%3A0x1edfa427054ecd91!2siView%20Labs%20Pvt.%20Ltd.!5e0!3m2!1sen!2sin!4v1692257016877!5m2!1sen!2sin" width="100%" height="450" style={{border:0}} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+         </div>
+         <div className={css.numbers_icon}>
+            <div>
+               <span>
+                  <ShopFilled style={{ fontSize: 48 }} />
+               </span>
+               <div className={css.numbers}>1 800 755 60 23</div>
+               <div>Dealership Related Enquiries</div>
+            </div>
+            <div>
+               <span>
+                  <ToolOutlined style={{ fontSize: 48 }} />
+               </span>
+               <div className={css.numbers}>1 800 755 60 23</div>
+               <div>Dealership Related Enquiries</div>
+            </div>
+            <div>
+               <span>
+                  <FundOutlined style={{ fontSize: 48 }} />
+               </span>
+               <div className={css.numbers}>1 800 755 60 23</div>
+               <div>Dealership Related Enquiries</div>
+            </div>
+         </div>
+         <div className={css.contactUsFormDetails}>
+            <div className={css.contactUsForm}>
+               <div className={css.form}>
+                  <div className={css.formtitle + " group-3"}>Let's Get in Touch</div>
+                  <Form
+                     form={form}
+                     style={{
+                        height: "fit-content",
+                     }}
+                     name="signup"
+                     initialValues={{
+                        remember: true,
+                     }}
+                     onFinish={onFinish}
+                     onFinishFailed={onFinishFailed}
+                     autoComplete="off"
+                  >
+                     <div className={css.inline_fields}>
+                        <Form.Item
+                           name="firstname"
+                           rules={[
+                              {
+                                 required: true,
+                                 message: "Please input your First Name!",
+                              },
+                           ]}
+                        >
+                           <Input placeholder="First Name" />
+                        </Form.Item>
+
+                        <Form.Item
+                           name="lastname"
+                           rules={[
+                              {
+                                 required: true,
+                                 message: "Please input your Last Name!",
+                              },
+                           ]}
+                        >
+                           <Input placeholder="Last Name" />
+                        </Form.Item>
+                     </div>
+
+                     <div>
+                        <Form.Item
+                           name="email"
+                           rules={[
+                              {
+                                 required: true,
+                                 message: "Please input your Email!",
+                              },
+                              {
+                                 type: "email",
+                              },
+                           ]}
+                        >
+                           <Input placeholder="Email" />
+                        </Form.Item>
+                     </div>
+                     <div>
+                        <Form.Item
+                           name="email"
+                           rules={[
+                              {
+                                 required: true,
+                                 message: "Please input your Message!",
+                              },
+                           ]}
+                        >
+                           <Input.TextArea rows={8} placeholder="Enter Your Message"  />
+                        </Form.Item>
+                     </div>
+                     <div className={css.buttons}>
+                        <CustomButtons text="SEND MESSAGE" />
+                     </div>
+                  </Form>
+               </div>
+            </div>
+            <div className={css.contactUsDetails}>
+               <div className="group-3">Contact Details</div>
+               <div>
+                  <span className="group-4">Our Hours</span>
+                  <p>10:00 AM – 22.00 PM</p>
+                  <p>Monday – Friday</p>
+               </div>
+               <div>
+                  <span className="group-4">Location</span>
+                  <p>212 7th St SE, Washington, DC 20003, USA</p>
+               </div>
+               <div>
+                  <span className="group-4">Contact Us</span>
+                  <p>Phone: 1 800 755 60 20</p>
+                  <p>Email: contact@company.com</p>
+               </div>
+            </div>
+         </div>
+      </>
+   );
 }

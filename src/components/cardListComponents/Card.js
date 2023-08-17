@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { Card, Rate } from "antd";
 import PriceRange from "../productDetailsComponents/PriceRange";
-import CustomButton from "../buttonComponents/CustomButton";
 import { ShoppingFilled } from "@ant-design/icons";
-import "./design/Card.css";
+import css from "./design/Card.module.css";
 
 const { Meta } = Card;
 
@@ -24,7 +23,7 @@ function Cards({ element, style, width }) {
             
             hoverable
             style={style}
-            cover={<img alt={element.name} width={width} className="cardImage" onClick={gotoProductDetails} src={element.img} style={{borderRadius: "0px"}}/>}
+            cover={<img alt={element.name} width={width} className={css.cardImage} onClick={gotoProductDetails} src={element.img} style={{borderRadius: "0px"}}/>}
          >
             <Meta description="Bicycle" />
             <b>{element.name}</b>
@@ -36,7 +35,7 @@ function Cards({ element, style, width }) {
             <br />
             <PriceRange setPrice={setPrice} price_pair={element.pair} />
 
-            <div id="icon" className="addtocart-icon" style={{display: visibility}} >
+            <div id="icon" className={css.addtocart_icon} style={{display: visibility}} >
                <ShoppingFilled  className="icon" style={{ fontSize: "20px" }} />
             </div>
          </Card>

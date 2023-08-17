@@ -1,6 +1,5 @@
 import React from "react";
 import css from "./design/HomePageOne.module.css";
-import { CaretRightFilled } from "@ant-design/icons";
 import CustomButton from "../buttonComponents/CustomButton";
 
 function HomePageOne() {
