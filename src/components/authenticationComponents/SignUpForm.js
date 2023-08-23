@@ -1,12 +1,48 @@
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import { Form, Input, Button, InputNumber, Select, message } from "antd";
 import css from "./design/SignUpForm.module.css";
 import { LoadingOutlined } from "@ant-design/icons";
 import { useGlobalContext } from "../../context";
+import axios from "axios";
 
-export default function SignUpForm() {
+const singUpAPI = "http://localhost:8001/signup";
+
+export default function SignUpForm({setIsModalOpen}) {
    const [form] = Form.useForm();
-   const { states, country, city, fetchState, fetchCity, userSignUp, isLoading } = useGlobalContext();
+   const { states, country, city, fetchState, fetchCity } = useGlobalContext();
+   const [messageApi, contextHolder] = message.useMessage();
+   const [isLoading, setLoading] = useState();
+
+   const userSignUp = async (req_body) => {
+      setLoading(true);
+      console.log(isLoading)
+      axios
+         .post(singUpAPI, req_body, { headers: { "Content-Type": "application/json" } })
+         .then((response) => {
+            console.log(response.data);
+            sessionStorage.setItem("user", response.data.data.email);
+            messageApi.open({
+               content: `Hello ${response.data.data.firstName}, Welcome to our store`,
+               type: "success",
+            });
+            setIsModalOpen(false)
+         })
+         .catch((error) => {
+            if (error.response) {
+               console.error("adada", error.response);
+               messageApi.open({
+                  content: error.response.data.message,
+                  type: "error",
+               });
+            } else {
+               messageApi.open({
+                  content: error.message,
+                  type: "error",
+               });
+            }
+         });
+      setLoading(false);
+   };
 
    const onLoading = () => {
       return (
@@ -24,11 +60,11 @@ export default function SignUpForm() {
       );
    };
    const setStates = (element) => {
-      fetchState(element);
+      if (element !== "none") fetchState(element);
    };
 
    const setCity = (element) => {
-      fetchCity(element);
+      if (element !== "none") fetchCity(element);
    };
 
    const phoneNumberRegex = /^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/;
@@ -51,12 +87,14 @@ export default function SignUpForm() {
          },
       };
       userSignUp(req_body);
+
    };
    const onFinishFailed = (errorInfo) => {
       console.log("Failed:", errorInfo);
    };
    return (
       <div>
+         {contextHolder}
          <Form
             form={form}
             style={{
@@ -76,7 +114,7 @@ export default function SignUpForm() {
                   rules={[
                      {
                         required: true,
-                        message: "Please input your First Name!",
+                        message: "Please enter First Name!",
                      },
                   ]}
                >
@@ -88,7 +126,7 @@ export default function SignUpForm() {
                   rules={[
                      {
                         required: true,
-                        message: "Please input your Last Name!",
+                        message: "Please enter Last Name!",
                      },
                   ]}
                >
@@ -102,7 +140,7 @@ export default function SignUpForm() {
                   rules={[
                      {
                         required: true,
-                        message: "Please input your Age!",
+                        message: "Please enter Age!",
                      },
                   ]}
                >
@@ -113,7 +151,7 @@ export default function SignUpForm() {
                   rules={[
                      {
                         required: true,
-                        message: "Please input your Email!",
+                        message: "Please Enter Email!",
                      },
                      {
                         type: "email",
@@ -127,11 +165,11 @@ export default function SignUpForm() {
                   rules={[
                      {
                         required: true,
-                        message: "Please input your Phone Number!",
+                        message: "Please enter Phone Number!",
                      },
                      {
                         pattern: phoneNumberRegex,
-                        message: "Please enter a valid email address!",
+                        message: "Please enter a valid phone number!",
                      },
                   ]}
                >
@@ -172,7 +210,7 @@ export default function SignUpForm() {
                   rules={[
                      {
                         required: true,
-                        message: "Please input your Country",
+                        message: "Please select country",
                      },
                   ]}
                >
@@ -180,7 +218,7 @@ export default function SignUpForm() {
                      style={{
                         width: 150,
                      }}
-                     options={country}
+                     options={[...country, { label: "None", value: "none" }]}
                      onChange={setStates}
                      placeholder="Select Country"
                   />
@@ -198,7 +236,7 @@ export default function SignUpForm() {
                      style={{
                         width: 150,
                      }}
-                     options={states}
+                     options={[...states, { label: "None", value: "none" }]}
                      onChange={setCity}
                      placeholder="Select State"
                   />
@@ -216,7 +254,7 @@ export default function SignUpForm() {
                      style={{
                         width: 150,
                      }}
-                     options={city}
+                     options={[...city, { label: "None", value: "none" }]}
                      placeholder="Select City"
                   />
                </Form.Item>

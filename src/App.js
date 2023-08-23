@@ -11,9 +11,13 @@ import ThemePallate from "./components/themePallate/ThemePallate";
 import CartPage from "./pages/CartPage.js";
 import { Component, useEffect, useState } from "react";
 import { BrowserRouter as Router, useLocation, Routes, Route } from "react-router-dom";
-import { ConfigProvider } from "antd";
+import { ConfigProvider, Switch } from "antd";
 import Authentication from "./pages/Authentication";
 import { AppProvider } from "./context";
+import { Provider } from "react-redux";
+import {store} from "./store";
+import PrivateRoute from "./components/authenticationComponents/PrivateRoute";
+import ErrorPage from "./pages/ErrorPage";
 
 function App() {
    const [isvisible, setisvisible] = useState("none");
@@ -23,7 +27,7 @@ function App() {
       else setisvisible("none");
    };
    const [isModalOpen, setIsModalOpen] = useState(false);
-   
+
    const showModal = () => {
       setIsModalOpen(true);
    };
@@ -32,9 +36,7 @@ function App() {
       sessionStorage.getItem("website_color") ? sessionStorage.getItem("website_color") : getComputedStyle(document.documentElement).getPropertyValue("--website-color")
    );
 
-   const [font, setFont] = useState(
-      sessionStorage.getItem("website_font") ? sessionStorage.getItem("website_font") : getComputedStyle(document.documentElement).getPropertyValue("--website-font")
-   );
+   const [font, setFont] = useState(sessionStorage.getItem("website_font") ? sessionStorage.getItem("website_font") : getComputedStyle(document.documentElement).getPropertyValue("--website-font"));
 
    useEffect(() => {
       sessionStorage.setItem("website_color", color);
@@ -65,26 +67,31 @@ function App() {
                   Select: {
                      borderRadius: 0,
                   },
-                  Tabs:{
+                  Tabs: {
                      titleFontSize: 18,
-                  }
+                  },
                },
             }}
          >
             <AppProvider>
-               <Router>
-                  <ThemePallate setColor={setColor} setFont={setFont} />
-                  <LeftDrover isvisible={isvisible} setisvisible={setisvisible} open_close={open_close} bg={"transparent"} />
-                  <Navbar open_close={open_close} showModal={showModal} />
-                  <Authentication isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} showModal={showModal} />
-                  <Routes>
-                     <Route exact path="/" element={<Home />} />
-                     <Route path="/contact" element={<ContactUs />} />
-                     <Route path="/bicycle" element={<BicyclesShop />} />
-                     <Route path="/shopping-cart" element={<CartPage />} />
-                     <Route path="/product-details" element={<ProductDetails />} />
-                  </Routes>
-               </Router>
+               <Provider store={store}>
+                  <Router>
+                     <ThemePallate setColor={setColor} setFont={setFont} />
+                     <LeftDrover isvisible={isvisible} setisvisible={setisvisible} open_close={open_close} bg={"transparent"} />
+                     <Navbar open_close={open_close} showModal={showModal} />
+                     <Authentication isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} showModal={showModal} />
+                     <Routes>
+                        <Route exact path="/" element={<Home />} />
+                        <Route exact path="/contact" element={<ContactUs />} />
+                        <Route element={<PrivateRoute />}>
+                           <Route exact path="/product-details" element={<ProductDetails />} />
+                           <Route exact path="/store" element={<BicyclesShop />} />
+                           <Route exact path="/shopping-cart" element={<CartPage />} />
+                        </Route>
+                        <Route path="*" element={<ErrorPage status_code="404" />} />
+                     </Routes>
+                  </Router>
+               </Provider>
                <Footer />
             </AppProvider>
          </ConfigProvider>

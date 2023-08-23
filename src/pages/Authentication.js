@@ -10,23 +10,22 @@ export default function Authentication({ isModalOpen, setIsModalOpen }) {
       {
          key: "1",
          label: `Sign In`,
-         children: <SignInForm />,
+         children: <SignInForm setIsModalOpen={setIsModalOpen} />,
       },
       {
          key: "2",
          label: `Sign Up`,
-         children: <SignUpForm />,
+         children: <SignUpForm setIsModalOpen={setIsModalOpen} />,
       },
    ];
 
-   const [okButtonText, setOkButtonText] = useState("Sign In");
 
    const onChange = (key) => {
-      setOkButtonText(items[key - 1].label);
+      // setOkButtonText(items[key - 1].label);
    };
 
    const handleOk = () => {
-      // setIsModalOpen(false);
+      setIsModalOpen(false);
    };
    const handleCancel = () => {
       setIsModalOpen(false);
@@ -34,7 +33,7 @@ export default function Authentication({ isModalOpen, setIsModalOpen }) {
 
    return (
       <>
-         <Modal title="" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={null} cancelText="RESET" okText={okButtonText.toUpperCase()}>
+         <Modal title="" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={null} cancelText="RESET">
             <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
          </Modal>
       </>

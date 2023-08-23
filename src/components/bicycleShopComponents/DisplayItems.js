@@ -1,12 +1,48 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import css from "./design/DisplayItems.module.css";
-import { Select, Input, Slider, List } from "antd";
+import { Select, Input, Slider, List, Button } from "antd";
 import Card from "../cardListComponents/Card";
 import CustomButton from "../buttonComponents/CustomButton";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { getAccessories, getBicycles, getAllProducts } from "../../actions/fetchActions";
 const { Search } = Input;
 
 export default function DisplayItems() {
+   const items = [
+      {
+         id: 1,
+         name: "Kryo X26 MTB – Model K",
+         price: "$350.00",
+         image: require("../../assets/imgs/bicycle-1.jpg"),
+         rating: 4,
+         description: "Product Description",
+      },
+      {
+         id: 2,
+         name: "Kryo X26 MTB – Model X",
+         price: "$350.00",
+         image: require("../../assets/imgs/bicycle-2.jpg"),
+         rating: 1,
+         description: "Product Description",
+      },
+      {
+         id: 3,
+         name: "Kryo X26 MTB – Model Y",
+         price: "$350.00",
+         image: require("../../assets/imgs/bicycle-3.jpg"),
+         rating: 5,
+         description: "Product Description",
+      },
+      {
+         id: 4,
+         name: "Kryo X26 MTB – Model Z",
+         price: "$350.00",
+         image: require("../../assets/imgs/bicycle-4.jpg"),
+         rating: 0,
+         description: "Product Description",
+      },
+   ];
    const options = [
       { value: 0, label: "Default Sorting" },
       { value: 1, label: "Sort By Popularity" },
@@ -16,79 +52,93 @@ export default function DisplayItems() {
       { value: 5, label: "Sort By Price: hight to low" },
    ];
 
-   const items = [
-      {
-         id: 1,
-         name: "Kryo X26 MTB – Model K",
-         price: "$350.00",
-         img: require("../../assets/imgs/bicycle-1.jpg"),
-         rating: 4,
-         description: "Product Description",
-      },
-      {
-         id: 2,
-         name: "Kryo X26 MTB – Model X",
-         price: "$350.00",
-         img: require("../../assets/imgs/bicycle-2.jpg"),
-         rating: 1,
-         description: "Product Description",
-      },
-      {
-         id: 3,
-         name: "Kryo X26 MTB – Model Y",
-         price: "$350.00",
-         img: require("../../assets/imgs/bicycle-3.jpg"),
-         rating: 5,
-         description: "Product Description",
-      },
-      {
-         id: 4,
-         name: "Kryo X26 MTB – Model Z",
-         price: "$350.00",
-         img: require("../../assets/imgs/bicycle-4.jpg"),
-         rating: 0,
-         description: "Product Description",
-      },
-   ];
-
-   const marks = {
-      20: "$20",
-      350: "$350",
-   };
-
-   const [range, setRange] = useState([20, 350]);
-
+   const minPrice = 0,
+      maxPrice = 1000;
    const location = useLocation();
+   const queryParams = new URLSearchParams(location.search);
+   const [range, setRange] = useState([queryParams.get("minPrice") || minPrice, queryParams.get("maxPrice") || maxPrice]);
+   const [catagory, setCatagory] = useState(queryParams.get("catagory") || "");
 
    const displayRange = (element) => {
       setRange([element[0], element[1]]);
    };
 
-   const handleChange = (value) => {
-      console.log(`Selected: ${value}`);
+   const navigate = useNavigate();
+
+   let path = location.pathname;
+
+   const handleSearch = (value) => {
+      // console.log(`Selected: ${value}`);
    };
 
-   let path = location.pathname.trim().split("/");
-   path.map((e, index) => {
-      path[index] = e ? e[0].toUpperCase() + e.slice(1) : "";
+   const [url, setUrl] = useState(window.location.href);
+
+   const AssignFilters = (min, max, cat) => {
+      const newSearchParams = new URLSearchParams();
+      newSearchParams.set("minPrice", min);
+      newSearchParams.set("maxPrice", max);
+      newSearchParams.set("catagory", cat);
+      const newUrl = `${location.pathname}?${newSearchParams.toString()}`;
+      navigate(newUrl);
+      setUrl(newUrl);
+      setCatagory(cat);
+      console.log("URL UPDATED", newUrl);
+   };
+
+   const handleFilter = (event) => {
+      event.preventDefault();
+      const cat = queryParams.get("catagory") ? queryParams.get("catagory") : "All";
+      AssignFilters(range[0], range[1], cat);
+   };
+
+   const handleCatagory = (cat) => {
+      AssignFilters(range[0], range[1], cat);
+   };
+
+   const dispatch = useDispatch();
+
+   const all_products = useSelector((state) => {
+      return state.productReducer.all_products;
    });
-   path = path.join("/ ");
+
+   const bicycles = useSelector((state) => {
+      return state.productReducer.bicycles;
+   });
+   const accessories = useSelector((state) => {
+      return state.productReducer.accessories;
+   });
+
+   const [products, setProducts] = useState(all_products);
+
+   
+
+   useEffect(() => {
+      console.log(url, queryParams.get("catagory"));
+      const cat = queryParams.get("catagory");
+      if (cat === "All" || !cat) setProducts(all_products);
+      else if (cat === "Bicycle") setProducts(bicycles);
+      else if (cat === "Accessories") setProducts(accessories);
+      dispatch(getAllProducts(`http://localhost:8001/productFilter?minPrice=${range[0]}&maxPrice=${range[1]}&catagory=`));
+      dispatch(getBicycles(`http://localhost:8001/productFilter?minPrice=${range[0]}&maxPrice=${range[1]}&category=Bicycle`));
+      dispatch(getAccessories(`http://localhost:8001/productFilter?minPrice=${range[0]}&maxPrice=${range[1]}&category=Accessory`));
+   }, [url, catagory]);
+
    return (
       <div className={css.itemsandfilters}>
          <div className={css.displayItems}>
             Home {path}
             <div className={css.title + " group-3"}>
-               <h1>Bicycle</h1>
+               <h1>{catagory ? catagory : "All Products"}</h1>
             </div>
             <div className={css.listitems}>
                <div className={css.resultCount}>
-                  <p>Showing all 4 results</p>
+                  <p>Showing all {products.length} results</p>
                </div>
                <div className={css.sortingOptions}>
                   <Select
                      size="large"
                      defaultValue={0}
-                     onChange={handleChange}
+                     onChange={handleSearch}
                      style={{
                         width: 200,
                         borderRadius: 0,
@@ -109,7 +159,7 @@ export default function DisplayItems() {
                      xl: 3,
                      xxl: 3,
                   }}
-                  dataSource={items}
+                  dataSource={products}
                   renderItem={(element) => (
                      <List.Item>
                         <Card element={element} width={"20px"} style={{ borderRadius: "0px" }} />
@@ -131,26 +181,30 @@ export default function DisplayItems() {
                <div className="group-4">
                   <span>Filter by price</span>
                </div>
-               <Slider
-                  range={{
-                     draggableTrack: true,
-                  }}
-                  defaultValue={[20, 350]}
-                  min={20}
-                  max={350}
-                  value={[range[0], range[1]]}
-                  onChange={displayRange}
-               />
-               <div className={css.filterbaramount}>
-                  <div>${range[0]}</div>
-                  <div>${range[1]}</div>
-               </div>
-               <div className={css.filterbuttons}>
-                  <div onClick={() => setRange([20, 350])}>
-                     <CustomButton text="RESET" />
+               <form onSubmit={handleFilter}>
+                  <Slider
+                     range={{
+                        draggableTrack: true,
+                     }}
+                     defaultValue={[range, maxPrice]}
+                     min={minPrice}
+                     max={maxPrice}
+                     value={[range[0], range[1]]}
+                     onChange={displayRange}
+                  />
+                  <div className={css.filterbaramount}>
+                     <div>${range[0]}</div>
+                     <div>${range[1]}</div>
                   </div>
-                  <CustomButton text="APPLY"></CustomButton>
-               </div>
+                  <div className={css.filterbuttons}>
+                     <div onClick={() => setRange([minPrice, maxPrice])}>
+                        <CustomButton text="RESET" />
+                     </div>
+                     <Button type="primary" htmlType="submit">
+                        APPLY
+                     </Button>
+                  </div>
+               </form>
             </div>
 
             <div className={css.filtercatagory}>
@@ -159,10 +213,39 @@ export default function DisplayItems() {
                </div>
                <ul>
                   <li>
-                     <span>Bicycle</span> (4)
+                     <span
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                           // SetAllProducts();
+                           handleCatagory("");
+                        }}
+                     >
+                        All
+                     </span>{" "}
+                     ({all_products.length})
                   </li>
                   <li>
-                     <span>Accessory</span> (10)
+                     <span
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                           handleCatagory("Bicycle");
+                        }}
+                     >
+                        Bicycle
+                     </span>{" "}
+                     ({bicycles.length})
+                  </li>
+                  <li>
+                     <span
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                           // SetAccessories();
+                           handleCatagory("Accessories");
+                        }}
+                     >
+                        Accessory
+                     </span>{" "}
+                     ({accessories.length})
                   </li>
                </ul>
             </div>

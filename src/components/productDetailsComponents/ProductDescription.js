@@ -67,7 +67,7 @@ export default function ProductDescription() {
    const clearButton = useRef(null);
 
    const Showprice = (element) => {
-      if (memory != element) {
+      if (memory !== element) {
          setPrice(product.pair[element]);
          setDisability(false);
          div_show_hide.current.style.maxHeight = "60px";
