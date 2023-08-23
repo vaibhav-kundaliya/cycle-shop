@@ -81,12 +81,12 @@ function App() {
                      <Navbar open_close={open_close} showModal={showModal} />
                      <Authentication isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} showModal={showModal} />
                      <Routes>
-                        <Route exact path="/" element={<Home />} />
-                        <Route exact path="/contact" element={<ContactUs />} />
+                        <Route exact path="" element={<Home />} />
+                        <Route exact path="contact" element={<ContactUs />} />
                         <Route element={<PrivateRoute />}>
-                           <Route exact path="/product-details" element={<ProductDetails />} />
-                           <Route exact path="/store" element={<BicyclesShop />} />
-                           <Route exact path="/shopping-cart" element={<CartPage />} />
+                           <Route exact path="product-details" element={<ProductDetails />} />
+                           <Route exact path="store/*" element={<BicyclesShop />} />
+                           <Route exact path="shopping-cart" element={<CartPage />} />
                         </Route>
                         <Route path="*" element={<ErrorPage status_code="404" />} />
                      </Routes>

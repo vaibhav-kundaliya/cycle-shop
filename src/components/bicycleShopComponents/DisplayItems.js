@@ -110,8 +110,6 @@ export default function DisplayItems() {
 
    const [products, setProducts] = useState(all_products);
 
-   
-
    useEffect(() => {
       console.log(url, queryParams.get("catagory"));
       const cat = queryParams.get("catagory");
@@ -123,16 +121,97 @@ export default function DisplayItems() {
       dispatch(getAccessories(`http://localhost:8001/productFilter?minPrice=${range[0]}&maxPrice=${range[1]}&category=Accessory`));
    }, [url, catagory]);
 
-   return (
-      <div className={css.itemsandfilters}>
-         <div className={css.displayItems}>
-            Home {path}
-            <div className={css.title + " group-3"}>
-               <h1>{catagory ? catagory : "All Products"}</h1>
-            </div>
+   const listToBeDisplay = () => {
+      if (catagory == "Accessories") {
+         return (
+            <>
+               <div className={css.listitems}>
+                  <div className={css.resultCount}>
+                     <p>Showing all {accessories.length} results</p>
+                  </div>
+                  <div className={css.sortingOptions}>
+                     <Select
+                        size="large"
+                        defaultValue={0}
+                        onChange={handleSearch}
+                        style={{
+                           width: 200,
+                           borderRadius: 0,
+                           color: "red",
+                        }}
+                        options={options}
+                     />
+                  </div>
+               </div>
+               <div className={css.cardlist}>
+                  <List
+                     grid={{
+                        gutter: 16,
+                        xs: 1,
+                        sm: 2,
+                        md: 2,
+                        lg: 3,
+                        xl: 3,
+                        xxl: 3,
+                     }}
+                     dataSource={accessories}
+                     renderItem={(element) => (
+                        <List.Item>
+                           <Card element={element} width={"20px"} style={{ borderRadius: "0px" }} />
+                        </List.Item>
+                     )}
+                  />
+               </div>
+            </>
+         );
+      } else if (catagory == "Bicycle") {
+         return (
+            <>
+               <div className={css.listitems}>
+                  <div className={css.resultCount}>
+                     <p>Showing all {bicycles.length} results</p>
+                  </div>
+                  <div className={css.sortingOptions}>
+                     <Select
+                        size="large"
+                        defaultValue={0}
+                        onChange={handleSearch}
+                        style={{
+                           width: 200,
+                           borderRadius: 0,
+                           color: "red",
+                        }}
+                        options={options}
+                     />
+                  </div>
+               </div>
+               <div className={css.cardlist}>
+                  <List
+                     grid={{
+                        gutter: 16,
+                        xs: 1,
+                        sm: 2,
+                        md: 2,
+                        lg: 3,
+                        xl: 3,
+                        xxl: 3,
+                     }}
+                     dataSource={bicycles}
+                     renderItem={(element) => (
+                        <List.Item>
+                           <Card element={element} width={"20px"} style={{ borderRadius: "0px" }} />
+                        </List.Item>
+                     )}
+                  />
+               </div>
+            </>
+         );
+      }
+      return (
+         <>
             <div className={css.listitems}>
                <div className={css.resultCount}>
-                  <p>Showing all {products.length} results</p>
+                  <p>Showing all {all_products.length} results</p>
                </div>
                <div className={css.sortingOptions}>
                   <Select
@@ -159,7 +238,7 @@ export default function DisplayItems() {
                      xl: 3,
                      xxl: 3,
                   }}
-                  dataSource={products}
+                  dataSource={all_products}
                   renderItem={(element) => (
                      <List.Item>
                         <Card element={element} width={"20px"} style={{ borderRadius: "0px" }} />
@@ -167,6 +246,37 @@ export default function DisplayItems() {
                   )}
                />
             </div>
+         </>
+      );
+   };
+
+   return (
+      <div className={css.itemsandfilters}>
+         <div className={css.displayItems}>
+            Home {path}
+            <div className={css.title + " group-3"}>
+               <h1>{catagory ? catagory : "All Products"}</h1>
+            </div>
+            {listToBeDisplay()}
+            {/* <div className={css.cardlist}>
+               <List
+                  grid={{
+                     gutter: 16,
+                     xs: 1,
+                     sm: 2,
+                     md: 2,
+                     lg: 3,
+                     xl: 3,
+                     xxl: 3,
+                  }}
+                  dataSource={all_products}
+                  renderItem={(element) => (
+                     <List.Item>
+                        <Card element={element} width={"20px"} style={{ borderRadius: "0px" }} />
+                     </List.Item>
+                  )}
+               />
+            </div> */}
          </div>
 
          <div className={css.filters}>

@@ -28,10 +28,10 @@ function Cards({ element, style, width }) {
          >
             <b>{element.name}</b>
             <div>
-            <Rate disabled defaultValue={element.rating} style={{color:"gray"}} />
-
+            {/* <Rate disabled defaultValue={element.rating} style={{color:"gray"}} /> */}
+            <br />
             </div>
-            <Meta title={`${element.price}$`} />
+            <Meta description={`${element.price}$`} />
             <br />
             <PriceRange setPrice={setPrice} price_pair={element.pair} />
 
