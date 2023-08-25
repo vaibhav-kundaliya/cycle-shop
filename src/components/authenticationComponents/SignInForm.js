@@ -1,14 +1,12 @@
-import { React, useRef } from "react";
-import { Button, Checkbox, Form, Input, message } from "antd";
+import { React } from "react";
+import { Button, Form, Input, message } from "antd";
 import css from "./design/SignUpForm.module.css";
 import { useGlobalContext } from "../../context";
 import { LoadingOutlined } from "@ant-design/icons";
 import axios from "axios";
-import { type } from "@testing-library/user-event/dist/type";
 const singInAPI = "http://localhost:8001/login";
 
 export default function SignInForm({ signInRef, setIsModalOpen }) {
-   const { isLoading } = useGlobalContext();
    const [messageApi, contextHolder] = message.useMessage();
 
    const userLogIn = async (req_body) => {
@@ -49,9 +47,6 @@ export default function SignInForm({ signInRef, setIsModalOpen }) {
       console.log("Failed:", errorInfo);
    };
 
-   const onloading = () => {
-      return <LoadingOutlined />;
-   };
    return (
       <div>
          {contextHolder}
@@ -93,7 +88,7 @@ export default function SignInForm({ signInRef, setIsModalOpen }) {
             </Form.Item>
             <div className={css.buttons}>
                <Button type="primary" htmlType="submit">
-                  {false ? onloading() : "Sign In"}
+                  Sign In
                </Button>
                <Button htmlType="button">Reset</Button>
             </div>

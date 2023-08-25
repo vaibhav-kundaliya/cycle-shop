@@ -1,15 +1,10 @@
 import React from "react";
 import css from "./design/Footer.module.css";
 import logoimg from "../../assets/imgs/logo-1-80x48.png";
-import { createFromIconfontCN, InstagramOutlined, FacebookOutlined, YoutubeOutlined, TwitterOutlined } from "@ant-design/icons";
+import { InstagramOutlined, FacebookOutlined, YoutubeOutlined, TwitterOutlined } from "@ant-design/icons";
 import { Col, Row } from "antd";
 
 import { Space } from "antd";
-import { Link } from "react-router-dom";
-
-const IconFont = createFromIconfontCN({
-   scriptUrl: "//at.alicdn.com/t/font_8d5l8fzk5b87iudi.js",
-});
 
 export default function Footer() {
    return (

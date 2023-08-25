@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, ConfigProvider } from "antd";
+import { Button } from "antd";
 
 export default function CustomButton(props) {
    if (props.disabled)

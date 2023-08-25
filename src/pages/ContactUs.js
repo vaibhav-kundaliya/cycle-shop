@@ -2,7 +2,6 @@ import { React, useState } from "react";
 import css from "./design/ContactUs.module.css";
 import { Button, Form, Input, Modal, Result } from "antd";
 import { ShopFilled, ToolOutlined, FundOutlined } from "@ant-design/icons";
-import CustomButtons from "../components/buttonComponents/CustomButton";
 
 export default function ContactUs() {
    const [form] = Form.useForm();

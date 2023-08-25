@@ -20,7 +20,6 @@ export const getAllProducts = (url) => {
 export const getBicycles = (url) => {
    return async function (dispatch) {
       const response = await fetchProduct(url);
-      // console.log(response);
       dispatch(fetchBicycles(response));
    };
 };
@@ -28,7 +27,6 @@ export const getBicycles = (url) => {
 export const getAccessories = (url) => {
    return async function (dispatch) {
       const response = await fetchProduct(url);
-      // console.log(response);
       dispatch(fetchAccessories(response));
    };
 };

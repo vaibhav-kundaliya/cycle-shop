@@ -3,7 +3,6 @@ import ProductDescription from "../components/productDetailsComponents/ProductDe
 export default function ProductDetails() {
   return (
     <div>
-        {window.scrollTo({top:0})}
         <ProductDescription />
     </div>
   )

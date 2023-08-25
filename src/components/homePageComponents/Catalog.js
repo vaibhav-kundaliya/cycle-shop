@@ -5,7 +5,6 @@ import img1 from "../../assets/imgs/bicycle-2.jpg";
 import img2 from "../../assets/imgs/bicycle-3.jpg";
 
 export default function Catalog() {
-   const color = getComputedStyle(document.documentElement).getPropertyValue("--website-color");
 
    let templates = [
       {

@@ -1,5 +1,4 @@
 import userSignUp_SignIn from "../API/userSignUp_SignIn";
-import fetchProduct from "../API/fetchProduct";
 
 export const addReview = (items) => {
    return { type: "ADD_REVIEW", payload: items };

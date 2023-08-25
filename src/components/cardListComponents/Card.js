@@ -4,7 +4,6 @@ import {useNavigate} from "react-router-dom";
 import PriceRange from "../productDetailsComponents/PriceRange";
 import { ShoppingFilled } from "@ant-design/icons";
 import css from "./design/Card.module.css";
-const img_storage_path = "D:\\Company Work\\ECommerceApp\\server\\admin\\"
 
 const { Meta } = Card;
 

@@ -1,6 +1,5 @@
 import React from "react";
 import css from "./design/HomePageOne.module.css";
-import CustomButton from "../buttonComponents/CustomButton";
 import { Button } from "antd";
 import { Link } from "react-router-dom";
 

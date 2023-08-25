@@ -1,4 +1,4 @@
-import { React, useState, useRef } from "react";
+import { React, useState} from "react";
 import { Modal, Tabs } from "antd";
 import SignInForm from "../components/authenticationComponents/SignInForm";
 import SignUpForm from "../components/authenticationComponents/SignUpForm";

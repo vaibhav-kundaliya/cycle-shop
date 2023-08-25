@@ -42,5 +42,3 @@ const getResponse = (url, locality) => {
 };
 
 export default getResponse ;
-
-// getResponse("https://www.universal-tutorial.com/api/getaccesstoken")

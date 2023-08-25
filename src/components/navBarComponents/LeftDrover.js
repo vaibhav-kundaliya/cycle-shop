@@ -1,6 +1,6 @@
 import React from "react";
 import css from "./design/LeftDrover.module.css";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef} from "react";
 import { CloseOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import { Divider, Button } from "antd";
 import { Link } from "react-router-dom";
@@ -8,7 +8,7 @@ import img from "../../assets/imgs/bicycle-1.jpg";
 import {displayCartItems} from "../../actions/cartActions"
 import { useSelector, useDispatch } from "react-redux";
 
-export default function LeftDrover({ isvisible, setisvisible, open_close }) {
+export default function LeftDrover({ isvisible, open_close }) {
 
    const bodyRef = useRef(document.querySelector("body"));
    const extraRef = useRef(null)

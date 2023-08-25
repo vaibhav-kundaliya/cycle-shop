@@ -9,6 +9,7 @@ import fetchProduct from "../../API/fetchProduct";
 import ErrorPage from "../../pages/ErrorPage";
 
 export default function ProductDescription() {
+   window.scrollTo({ top: 0 });
    const location = useLocation();
    const SKU = location.pathname.split("/")[2];
 
@@ -46,7 +47,7 @@ export default function ProductDescription() {
          .catch((error) => {
             if (error.response) {
                console.error(error.response);
-               setIsValidSKU(false)
+               setIsValidSKU(false);
             } else {
                console.error("Network error: " + error.message);
             }
@@ -90,64 +91,64 @@ export default function ProductDescription() {
 
    return (
       <>
-      {
-         isValidSKU?
-         <div className={css.outer_product_desc}>
-            <div className={css.product_description}>
-               <div className={css.product_description_inner}>
-                  <div className={css.img_text}>
-                     <div className={css.product_description_img + " product_description_img"}>
-                        <Image className={css.zoom_image + " zoom-image"} src={"http://localhost:8000/" + product?.image} onMouseMove={fun} onMouseLeave={revfun} alt="Image" />
-                     </div>
+         {isValidSKU ? (
+            <div className={css.outer_product_desc}>
+               <div className={css.product_description}>
+                  <div className={css.product_description_inner}>
+                     <div className={css.img_text}>
+                        <div className={css.product_description_img + " product_description_img"}>
+                           <Image className={css.zoom_image + " zoom-image"} src={"http://localhost:8000/" + product?.image} onMouseMove={fun} onMouseLeave={revfun} alt="Image" />
+                        </div>
 
-                     <div className={css.product_description_text}>
-                        <div className="path">
-                           Home / {product?.category} / {product?.name}
-                        </div>
-                        <div className={css.catagory}>
-                           <h3>{product?.category}</h3>
-                        </div>
-                        <div className={css.product_name + " group-3"}>{product?.name}</div>
-                        <div className={css.cost}>
-                           <div className={css.amount}>${product?.price}</div> & Free Shipping
-                        </div>
-                        <div className={css.text_dis}>{product?.productDetails}</div>
+                        <div className={css.product_description_text}>
+                           <div className="path">
+                              Home / {product?.category} / {product?.name}
+                           </div>
+                           <div className={css.catagory}>
+                              <h3>{product?.category}</h3>
+                           </div>
+                           <div className={css.product_name + " group-3"}>{product?.name}</div>
+                           <div className={css.cost}>
+                              <div className={css.amount}>${product?.price}</div> & Free Shipping
+                           </div>
+                           <div className={css.text_dis}>{product?.productDetails}</div>
 
-                        <div className={css.productSize}>
-                           <div>
-                              <Radio.Group options={sizeArray()} onChange={onChange3} value={value3} optionType="button" />
+                           <div className={css.productSize}>
+                              <div>
+                                 <Radio.Group options={sizeArray()} onChange={onChange3} value={value3} optionType="button" />
+                              </div>
                            </div>
-                        </div>
-                        <hr />
-                        <div className={css.btns_add}>
-                           <div>
-                              {value3 || !sizeArray()?.length ? (
-                                 <Button type="primary">ADD TO CART</Button>
-                              ) : (
-                                 <Button disabled type="primary">
-                                    ADD TO CART
-                                 </Button>
-                              )}
+                           <hr />
+                           <div className={css.btns_add}>
+                              <div>
+                                 {value3 || !sizeArray()?.length ? (
+                                    <Button type="primary">ADD TO CART</Button>
+                                 ) : (
+                                    <Button disabled type="primary">
+                                       ADD TO CART
+                                    </Button>
+                                 )}
+                              </div>
                            </div>
+                           <hr />
+                           <span>
+                              Category: <span className={css.catagory}>{product?.category}</span>
+                           </span>
                         </div>
-                        <hr />
-                        <span>
-                           Category: <span className={css.catagory}>{product?.category}</span>
-                        </span>
                      </div>
-                  </div>
-                  <br />
-                  <br />
-                  <SubNavbar product={product}></SubNavbar>
-                  <div>
-                     <div className={css.related_product_title + " group-3"}>Related Products</div>
-                     <CardList title="Related products" product_list={relatedProduct ? relatedProduct : []} />
+                     <br />
+                     <br />
+                     <SubNavbar product={product}></SubNavbar>
+                     <div>
+                        <div className={css.related_product_title + " group-3"}>Related Products</div>
+                        <CardList title="Related products" product_list={relatedProduct ? relatedProduct : []} />
+                     </div>
                   </div>
                </div>
             </div>
-         </div>:
-         <ErrorPage status_code="404"></ErrorPage>
-      }
+         ) : (
+            <ErrorPage status_code="404"></ErrorPage>
+         )}
       </>
    );
 }

@@ -1,11 +1,10 @@
-// import React from "react";
 import { React, useEffect, useState } from "react";
 import { Input, Slider, Button } from "antd";
 import CustomButton from "../components/buttonComponents/CustomButton";
 import DisplayAccessories from "../components/bicycleShopComponents/DisplayAccessories";
 import DisplayBicycles from "../components/bicycleShopComponents/DisplayBicycles";
 import DisplayAllProducts from "../components/bicycleShopComponents/DisplayAllProducts";
-import { useLocation, useNavigate, BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { useLocation, useNavigate, Routes, Route, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getAccessories, getBicycles, getAllProducts } from "../actions/fetchActions";
 import css from "../components/bicycleShopComponents/design/DisplayItems.module.css";

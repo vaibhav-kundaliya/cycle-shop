@@ -3,11 +3,9 @@ import { Form, Input, Button, InputNumber, Select, message } from "antd";
 import css from "./design/SignUpForm.module.css";
 import { LoadingOutlined } from "@ant-design/icons";
 import { useGlobalContext } from "../../context";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
-import userSignUp_SignIn from "../../API/userSignUp_SignIn";
 const singUpAPI = "http://localhost:8001/signup";
-const singInAPI = "http://localhost:8001/login";
 
 export default function SignUpForm({ setIsModalOpen, setActiveTab }) {
    const [form] = Form.useForm();
