@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import css from "./design/ProductDescription.module.css";
 import SubNavbar from "./SubNavbar";
 import CardList from "../cardListComponents/CardList";
-import { Radio, Image, Button } from "antd";
+import { Radio, Image, Button, Tooltip } from "antd";
 import axios from "axios";
 import fetchProduct from "../../API/fetchProduct";
 import ErrorPage from "../../pages/ErrorPage";
@@ -114,15 +114,9 @@ export default function ProductDescription() {
                            <div className={css.text_dis}>{product?.productDetails}</div>
 
                            <div className={css.productSize}>
-                           <div className={css.btns_add}>
                               <div>
-                                 {value3 || !sizeArray()?.length ? (
-                                    <></>
-                                 ) : (
-                                    <Radio.Group options={sizeArray()} onChange={onChange3} value={value3} optionType="button" />
-                                 )}
+                                 <Radio.Group options={sizeArray()} onChange={onChange3} value={value3} optionType="button" />
                               </div>
-                           </div>
                            </div>
                            <hr />
                            <div className={css.btns_add}>
@@ -130,9 +124,11 @@ export default function ProductDescription() {
                                  {value3 || !sizeArray()?.length ? (
                                     <Button type="primary">ADD TO CART</Button>
                                  ) : (
-                                    <Button disabled type="primary">
-                                       ADD TO CART
-                                    </Button>
+                                    <Tooltip title="Select Size first">
+                                       <Button disabled type="primary">
+                                          ADD TO CART
+                                       </Button>
+                                    </Tooltip>
                                  )}
                               </div>
                            </div>
