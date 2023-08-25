@@ -15,8 +15,13 @@ export default function SubNavbar({product}) {
          name: "Additional information",
          content: (
             <table>
+               <tbody>
+               <tr>
+
                <td>Size</td>
                <td>{product.size?.join(', ') || "NA"}</td>
+               </tr>
+               </tbody>
             </table>
          ),
       },

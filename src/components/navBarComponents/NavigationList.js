@@ -12,7 +12,7 @@ export default function NavigationList({ showModal }) {
    const auth_option = () => {
       if (isAuthenticated)
          return (
-            <Link style={{ textDecoration: "none", color: "White" }} onClick={signOut}>
+            <Link to="/" style={{ textDecoration: "none", color: "White" }} onClick={signOut}>
                SIGN-OUT
             </Link>
          );

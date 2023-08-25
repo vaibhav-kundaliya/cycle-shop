@@ -14,12 +14,12 @@ export default function SignInForm({ signInRef, setIsModalOpen }) {
          .post(singInAPI, req_body, { headers: { "Content-Type": "application/json" }, timeout: 5000, responseType: 'json', withCredentials: true })
          .then((response) => {
             sessionStorage.setItem("user", response.data.data.email);
-            messageApi.open({
-               content: `Hello ${response.data.data.firstName}, Welcome back to our store`,
-               type: "success",
-            });
             setIsModalOpen(false)
             window.location.reload();
+            messageApi.open({
+               content: `Hello ${response.data.data.firstName}, Welcome to our store`,
+               type: "success",
+            });
          })
          .catch((error) => {
             if (error.response) {

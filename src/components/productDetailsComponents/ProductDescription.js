@@ -114,9 +114,15 @@ export default function ProductDescription() {
                            <div className={css.text_dis}>{product?.productDetails}</div>
 
                            <div className={css.productSize}>
+                           <div className={css.btns_add}>
                               <div>
-                                 <Radio.Group options={sizeArray()} onChange={onChange3} value={value3} optionType="button" />
+                                 {value3 || !sizeArray()?.length ? (
+                                    <></>
+                                 ) : (
+                                    <Radio.Group options={sizeArray()} onChange={onChange3} value={value3} optionType="button" />
+                                 )}
                               </div>
+                           </div>
                            </div>
                            <hr />
                            <div className={css.btns_add}>
