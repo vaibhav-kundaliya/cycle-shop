@@ -84,7 +84,7 @@ function App() {
                         <Route exact path="" element={<Home />} />
                         <Route exact path="contact" element={<ContactUs />} />
                         <Route element={<PrivateRoute />}>
-                           <Route exact path="product-details" element={<ProductDetails />} />
+                           <Route exact path="product-details/*" element={<ProductDetails />} />
                            <Route exact path="store/*" element={<BicyclesShop />} />
                            <Route exact path="shopping-cart" element={<CartPage />} />
                         </Route>

@@ -1,6 +1,8 @@
 import React from "react";
 import css from "./design/HomePageOne.module.css";
 import CustomButton from "../buttonComponents/CustomButton";
+import { Button } from "antd";
+import { Link } from "react-router-dom";
 
 function HomePageOne() {
    return (
@@ -24,7 +26,11 @@ function HomePageOne() {
                </li>
             </div>
             <br></br>
-            <CustomButton href="/" text="BUY NOW"></CustomButton>
+            <div>
+               <Link to="/store">
+                  <Button type="primary">BUY NOW</Button>
+               </Link>
+            </div>
          </div>
       </>
    );

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Card, Rate } from "antd";
+import {useNavigate} from "react-router-dom";
 import PriceRange from "../productDetailsComponents/PriceRange";
 import { ShoppingFilled } from "@ant-design/icons";
 import css from "./design/Card.module.css";
@@ -7,13 +8,13 @@ const img_storage_path = "D:\\Company Work\\ECommerceApp\\server\\admin\\"
 
 const { Meta } = Card;
 
-
-function Cards({ element, style, width }) {
+function Cards({ element, width }) {
    const [price, setPrice] = useState(element.price);
    const [visibility, setVisibility] = useState("none");
    
+   const navigate = useNavigate();
    const gotoProductDetails = () => {
-      window.open("/product-details")
+      navigate('/product-details/'+element.SKU);
    }
 
    return (
@@ -21,12 +22,11 @@ function Cards({ element, style, width }) {
          <Card
             onMouseOver={()=>setVisibility("block")}
             onMouseLeave={()=>setVisibility("none")}
-            
             hoverable
-            style={style}
-            cover={<img alt={element.name} width={width} className={css.cardImage} onClick={gotoProductDetails} src={"http://localhost:8000/"+element.image} style={{borderRadius: "0px"}}/>}
+            style={{borderRadius:0}}
+            cover={<img alt={element.name} onClick={gotoProductDetails} src={"http://localhost:8000/"+element.image} style={{borderRadius: "0px"}}/>}
          >
-            <b>{element.name}</b>
+            <Meta title={element.name}></Meta>
             <div>
             {/* <Rate disabled defaultValue={element.rating} style={{color:"gray"}} /> */}
             <br />

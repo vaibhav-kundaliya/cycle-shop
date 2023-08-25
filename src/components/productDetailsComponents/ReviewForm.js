@@ -7,7 +7,7 @@ export default function ReviewForm() {
    return (
       <div className={css.review_form}>
          <Form>
-            <div className={css.title}>Be the first to review “Bicycle Gloves Blue”</div>
+            <div className={css.title}>Your review is valueable for others</div>
             <div className={css.subtitle}>Your email address will not be published. Required fields are marked *</div>
             <div className={css.rating_field}>
                <div>Your Rating*</div>

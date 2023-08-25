@@ -13,7 +13,6 @@ export const fetchAccessories = (products) => {
 export const getAllProducts = (url) => {
    return async function (dispatch) {
       const response = await fetchProduct(url);
-      // console.log(response);
       dispatch(fetchAllProducts(response));
    };
 };

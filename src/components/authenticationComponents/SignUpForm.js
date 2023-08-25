@@ -3,29 +3,30 @@ import { Form, Input, Button, InputNumber, Select, message } from "antd";
 import css from "./design/SignUpForm.module.css";
 import { LoadingOutlined } from "@ant-design/icons";
 import { useGlobalContext } from "../../context";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
-
+import userSignUp_SignIn from "../../API/userSignUp_SignIn";
 const singUpAPI = "http://localhost:8001/signup";
+const singInAPI = "http://localhost:8001/login";
 
-export default function SignUpForm({setIsModalOpen}) {
+export default function SignUpForm({ setIsModalOpen, setActiveTab }) {
    const [form] = Form.useForm();
    const { states, country, city, fetchState, fetchCity } = useGlobalContext();
    const [messageApi, contextHolder] = message.useMessage();
    const [isLoading, setLoading] = useState();
+   const location = useLocation();
 
    const userSignUp = async (req_body) => {
       setLoading(true);
-      console.log(isLoading)
       axios
-         .post(singUpAPI, req_body, { headers: { "Content-Type": "application/json" } })
+         .post(singUpAPI, req_body, { headers: { "Content-Type": "application/json" }, withCredentials: true })
          .then((response) => {
-            console.log(response.data);
-            sessionStorage.setItem("user", response.data.data.email);
             messageApi.open({
-               content: `Hello ${response.data.data.firstName}, Welcome to our store`,
+               content: `Hello ${response.data.data.firstName}, Please Sign In`,
                type: "success",
             });
-            setIsModalOpen(false)
+            console.log("Tab stuck")
+            setActiveTab("1")
          })
          .catch((error) => {
             if (error.response) {
@@ -52,13 +53,6 @@ export default function SignUpForm({setIsModalOpen}) {
       );
    };
 
-   const onStatic = () => {
-      return (
-         <Button type="primary" htmlType="submit">
-            SIGN UP
-         </Button>
-      );
-   };
    const setStates = (element) => {
       if (element !== "none") fetchState(element);
    };
@@ -69,6 +63,7 @@ export default function SignUpForm({setIsModalOpen}) {
 
    const phoneNumberRegex = /^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/;
    const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{8,}$/;
+   const zipcodeRegex = /\d{5}/;
    const onFinish = (values) => {
       const req_body = {
          firstName: values.firstname,
@@ -87,7 +82,6 @@ export default function SignUpForm({setIsModalOpen}) {
          },
       };
       userSignUp(req_body);
-
    };
    const onFinishFailed = (errorInfo) => {
       console.log("Failed:", errorInfo);
@@ -134,18 +128,7 @@ export default function SignUpForm({setIsModalOpen}) {
                </Form.Item>
             </div>
 
-            <div className={css.inline_fields + " " + css.three_inline_fields}>
-               <Form.Item
-                  name="age"
-                  rules={[
-                     {
-                        required: true,
-                        message: "Please enter Age!",
-                     },
-                  ]}
-               >
-                  <InputNumber placeholder="Age" min={5} max={100} />
-               </Form.Item>
+            <div>
                <Form.Item
                   name="email"
                   rules={[
@@ -160,6 +143,7 @@ export default function SignUpForm({setIsModalOpen}) {
                >
                   <Input placeholder="Email" />
                </Form.Item>
+            </div>
                <Form.Item
                   name="phonenumber"
                   rules={[
@@ -175,7 +159,6 @@ export default function SignUpForm({setIsModalOpen}) {
                >
                   <Input placeholder="Phone Number" />
                </Form.Item>
-            </div>
 
             <Form.Item
                name="zipcode"
@@ -183,6 +166,10 @@ export default function SignUpForm({setIsModalOpen}) {
                   {
                      required: true,
                      message: "Please input your Zip Code",
+                  },
+                  {
+                     pattern: zipcodeRegex,
+                     message: "Please enter a valid Zip Code!",
                   },
                ]}
             >
@@ -276,10 +263,10 @@ export default function SignUpForm({setIsModalOpen}) {
                <Input.Password placeholder="Password" />
             </Form.Item>
             <div className={css.buttons}>
-               {isLoading ? onLoading() : onStatic()}
-               <Button htmlType="reset" onClick={onStatic}>
-                  Reset
+               <Button type="primary" htmlType="submit">
+                  SIGN UP
                </Button>
+               <Button htmlType="reset">Reset</Button>
             </div>
          </Form>
       </div>

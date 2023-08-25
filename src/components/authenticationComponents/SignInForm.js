@@ -21,6 +21,7 @@ export default function SignInForm({ signInRef, setIsModalOpen }) {
                type: "success",
             });
             setIsModalOpen(false)
+            window.location.reload();
          })
          .catch((error) => {
             if (error.response) {
@@ -42,7 +43,6 @@ export default function SignInForm({ signInRef, setIsModalOpen }) {
          email: values.email,
          password: values.password,
       });
-      console.log(req_body);
       userLogIn(req_body);
    };
    const onFinishFailed = (errorInfo) => {

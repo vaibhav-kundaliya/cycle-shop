@@ -26,9 +26,9 @@ function Navbar(props) {
    return (
       <>
          <div className={css.Navbar} style={style}>
-            <div className={css.logo}>
+            <span className={css.logo}>
                <img src={logoimg} />
-            </div>
+            </span>
 
             <div className={css.navigation}>
                <NavigationList showModal={props.showModal} />
@@ -38,10 +38,10 @@ function Navbar(props) {
                ${total_money}
                <div>
                   <ShoppingFilled onClick={props.open_close} className={css.cart_logo} style={{ fontSize: "20px", paddingLeft: "8px", marginRight: "-5px", cursor:"pointer" }} />
-                  <Badge count={items_count} size="small" style={{ top: "-10px" }} />
+                  <Badge count={1} size="small" style={{ top: "-10px" }} />
                </div>
                <div className={css.hide_dropdown_button} onClick={display_hide_list}>
-                  <MenuOutlined style={{ fontSize:"24px", display: "block", cursor:"pointer" }} />
+                  <MenuOutlined style={{ fontSize:"24px", cursor:"pointer" }} />
                </div>
             </div>
          </div>

@@ -1,10 +1,8 @@
 import axios from "axios";
 const userSignUp_SignIn = async (url, body) => {
    axios
-      .post(url, body, { headers: { "Content-Type": "application/json" } })
+      .post(url, body, { headers: { "Content-Type": "application/json" },timeout: 5000, responseType: 'json', withCredentials: true })
       .then((response) => {
-         console.log("adadasads");
-         console.log(response.data);
          return response.data;
       })
       .catch((error) => {

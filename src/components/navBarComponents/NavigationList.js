@@ -5,13 +5,14 @@ export default function NavigationList({ showModal }) {
    const isAuthenticated = sessionStorage.getItem("user")
    const signOut = () => {
       sessionStorage.removeItem('user');
+      window.location.reload()
    }
 
 
    const auth_option = () => {
       if (isAuthenticated)
          return (
-            <Link to="/" style={{ textDecoration: "none", color: "White" }} onClick={signOut}>
+            <Link style={{ textDecoration: "none", color: "White" }} onClick={signOut}>
                SIGN-OUT
             </Link>
          );

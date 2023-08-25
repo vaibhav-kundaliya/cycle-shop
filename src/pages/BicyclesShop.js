@@ -4,9 +4,10 @@ import { Input, Slider, Button } from "antd";
 import CustomButton from "../components/buttonComponents/CustomButton";
 import DisplayAccessories from "../components/bicycleShopComponents/DisplayAccessories";
 import DisplayBicycles from "../components/bicycleShopComponents/DisplayBicycles";
+import DisplayAllProducts from "../components/bicycleShopComponents/DisplayAllProducts";
 import { useLocation, useNavigate, BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getAccessories, getBicycles } from "../actions/fetchActions";
+import { getAccessories, getBicycles, getAllProducts } from "../actions/fetchActions";
 import css from "../components/bicycleShopComponents/design/DisplayItems.module.css";
 const { Search } = Input;
 
@@ -43,6 +44,10 @@ export default function BicyclesShop() {
 
    const dispatch = useDispatch();
 
+   const all_products = useSelector((state) => {
+      return state.productReducer.all_products;
+   });
+
    const bicycles = useSelector((state) => {
       return state.productReducer.bicycles;
    });
@@ -52,23 +57,40 @@ export default function BicyclesShop() {
    });
 
    useEffect(() => {
+      dispatch(getAllProducts(`http://localhost:8001/productFilter?minPrice=${range[0]}&maxPrice=${range[1]}&category=`));
       dispatch(getBicycles(`http://localhost:8001/productFilter?minPrice=${range[0]}&maxPrice=${range[1]}&category=Bicycle`));
       dispatch(getAccessories(`http://localhost:8001/productFilter?minPrice=${range[0]}&maxPrice=${range[1]}&category=Accessory`));
    }, [url]);
+
+   const [searchValue, setSearchValue] = useState("");
+   const handleSearch = (event) => {
+     navigate("");
+     dispatch(getAllProducts(`http://localhost:8001/searchProduct/keyword?keyword=${event}`));
+     setSearchValue("");
+   };
 
    return (
       <>
          <div className={css.itemsandfilters}>
             <Routes path="/">
-               <Route exact path="" element={<DisplayBicycles bicycles={bicycles} />} />
+               <Route exact path="bicycles" element={<DisplayBicycles bicycles={bicycles} />} />
                <Route exact path="accessories" element={<DisplayAccessories accessories={accessories} />} />
+               <Route exact path="" element={<DisplayAllProducts products={all_products} />} />
             </Routes>
             <div className={css.filters}>
                <div className={css.searchbar}>
                   <div className="group-4">
                      <span>Search</span>
                   </div>
-                  <Search placeholder="Search Products..." enterButton size="large" style={{ borderRadius: 0 }} />
+                  <Search
+                     placeholder="Search Products..."
+                     value={searchValue}
+                     onChange={(e) => setSearchValue(e.target.value)}
+                     onSearch={handleSearch}
+                     enterButton
+                     size="large"
+                     style={{ borderRadius: 0 }}
+                  />
                </div>
 
                <div className={css.filterbar}>
@@ -108,24 +130,17 @@ export default function BicyclesShop() {
                   <ul>
                      <li>
                         <Link to="/store/">
-                           <span
-                              style={{ cursor: "pointer" }}
-                              
-                           >
-                              Bicycle
-                           </span>{" "}
-                           ({bicycles.length})
+                           <span style={{ cursor: "pointer" }}>All</span> ({all_products?.length})
+                        </Link>
+                     </li>
+                     <li>
+                        <Link to="/store/bicycles">
+                           <span style={{ cursor: "pointer" }}>Bicycle</span> ({bicycles?.length})
                         </Link>
                      </li>
                      <li>
                         <Link to="/store/accessories">
-                           <span
-                              style={{ cursor: "pointer" }}
-                              
-                           >
-                              Accessory
-                           </span>{" "}
-                           ({accessories.length})
+                           <span style={{ cursor: "pointer" }}>Accessory</span> ({accessories?.length})
                         </Link>
                      </li>
                   </ul>

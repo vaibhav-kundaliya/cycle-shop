@@ -8,7 +8,7 @@ const fetchProduct = async (url) => {
    } catch (error) {
       if (error.response) {
          console.error(error.response);
-         return error.response;
+         // throw new Error("Network error: " + error.response);
       } else {
          throw new Error("Network error: " + error.message);
       }

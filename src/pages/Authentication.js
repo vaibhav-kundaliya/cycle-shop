@@ -6,6 +6,8 @@ import SignUpForm from "../components/authenticationComponents/SignUpForm";
 
 export default function Authentication({ isModalOpen, setIsModalOpen }) {
 
+   const [activeTab, setActiveTab] = useState()
+
    const items = [
       {
          key: "1",
@@ -15,7 +17,7 @@ export default function Authentication({ isModalOpen, setIsModalOpen }) {
       {
          key: "2",
          label: `Sign Up`,
-         children: <SignUpForm setIsModalOpen={setIsModalOpen} />,
+         children: <SignUpForm setIsModalOpen={setIsModalOpen} setActiveTab={setActiveTab}/>,
       },
    ];
 
@@ -33,8 +35,8 @@ export default function Authentication({ isModalOpen, setIsModalOpen }) {
 
    return (
       <>
-         <Modal title="" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={null} cancelText="RESET">
-            <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
+      <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={null} cancelText="RESET">
+            <Tabs items={items} activeKey={activeTab} onChange={onChange} />
          </Modal>
       </>
    );

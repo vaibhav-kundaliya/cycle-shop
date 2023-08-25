@@ -1,8 +1,9 @@
 import React from "react";
-import css from  "./design/FeaturedCycle.module.css";
+import css from "./design/FeaturedCycle.module.css";
 import CustomButton from "../buttonComponents/CustomButton";
 import img from "../../assets/imgs/bicycle-1.jpg";
-
+import { Button } from "antd";
+import { Link } from "react-router-dom";
 
 export default function FeaturedCycle() {
    const content_css = {
@@ -20,9 +21,9 @@ export default function FeaturedCycle() {
       <>
          <div style={content_css}>
             <div className={css.feature_content}>
-            <div className="group-2">
-               <>The All New</>
-            </div>
+               <div className="group-2">
+                  <>The All New</>
+               </div>
                <div className="group-3">
                   <>Kryo X26 MTB Is Here</>
                </div>
@@ -32,7 +33,9 @@ export default function FeaturedCycle() {
                </div>
                <div>
                   <br />
-                  <CustomButton text="SHOP NOW" />
+                  <Link to="/store">
+                     <Button type="primary">SHOP NOW</Button>
+                  </Link>
                </div>
             </div>
          </div>

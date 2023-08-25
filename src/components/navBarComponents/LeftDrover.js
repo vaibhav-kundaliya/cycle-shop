@@ -1,13 +1,14 @@
 import React from "react";
 import css from "./design/LeftDrover.module.css";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CloseOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import { Divider, Button } from "antd";
 import { Link } from "react-router-dom";
 import img from "../../assets/imgs/bicycle-1.jpg";
+import {displayCartItems} from "../../actions/cartActions"
+import { useSelector, useDispatch } from "react-redux";
 
 export default function LeftDrover({ isvisible, setisvisible, open_close }) {
-   // const [isvisible, setisvisible] = useState("none");
 
    const bodyRef = useRef(document.querySelector("body"));
    const extraRef = useRef(null)
@@ -64,17 +65,26 @@ export default function LeftDrover({ isvisible, setisvisible, open_close }) {
       }
    ];
 
-   const iter = cart_list.map((item) => {
+   const dispatch = useDispatch();
+   const cartItems = useSelector((state) => {
+      return state.cartReducer.cart;
+   });
+
+   useEffect(()=>{
+      dispatch(displayCartItems())
+   }, [])
+
+   const iter = cartItems?.map((item) => {
       return (
-         <div key={item.id}>
+         <div key={item.productID}>
             <div className={css.card_item}>
                <div className={css.card_img}>
-                  <img src={item.img} alt={item.img} />
+                  <img src={"http://localhost:8001/"+item.image} alt={item.name} />
                </div>
                <div className={css.card_details}>
                   <div className={css.card_name}>{item.name}</div>
                   <div className={css.card_price}>
-                     {item.quantity} X {item.price}
+                     {item.price}
                   </div>
                </div>
                <div className={css.card_remove}>
@@ -89,7 +99,6 @@ export default function LeftDrover({ isvisible, setisvisible, open_close }) {
    return (
       <>
          <div className={css.extra_container} ref={extraRef} onClick={open_close}>
-
          </div>
          <div className={css.l_drover} ref={cart_list_}>
             <div className={css.closed_sign}>
@@ -102,8 +111,8 @@ export default function LeftDrover({ isvisible, setisvisible, open_close }) {
                <div className={css.price}>$1,1500</div>
             </div>
             <hr />
-            <Button className={css.cart_btn} type="primary" block>
-            <Link to="/shopping-cart">View Cart</Link>
+            <Button className={css.cart_btn} onClick={open_close} type="primary" block>
+            <Link to="shopping-cart">View Cart</Link>
             </Button>
             <br />
             <br />

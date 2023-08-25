@@ -3,7 +3,7 @@ import "./design/CardList.css";
 import { List } from "antd";
 import Card from "./Card";
 
-export default function CardList({ product_list, width, grid }) {
+export default function CardList({ product_list }) {
    
    return (
       <>
@@ -14,13 +14,13 @@ export default function CardList({ product_list, width, grid }) {
                sm: 2,
                md: 4,
                lg: 4,
-               xl: 6,
-               xxl: 6,
+               xl: 5,
+               xxl: 5,
             }}
-            dataSource={product_list}
+            dataSource={product_list?product_list:[]}
             renderItem={(element) => (
                <List.Item>
-                  <Card element={element} width={25} style={{ borderRadius: "0px" }} />
+                  <Card element={element} />
                </List.Item>
             )}
          />

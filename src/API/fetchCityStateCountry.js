@@ -6,7 +6,7 @@ const getResponse = (url, locality) => {
       xhr.setRequestHeader("Accept", "application/json");
       xhr.setRequestHeader(
          "Authorization",
-         "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJ2YWliaGF2a3VuZGFsaXlhN0BnbWFpbC5jb20iLCJhcGlfdG9rZW4iOiJ5TnZWaGlpaS1oNFp2Tk4zUi1QMjItcm9XblBRSmNjMG5BTXFrU0RaZEZoa25iM0MyaE1OZlhaaXN6TW4wc1lURnBBIn0sImV4cCI6MTY5MjY3OTQxMH0.FyDTLbLLfLX-AtiLSTh3BaudOUHw3H4BtXQw5OpBetE"
+         "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJ2YWliaGF2a3VuZGFsaXlhN0BnbWFpbC5jb20iLCJhcGlfdG9rZW4iOiJ5TnZWaGlpaS1oNFp2Tk4zUi1QMjItcm9XblBRSmNjMG5BTXFrU0RaZEZoa25iM0MyaE1OZlhaaXN6TW4wc1lURnBBIn0sImV4cCI6MTY5MzAyMjA1MH0.aUSBR17aGIzFeNRmOiyGaNeJXckTaYSoXf-EIgn35S8"
       );
 
       xhr.onload = function () {

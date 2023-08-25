@@ -1,6 +1,6 @@
 import { React, useState } from "react";
 import css from "./design/DisplayItems.module.css";
-import { Select, List} from "antd";
+import { Select, List } from "antd";
 import Card from "../cardListComponents/Card";
 
 const sortByPropertyName = (property) => (a, b) => {
@@ -12,7 +12,7 @@ const sortByPropertyName = (property) => (a, b) => {
 const sortByPropertyPrice = (property) => (a, b) => a[property] - b[property];
 
 
-export default function DisplayAccessories({path, accessories}) {
+export default function DisplayAllProducts({ path, products }) {
    const options = [
       { value: 0, label: "Sort By New Arrival" },
       { value: 1, label: "Sort By Name" },
@@ -23,26 +23,26 @@ export default function DisplayAccessories({path, accessories}) {
    const [sorting, setSorting] = useState(0)
 
    const sortfun = (perameter) => {
-      if (perameter === 0) return accessories?.slice()?.reverse();
-      if (perameter === 1) return accessories?.slice()?.sort(sortByPropertyName("name"));
-      if (perameter === 2) return accessories?.slice()?.sort(sortByPropertyPrice("price"));
-      if (perameter === 3) return accessories?.slice()?.sort(sortByPropertyPrice("price"))?.reverse();
+      // console.log(products)
+      if (perameter === 0) return products?.slice()?.reverse();
+      if (perameter === 1) return products?.slice()?.sort(sortByPropertyName("name"));
+      if (perameter === 2) return products?.slice()?.sort(sortByPropertyPrice("price"));
+      if (perameter === 3) return products?.slice()?.sort(sortByPropertyPrice("price"))?.reverse();
    };
 
    const handleSort = (value) => {
       setSorting(value)
    };
 
-
    return (
       <div className={css.displayItems}>
-         Home / Store / Accessories
+         Home / Store
          <div className={css.title + " group-3"}>
-            <h1>Accessories</h1>
+            <h1>All Products</h1>
          </div>
          <div className={css.listitems}>
             <div className={css.resultCount}>
-               <p>Showing all {accessories?.length} results</p>
+               <p>Showing all {products?.length} results</p>
             </div>
             <div className={css.sortingOptions}>
                <Select
@@ -52,6 +52,7 @@ export default function DisplayAccessories({path, accessories}) {
                   style={{
                      width: 200,
                      borderRadius: 0,
+                     color: "red",
                   }}
                   options={options}
                />
@@ -71,7 +72,7 @@ export default function DisplayAccessories({path, accessories}) {
                dataSource={sortfun(sorting)}
                renderItem={(element) => (
                   <List.Item>
-                     <Card element={element} style={{ borderRadius: "0px" }} />
+                     <Card element={element} width={"20px"} style={{ borderRadius: "0px" }} />
                   </List.Item>
                )}
             />

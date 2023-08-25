@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, Result } from 'antd';
+import { Link } from 'react-router-dom';
 export default function ErrorPage({status_code}) {
   let message
   if(status_code==="404")
@@ -11,7 +12,8 @@ export default function ErrorPage({status_code}) {
     status={status_code}
     title={status_code}
     subTitle={message}
-    extra={<Button type="primary">Back Home</Button>}
+    style={{paddingTop:"6rem"}}
+    extra={<Button type="primary"><Link to="/">Back Home</Link></Button>}
   />
   )
 }

@@ -82,7 +82,7 @@ export default function DisplayItems() {
       navigate(newUrl);
       setUrl(newUrl);
       setCatagory(cat);
-      console.log("URL UPDATED", newUrl);
+      // console.log("URL UPDATED", newUrl);
    };
 
    const handleFilter = (event) => {
@@ -111,7 +111,7 @@ export default function DisplayItems() {
    const [products, setProducts] = useState(all_products);
 
    useEffect(() => {
-      console.log(url, queryParams.get("catagory"));
+      // console.log(url, queryParams.get("catagory"));
       const cat = queryParams.get("catagory");
       if (cat === "All" || !cat) setProducts(all_products);
       else if (cat === "Bicycle") setProducts(bicycles);
@@ -127,7 +127,7 @@ export default function DisplayItems() {
             <>
                <div className={css.listitems}>
                   <div className={css.resultCount}>
-                     <p>Showing all {accessories.length} results</p>
+                     <p>Showing all {accessories?.length} results</p>
                   </div>
                   <div className={css.sortingOptions}>
                      <Select
@@ -154,7 +154,7 @@ export default function DisplayItems() {
                         xl: 3,
                         xxl: 3,
                      }}
-                     dataSource={accessories}
+                     dataSource={accessories?accessories:[]}
                      renderItem={(element) => (
                         <List.Item>
                            <Card element={element} width={"20px"} style={{ borderRadius: "0px" }} />
@@ -169,7 +169,7 @@ export default function DisplayItems() {
             <>
                <div className={css.listitems}>
                   <div className={css.resultCount}>
-                     <p>Showing all {bicycles.length} results</p>
+                     <p>Showing all {bicycles?.length} results</p>
                   </div>
                   <div className={css.sortingOptions}>
                      <Select
@@ -196,7 +196,7 @@ export default function DisplayItems() {
                         xl: 3,
                         xxl: 3,
                      }}
-                     dataSource={bicycles}
+                     dataSource={bicycles?bicycles:[]}
                      renderItem={(element) => (
                         <List.Item>
                            <Card element={element} width={"20px"} style={{ borderRadius: "0px" }} />
@@ -211,7 +211,7 @@ export default function DisplayItems() {
          <>
             <div className={css.listitems}>
                <div className={css.resultCount}>
-                  <p>Showing all {all_products.length} results</p>
+                  <p>Showing all {all_products?.length} results</p>
                </div>
                <div className={css.sortingOptions}>
                   <Select
@@ -238,7 +238,7 @@ export default function DisplayItems() {
                      xl: 3,
                      xxl: 3,
                   }}
-                  dataSource={all_products}
+                  dataSource={all_products?all_products:[]}
                   renderItem={(element) => (
                      <List.Item>
                         <Card element={element} width={"20px"} style={{ borderRadius: "0px" }} />
@@ -258,25 +258,6 @@ export default function DisplayItems() {
                <h1>{catagory ? catagory : "All Products"}</h1>
             </div>
             {listToBeDisplay()}
-            {/* <div className={css.cardlist}>
-               <List
-                  grid={{
-                     gutter: 16,
-                     xs: 1,
-                     sm: 2,
-                     md: 2,
-                     lg: 3,
-                     xl: 3,
-                     xxl: 3,
-                  }}
-                  dataSource={all_products}
-                  renderItem={(element) => (
-                     <List.Item>
-                        <Card element={element} width={"20px"} style={{ borderRadius: "0px" }} />
-                     </List.Item>
-                  )}
-               />
-            </div> */}
          </div>
 
          <div className={css.filters}>
@@ -332,7 +313,7 @@ export default function DisplayItems() {
                      >
                         All
                      </span>{" "}
-                     ({all_products.length})
+                     ({all_products?.length})
                   </li>
                   <li>
                      <span
@@ -343,7 +324,7 @@ export default function DisplayItems() {
                      >
                         Bicycle
                      </span>{" "}
-                     ({bicycles.length})
+                     ({bicycles?.length})
                   </li>
                   <li>
                      <span
@@ -355,7 +336,7 @@ export default function DisplayItems() {
                      >
                         Accessory
                      </span>{" "}
-                     ({accessories.length})
+                     ({accessories?.length})
                   </li>
                </ul>
             </div>

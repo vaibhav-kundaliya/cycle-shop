@@ -1,97 +1,71 @@
-import { React, useState, useRef } from "react";
+import { React, useState, useRef, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import css from "./design/ProductDescription.module.css";
-import CustomButton from "../buttonComponents/CustomButton";
 import SubNavbar from "./SubNavbar";
 import CardList from "../cardListComponents/CardList";
-import { Button, Image } from "antd";
-import outercss from "./design/PriceRange.module.css";
+import { Radio, Image, Button } from "antd";
+import axios from "axios";
+import fetchProduct from "../../API/fetchProduct";
+import ErrorPage from "../../pages/ErrorPage";
 
 export default function ProductDescription() {
-   let accessory = [
-      {
-         id: 1,
-         name: "Kryo X26 MTB – Model K",
-         price: "$350.00",
-         img: require("../../assets/imgs/bicycle-1.jpg"),
-         rating: 4,
-         description: "Product Description",
-      },
-      {
-         id: 2,
-         name: "Kryo X26 MTB – Model X",
-         price: "$350.00",
-         img: require("../../assets/imgs/bicycle-2.jpg"),
-         rating: 1,
-         description: "Product Description",
-      },
-      {
-         id: 3,
-         name: "Kryo X26 MTB – Model Y",
-         price: "$350.00",
-         img: require("../../assets/imgs/bicycle-3.jpg"),
-         rating: 5,
-         description: "Product Description",
-      },
-      {
-         id: 4,
-         name: "Kryo X26 MTB – Model Z",
-         price: "$350.00",
-         img: require("../../assets/imgs/bicycle-4.jpg"),
-         rating: 0,
-         description: "Product Description",
-      },
-   ];
+   const location = useLocation();
+   const SKU = location.pathname.split("/")[2];
 
-   const product = {
-      id: 1,
-      name: "Bicycle Gloves Blue",
-      price: "$27.00-$35.00",
-      pair: { L: "$27.00", M: "$30.00", XL: "$35.00" },
-      img: require("../../assets/imgs/gloves-1.jpg"),
-      rating: 4,
-      description: "Product Description",
-      catagory: "Accessories",
-   };
+   const [product, setProduct] = useState({});
 
-   let initial_visibility;
-   let iter;
-
-   if (product.pair) initial_visibility = true;
-   else initial_visibility = false;
-
-   const [price, setPrice] = useState(product.price);
-   const [memory, setMemory] = useState(null);
-   const [disabled, setDisability] = useState(initial_visibility);
-
-   const div_show_hide = useRef(null);
-   const clearButton = useRef(null);
-
-   const Showprice = (element) => {
-      if (memory !== element) {
-         setPrice(product.pair[element]);
-         setDisability(false);
-         div_show_hide.current.style.maxHeight = "60px";
-         clearButton.current.style.display = "block";
-         setMemory(element);
-      } else {
-         clearButton.current.style.display = "none";
-         div_show_hide.current.style.maxHeight = "0px";
-         setDisability(true);
-         setMemory(null);
+   const [relatedProduct, setRelatedProducs] = useState([]);
+   const [isValidSKU, setIsValidSKU] = useState(true);
+   const fetchData = async (category, SKU) => {
+      if (category === "Bicycle") {
+         let bicycle_list = await fetchProduct("http://localhost:8001/productFilter?minPrice=0&maxPrice=100000&category=Bicycle");
+         bicycle_list = bicycle_list
+            ?.reverse()
+            .filter((item) => item.SKU !== SKU)
+            .slice(0, 4);
+         setRelatedProducs(bicycle_list);
+      } else if (category === "Accessory") {
+         let accessory_list = await fetchProduct("http://localhost:8001/productFilter?minPrice=0&maxPrice=100000&category=Accessory");
+         accessory_list = accessory_list
+            ?.reverse()
+            ?.filter((item) => item.SKU !== SKU)
+            ?.slice(0, 4);
+         setRelatedProducs(accessory_list);
       }
    };
 
-   if (product.pair) {
-      iter = Object.keys(product.pair).map((element) => {
-         return (
-            <div key={element} style={{ display: "inline", marginRight: "5px" }}>
-               <Button className={outercss.size} onClick={() => Showprice(element)} style={{ borderRadius: 0 }}>
-                  {element}
-               </Button>
-            </div>
-         );
+   useEffect(() => {
+      axios
+         .post("http://localhost:8001/getBySKU", { SKU: SKU }, { headers: { "Content-Type": "application/json" }, withCredentials: true })
+         .then((response) => {
+            console.log(response);
+            setProduct(response.data.data);
+            fetchData(response.data.data.category, response.data.data.SKU);
+            return "success";
+         })
+         .catch((error) => {
+            if (error.response) {
+               console.error(error.response);
+               setIsValidSKU(false)
+            } else {
+               console.error("Network error: " + error.message);
+            }
+         });
+   }, [SKU]);
+
+   const sizeArray = () => {
+      const pair = [];
+      product?.size?.map((element) => {
+         pair.push({ label: element, value: element });
       });
-   }
+      if (pair[0]?.label) return pair;
+      return [];
+   };
+
+   const [value3, setValue3] = useState("");
+   const onChange3 = ({ target: { value } }) => {
+      setValue3(value);
+   };
 
    const fun = (e) => {
       const container = document.querySelector(".product_description_img");
@@ -116,76 +90,64 @@ export default function ProductDescription() {
 
    return (
       <>
+      {
+         isValidSKU?
          <div className={css.outer_product_desc}>
             <div className={css.product_description}>
                <div className={css.product_description_inner}>
                   <div className={css.img_text}>
-                     <div className={css.product_description_img+" product_description_img"}>
-                        <Image className={css.zoom_image+" zoom-image"} src={product.img} onMouseMove={fun} onMouseLeave={revfun} alt="Image" />
+                     <div className={css.product_description_img + " product_description_img"}>
+                        <Image className={css.zoom_image + " zoom-image"} src={"http://localhost:8000/" + product?.image} onMouseMove={fun} onMouseLeave={revfun} alt="Image" />
                      </div>
 
                      <div className={css.product_description_text}>
                         <div className="path">
-                           Home / {product.catagory} / {product.name}
+                           Home / {product?.category} / {product?.name}
                         </div>
                         <div className={css.catagory}>
-                           <h3>Bicycles</h3>
+                           <h3>{product?.category}</h3>
                         </div>
-                        <div className={css.product_name+' group-3'}>{product.name}</div>
+                        <div className={css.product_name + " group-3"}>{product?.name}</div>
                         <div className={css.cost}>
-                           <div className={css.amount}>{product.price}</div> & Free Shipping
+                           <div className={css.amount}>${product?.price}</div> & Free Shipping
                         </div>
-                        <div className={css.text_dis}>
-                           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                           exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                        </div>
+                        <div className={css.text_dis}>{product?.productDetails}</div>
 
                         <div className={css.productSize}>
                            <div>
-                              <div>{iter ? iter : <div></div>}</div>
-                           </div>
-                           <div
-                              className={css.clearspan}
-                              onClick={() => {
-                                 clearButton.current.style.display = "none";
-                                 div_show_hide.current.style.maxHeight = "0px";
-                                 setDisability(true);
-                                 setMemory(null);
-                              }}
-                              ref={clearButton}
-                           >
-                              Clear
-                           </div>
-                           <hr />
-                           <div className={css.cost_hidden} ref={div_show_hide}>
-                              <div className={css.amount}>{price}</div>
+                              <Radio.Group options={sizeArray()} onChange={onChange3} value={value3} optionType="button" />
                            </div>
                         </div>
-
+                        <hr />
                         <div className={css.btns_add}>
                            <div>
-                              <input type="number" name="quantity" defaultValue={1} min={1} />
-                           </div>
-                           <div>
-                              <CustomButton disabled={disabled} text="ADD TO CART" />
+                              {value3 || !sizeArray()?.length ? (
+                                 <Button type="primary">ADD TO CART</Button>
+                              ) : (
+                                 <Button disabled type="primary">
+                                    ADD TO CART
+                                 </Button>
+                              )}
                            </div>
                         </div>
                         <hr />
                         <span>
-                           Category: <span className={css.catagory}>{product.catagory}</span>
+                           Category: <span className={css.catagory}>{product?.category}</span>
                         </span>
                      </div>
                   </div>
                   <br />
                   <br />
-                  <SubNavbar></SubNavbar>
+                  <SubNavbar product={product}></SubNavbar>
                   <div>
-                     <div className={css.related_product_title+" group-3"}>Related Products</div>
-                     <CardList title="Related products" product_list={accessory} width={200} />
+                     <div className={css.related_product_title + " group-3"}>Related Products</div>
+                     <CardList title="Related products" product_list={relatedProduct ? relatedProduct : []} />
                   </div>
                </div>
             </div>
-         </div>
+         </div>:
+         <ErrorPage status_code="404"></ErrorPage>
+      }
       </>
    );
 }
