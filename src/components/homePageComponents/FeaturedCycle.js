@@ -13,7 +13,7 @@ export default function FeaturedCycle() {
       backgroundPosition: "center",
       backgroundRepeat: "no-repeat",
       backgroundSize: "cover",
-      minHeight: "100vh",
+      minHeight: "80vh",
       width: "100%",
    };
    return (
