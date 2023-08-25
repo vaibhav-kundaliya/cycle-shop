@@ -25,15 +25,12 @@ function Cards({ element, width }) {
             style={{borderRadius:0}}
             cover={<img alt={element.name} onClick={gotoProductDetails} src={"http://localhost:8000/"+element.image} style={{borderRadius: "0px"}}/>}
          >
-            <Meta title={element.name}></Meta>
             <div>
             {/* <Rate disabled defaultValue={element.rating} style={{color:"gray"}} /> */}
-            <br />
             </div>
-            <Meta description={`${element.price}$`} />
+            <Meta title={element.name} description={`${element.price}$`} />
             <br />
-            <PriceRange setPrice={setPrice} price_pair={element.pair} />
-
+            {/* <PriceRange setPrice={setPrice} price_pair={element.pair} /> */}
             <div id="icon" className={css.addtocart_icon} style={{display: visibility}} >
                <ShoppingFilled  className="icon" style={{ fontSize: "20px" }} />
             </div>

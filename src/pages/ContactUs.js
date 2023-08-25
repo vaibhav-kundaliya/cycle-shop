@@ -49,14 +49,14 @@ export default function ContactUs() {
                   <ToolOutlined style={{ fontSize: 48 }} />
                </span>
                <div className={css.numbers}>1 800 755 60 23</div>
-               <div>Dealership Related Enquiries</div>
+               <div>Service Related Enquiries</div>
             </div>
             <div>
                <span>
                   <FundOutlined style={{ fontSize: 48 }} />
                </span>
                <div className={css.numbers}>1 800 755 60 23</div>
-               <div>Dealership Related Enquiries</div>
+               <div>Sales Related Enquiries</div>
             </div>
          </div>
          <div className={css.contactUsFormDetails}>

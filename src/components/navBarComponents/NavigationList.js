@@ -5,7 +5,6 @@ export default function NavigationList({ showModal }) {
    const isAuthenticated = sessionStorage.getItem("user")
    const signOut = () => {
       sessionStorage.removeItem('user');
-      window.location.reload()
    }
 
 
