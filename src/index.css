@@ -5,7 +5,10 @@
   --block-color: rgb(255, 255, 255);
 }
 
-
+a{
+  text-decoration: none;
+  color: inherit;
+}
 
 *::selection{
   background-color: var(--website-color);

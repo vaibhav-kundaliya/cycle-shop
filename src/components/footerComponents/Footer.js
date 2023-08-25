@@ -5,6 +5,7 @@ import { createFromIconfontCN, InstagramOutlined, FacebookOutlined, YoutubeOutli
 import { Col, Row } from "antd";
 
 import { Space } from "antd";
+import { Link } from "react-router-dom";
 
 const IconFont = createFromIconfontCN({
    scriptUrl: "//at.alicdn.com/t/font_8d5l8fzk5b87iudi.js",
@@ -20,10 +21,11 @@ export default function Footer() {
                </Col>
                <Col xs={24} sm={6}>
                   <div className="group-5">Usefull Links</div>
-                  <p className={css.links}>Home</p>
-                  <p className={css.links}>Shop</p>
+                  <a href="http://localhost:3000/"><p className={css.links}>Home</p></a>
+                  <a href="http://localhost:3000/store"><p className={css.links}>Shop</p></a>
+                  <a href="http://localhost:3000/contact"><p className={css.links}>Contact Us</p></a>
                   <p className={css.links}>About Us</p>
-                  <p className={css.links}>Contact Us</p>
+                  
                </Col>
                <Col xs={24} sm={6}>
                   <div className="group-5">Our Collection</div>
