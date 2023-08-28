@@ -5,7 +5,6 @@ import { CloseOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import { Divider, Button } from "antd";
 import { Link } from "react-router-dom";
 import img from "../../assets/imgs/bicycle-1.jpg";
-import {displayCartItems} from "../../actions/cartActions"
 import { useSelector, useDispatch } from "react-redux";
 
 export default function LeftDrover({ isvisible, open_close }) {
@@ -29,57 +28,48 @@ export default function LeftDrover({ isvisible, open_close }) {
 
    const cart_list = [
       {
-         id: 1,
+         productID: 1,
          name: "Kryo X26 MTB – Model K",
-         img: img,
+         image: img,
          price: "$350",
          quantity: "13",
       },
       {
-         id: 2,
+         productID: 2,
          name: "Kryo X26 MTB – Model K",
-         img: img,
+         image: img,
          price: "$350",
          quantity: "14",
       },
       {
-         id: 4,
+         productID: 4,
          name: "Kryo X26 MTB – Model K",
-         img: img,
+         image: img,
          price: "$350",
          quantity: "1",
       },
       {
-         id: 5,
+         productID: 5,
          name: "Kryo X26 MTB – Model K",
-         img: img,
+         image: img,
          price: "$350",
          quantity: "1",
       },
       {
-         id: 6,
+         productID: 6,
          name: "Kryo X26 MTB – Model K",
-         img: img,
-         price: "$350",
+         image: img,
+         card_price: "$350",
          quantity: "1",
       }
    ];
 
-   const dispatch = useDispatch();
-   const cartItems = useSelector((state) => {
-      return state.cartReducer.cart;
-   });
-
-   useEffect(()=>{
-      dispatch(displayCartItems())
-   }, [])
-
-   const iter = cartItems?.map((item) => {
+   const iter = cart_list?.map((item) => {
       return (
          <div key={item.productID}>
             <div className={css.card_item}>
                <div className={css.card_img}>
-                  <img src={"http://localhost:8001/"+item.image} alt={item.name} />
+                  <img src={process.env.REACT_APP_CONSUMER_URL+""+item.image} alt={item.name} />
                </div>
                <div className={css.card_details}>
                   <div className={css.card_name}>{item.name}</div>
