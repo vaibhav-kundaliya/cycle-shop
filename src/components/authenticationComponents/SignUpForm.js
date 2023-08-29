@@ -3,7 +3,6 @@ import { Form, Input, Button, Select, message } from "antd";
 import css from "./design/SignUpForm.module.css";
 import postRequest from "../../API/postRequest";
 import { getAllCountries, getAllStates, getAllCities } from "../../actions/fetchCountryActions";
-import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { PHONENUMBER, ZIPCODE, PASSWORD } from "../../utilities/regex";
@@ -40,7 +39,6 @@ export default function SignUpForm({ setActiveTab }) {
    const userSignUp = async (req_body) => {
       try {
          const responseData = await postRequest(process.env.REACT_APP_CONSUMER_URL + "signup", req_body);
-         sessionStorage.setItem("user", responseData.data.data.email);
          messageApi.open({
             type: "success",
             content: `Welcome ${responseData.data.data.firstName}, Please Sign In :)`,

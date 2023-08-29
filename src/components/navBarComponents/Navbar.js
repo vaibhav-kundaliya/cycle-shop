@@ -8,9 +8,7 @@ import { useLocation } from "react-router-dom";
 
 function Navbar(props) {
    
-   let items_count = 10;
    let total_money = 0.0;
-
    const location = useLocation();
    const style = (location.pathname==="/" || location.pathname==="/contact") ?{backgroundColor:"transparent"}:{}
 

@@ -1,31 +1,28 @@
 import { React, useEffect, useState } from "react";
 import { Input, Slider, Button } from "antd";
-import CustomButton from "../components/buttonComponents/CustomButton";
 import DisplayAccessories from "../components/bicycleShopComponents/DisplayAccessories";
 import DisplayBicycles from "../components/bicycleShopComponents/DisplayBicycles";
 import DisplayAllProducts from "../components/bicycleShopComponents/DisplayAllProducts";
 import { useLocation, useNavigate, Routes, Route, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getAccessories, getBicycles, getAllProducts } from "../actions/fetchActions";
+import { getAccessories, getBicycles, getAllProducts, getAllProducts_keyword } from "../actions/fetchActions";
 import css from "../components/bicycleShopComponents/design/DisplayItems.module.css";
 const { Search } = Input;
 
 export default function BicyclesShop() {
-   const minPrice = 0,
-      maxPrice = 1000;
+   const minPrice = 0;
+   const maxPrice = 1000;
    const location = useLocation();
+   const navigate = useNavigate();
+   const dispatch = useDispatch();
    const queryParams = new URLSearchParams(location.search);
    const [range, setRange] = useState([queryParams.get("minPrice") || minPrice, queryParams.get("maxPrice") || maxPrice]);
+   const [url, setUrl] = useState(window.location.href);
+   const [searchValue, setSearchValue] = useState("");
 
    const displayRange = (element) => {
       setRange([element[0], element[1]]);
    };
-
-   const navigate = useNavigate();
-
-   let path = location.pathname;
-
-   const [url, setUrl] = useState(window.location.href);
 
    const AssignFilters = (min, max) => {
       const newSearchParams = new URLSearchParams();
@@ -41,7 +38,23 @@ export default function BicyclesShop() {
       AssignFilters(range[0], range[1]);
    };
 
-   const dispatch = useDispatch();
+   const handleReset = (event) => {
+      event.preventDefault();
+      AssignFilters(minPrice, maxPrice);
+      setRange([minPrice, maxPrice]);
+   };
+
+   const handleSearch = (keyword) => {
+      navigate("");
+      dispatch(getAllProducts_keyword(keyword));
+      setSearchValue("");
+   };
+
+   useEffect(() => {
+      dispatch(getAllProducts(range));
+      dispatch(getBicycles(range));
+      dispatch(getAccessories(range));
+   }, [url]);
 
    const all_products = useSelector((state) => {
       return state.productReducer.all_products;
@@ -54,19 +67,6 @@ export default function BicyclesShop() {
    const accessories = useSelector((state) => {
       return state.productReducer.accessories;
    });
-
-   useEffect(() => {
-      dispatch(getAllProducts(`http://localhost:8001/productFilter?minPrice=${range[0]}&maxPrice=${range[1]}&category=`));
-      dispatch(getBicycles(`http://localhost:8001/productFilter?minPrice=${range[0]}&maxPrice=${range[1]}&category=Bicycle`));
-      dispatch(getAccessories(`http://localhost:8001/productFilter?minPrice=${range[0]}&maxPrice=${range[1]}&category=Accessory`));
-   }, [url]);
-
-   const [searchValue, setSearchValue] = useState("");
-   const handleSearch = (event) => {
-     navigate("");
-     dispatch(getAllProducts(`http://localhost:8001/searchProduct/keyword?keyword=${event}`));
-     setSearchValue("");
-   };
 
    return (
       <>
@@ -112,9 +112,9 @@ export default function BicyclesShop() {
                         <div>${range[1]}</div>
                      </div>
                      <div className={css.filterbuttons}>
-                        <div onClick={() => setRange([minPrice, maxPrice])}>
-                           <CustomButton text="RESET" />
-                        </div>
+                        <Button onClick={handleReset} htmlType="reset">
+                           RESET
+                        </Button>
                         <Button type="primary" htmlType="submit">
                            APPLY
                         </Button>

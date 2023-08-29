@@ -1,7 +1,7 @@
-import { React, useEffect, useState } from "react";
+import { React, useState } from "react";
 import css from "./design/DisplayItems.module.css";
-import { Select, List } from "antd";
-import Card from "../cardListComponents/Card";
+import { Select } from "antd";
+import CardList from "../cardListComponents/CardList";
 
 const sortByPropertyName = (property) => (a, b) => {
    if (a[property] < b[property]) return -1;
@@ -11,8 +11,7 @@ const sortByPropertyName = (property) => (a, b) => {
 
 const sortByPropertyPrice = (property) => (a, b) => a[property] - b[property];
 
-
-export default function DisplayAccessories({ path, bicycles }) {
+export default function DisplayAccessories({ bicycles }) {
    const options = [
       { value: 0, label: "Sort By New Arrival" },
       { value: 1, label: "Sort By Name" },
@@ -23,18 +22,14 @@ export default function DisplayAccessories({ path, bicycles }) {
    const [sorting, setSorting] = useState(0)
 
    const sortfun = (perameter) => {
-      if (perameter === 0) return bicycles?.slice()?.reverse();
-      if (perameter === 1) return bicycles?.slice()?.sort(sortByPropertyName("name"));
-      if (perameter === 2) return bicycles?.slice()?.sort(sortByPropertyPrice("price"));
-      if (perameter === 3) return bicycles?.slice()?.sort(sortByPropertyPrice("price"))?.reverse();
+      if (perameter === 0) return bicycles?.reverse();
+      if (perameter === 1) return bicycles?.sort(sortByPropertyName("name"));
+      if (perameter === 2) return bicycles?.sort(sortByPropertyPrice("price"));
+      if (perameter === 3) return bicycles?.sort(sortByPropertyPrice("price"))?.reverse();
    };
 
    const handleSort = (value) => {
       setSorting(value)
-   };
-
-   const handleSearch = (value) => {
-      // console.log(`Selected: ${value}`);
    };
 
    return (
@@ -62,23 +57,7 @@ export default function DisplayAccessories({ path, bicycles }) {
             </div>
          </div>
          <div className={css.cardlist}>
-            <List
-               grid={{
-                  gutter: 16,
-                  xs: 1,
-                  sm: 2,
-                  md: 2,
-                  lg: 3,
-                  xl: 3,
-                  xxl: 3,
-               }}
-               dataSource={sortfun(sorting)}
-               renderItem={(element) => (
-                  <List.Item>
-                     <Card element={element} width={"20px"} style={{ borderRadius: "0px" }} />
-                  </List.Item>
-               )}
-            />
+            <CardList product_list={sortfun(sorting)} />
          </div>
       </div>
    );

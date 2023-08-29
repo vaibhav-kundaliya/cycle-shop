@@ -1,10 +1,8 @@
 import React from "react";
 import css from "./design/Footer.module.css";
 import logoimg from "../../assets/imgs/logo-1-80x48.png";
+import { Col, Row, Space } from "antd";
 import { InstagramOutlined, FacebookOutlined, YoutubeOutlined, TwitterOutlined } from "@ant-design/icons";
-import { Col, Row } from "antd";
-
-import { Space } from "antd";
 
 export default function Footer() {
    return (
@@ -16,11 +14,10 @@ export default function Footer() {
                </Col>
                <Col xs={24} sm={6}>
                   <div className="group-5">Usefull Links</div>
-                  <a href="http://localhost:3000/"><p className={css.links}>Home</p></a>
-                  <a href="http://localhost:3000/store"><p className={css.links}>Shop</p></a>
-                  <a href="http://localhost:3000/contact"><p className={css.links}>Contact Us</p></a>
-                  <p className={css.links}>About Us</p>
-                  
+                  <a href={process.env.REACT_APP_CONSUMER_URL}><p className={css.links}>Home</p></a>
+                  <a href={process.env.REACT_APP_CONSUMER_URL+"store"}><p className={css.links}>Shop</p></a>
+                  <a href={process.env.REACT_APP_CONSUMER_URL+"contact"}><p className={css.links}>Contact Us</p></a>
+                  <p className={css.links}>About Us</p>        
                </Col>
                <Col xs={24} sm={6}>
                   <div className="group-5">Our Collection</div>

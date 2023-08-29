@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import css from "./design/DisplayItems.module.css";
-import { Select, List } from "antd";
-import Card from "../cardListComponents/Card";
+import { Select } from "antd";
+import CardList from "../cardListComponents/CardList";
 
 const sortByPropertyName = (property) => (a, b) => {
    if (a[property] < b[property]) return -1;
@@ -58,23 +58,7 @@ export default function DisplayAllProducts({ path, products }) {
             </div>
          </div>
          <div className={css.cardlist}>
-            <List
-               grid={{
-                  gutter: 16,
-                  xs: 1,
-                  sm: 2,
-                  md: 2,
-                  lg: 3,
-                  xl: 3,
-                  xxl: 3,
-               }}
-               dataSource={sortfun(sorting)}
-               renderItem={(element) => (
-                  <List.Item>
-                     <Card element={element} width={"20px"} style={{ borderRadius: "0px" }} />
-                  </List.Item>
-               )}
-            />
+            <CardList product_list={sortfun(sorting)} />
          </div>
       </div>
    );
