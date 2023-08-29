@@ -1,7 +1,6 @@
-import {React, useEffect} from 'react'
-import {Outlet, Navigate, Route} from "react-router-dom"
+import {React} from 'react'
+import {Outlet} from "react-router-dom"
 import ErrorPage from '../../pages/ErrorPage'
-import { useGlobalContext } from '../../context'
 export default function PrivateRoute() {
   const isAuthenticated = sessionStorage.getItem("user")
   

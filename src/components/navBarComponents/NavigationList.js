@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useGlobalContext } from "../../context";
 export default function NavigationList({ showModal }) {
    const isAuthenticated = sessionStorage.getItem("user")
    const signOut = () => {

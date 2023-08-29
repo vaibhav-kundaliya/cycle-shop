@@ -23,7 +23,7 @@ function Cards({ element, width }) {
             onMouseLeave={()=>setVisibility("none")}
             hoverable
             style={{borderRadius:0}}
-            cover={<img alt={element.name} onClick={gotoProductDetails} src={"http://localhost:8000/"+element.image} style={{borderRadius: "0px"}}/>}
+            cover={<img alt={element.name} onClick={gotoProductDetails} src={process.env.REACT_APP_ADMIN_URL+""+element.image} style={{borderRadius: "0px"}}/>}
          >
             <div>
             {/* <Rate disabled defaultValue={element.rating} style={{color:"gray"}} /> */}

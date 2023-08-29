@@ -5,7 +5,7 @@ import SubNavbar from "./SubNavbar";
 import CardList from "../cardListComponents/CardList";
 import { Radio, Image, Button, Tooltip } from "antd";
 import axios from "axios";
-import fetchProduct from "../../API/fetchProduct";
+import getRequest from "../../API/getRequest";
 import ErrorPage from "../../pages/ErrorPage";
 
 export default function ProductDescription() {
@@ -19,15 +19,15 @@ export default function ProductDescription() {
    const [isValidSKU, setIsValidSKU] = useState(true);
    const fetchData = async (category, SKU) => {
       if (category === "Bicycle") {
-         let bicycle_list = await fetchProduct("http://localhost:8001/productFilter?minPrice=0&maxPrice=100000&category=Bicycle");
-         bicycle_list = bicycle_list
+         let bicycle_list = await getRequest(process.env.REACT_APP_CONSUMER_URL+"productFilter?minPrice=0&maxPrice=100000&category=Bicycle");
+         bicycle_list = bicycle_list.data.data
             ?.reverse()
             .filter((item) => item.SKU !== SKU)
             .slice(0, 4);
          setRelatedProducs(bicycle_list);
       } else if (category === "Accessory") {
-         let accessory_list = await fetchProduct("http://localhost:8001/productFilter?minPrice=0&maxPrice=100000&category=Accessory");
-         accessory_list = accessory_list
+         let accessory_list = await getRequest(process.env.REACT_APP_CONSUMER_URL+"productFilter?minPrice=0&maxPrice=100000&category=Accessory");
+         accessory_list = accessory_list.data.data
             ?.reverse()
             ?.filter((item) => item.SKU !== SKU)
             ?.slice(0, 4);
@@ -37,7 +37,7 @@ export default function ProductDescription() {
 
    useEffect(() => {
       axios
-         .post("http://localhost:8001/getBySKU", { SKU: SKU }, { headers: { "Content-Type": "application/json" }, withCredentials: true })
+         .post(process.env.REACT_APP_CONSUMER_URL+"getBySKU", { SKU: SKU }, { headers: { "Content-Type": "application/json" }, withCredentials: true })
          .then((response) => {
             console.log(response);
             setProduct(response.data.data);
@@ -97,7 +97,7 @@ export default function ProductDescription() {
                   <div className={css.product_description_inner}>
                      <div className={css.img_text}>
                         <div className={css.product_description_img + " product_description_img"}>
-                           <Image className={css.zoom_image + " zoom-image"} src={"http://localhost:8000/" + product?.image} onMouseMove={fun} onMouseLeave={revfun} alt="Image" />
+                           <Image className={css.zoom_image + " zoom-image"} src={process.env.REACT_APP_ADMIN_URL+"" + product?.image} onMouseMove={fun} onMouseLeave={revfun} alt="Image" />
                         </div>
 
                         <div className={css.product_description_text}>

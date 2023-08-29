@@ -23,7 +23,6 @@ export default function DisplayAllProducts({ path, products }) {
    const [sorting, setSorting] = useState(0)
 
    const sortfun = (perameter) => {
-      // console.log(products)
       if (perameter === 0) return products?.slice()?.reverse();
       if (perameter === 1) return products?.slice()?.sort(sortByPropertyName("name"));
       if (perameter === 2) return products?.slice()?.sort(sortByPropertyPrice("price"));
