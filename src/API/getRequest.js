@@ -1,7 +1,6 @@
 import axios from "axios";
 const getRequest = async (url, headers = {}) => {
    try {
-      console.log({ "Content-Type": "application/json", ...headers }, url)
       const response = await axios.get(url, {
          withCredentials: true,
          headers: { "Content-Type": "application/json", ...headers },

@@ -57,7 +57,7 @@ export default function Home() {
                <div className={css.NewArraivalTitle + " group-3"}>Explore Accesory</div>
                <div className={css.NewArraivalList}>
                   <CardList product_list={accessories ? accessories : []} />
-                  <div style={{ width: "fit-content", margin: "auto" }}>
+                  <div className={css.view_all_button_center}>
                      <Button type="primary">VIEW ALL</Button>
                   </div>
                </div>

@@ -6,11 +6,9 @@ import { getAllCountries, getAllStates, getAllCities } from "../../actions/fetch
 import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { PHONENUMBER, ZIPCODE, PASSWORD } from "../../utilities/regex";
 
 export default function SignUpForm({ setActiveTab }) {
-   const phoneNumberRegex = /^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/;
-   const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{8,}$/;
-   const zipcodeRegex = /\d{6}/;
    const [messageApi, contextHolder] = message.useMessage();
    const [form] = Form.useForm();
    const dispatch = useDispatch();
@@ -115,7 +113,7 @@ export default function SignUpForm({ setActiveTab }) {
                   ]}
                   label="First Name"
                >
-                  <Input />
+                  <Input placeholder="Enter First Name"/>
                </Form.Item>
 
                <Form.Item
@@ -128,7 +126,7 @@ export default function SignUpForm({ setActiveTab }) {
                   ]}
                   label="Last Name"
                >
-                  <Input />
+                  <Input placeholder="Enter Last Name"/>
                </Form.Item>
 
                <Form.Item
@@ -152,7 +150,7 @@ export default function SignUpForm({ setActiveTab }) {
                      message: "Please input your phone number!",
                   },
                   {
-                     pattern: phoneNumberRegex,
+                     pattern: PHONENUMBER,
                      message: "Input valid phone number !",
                   },
                ]}
@@ -171,7 +169,7 @@ export default function SignUpForm({ setActiveTab }) {
                name="address"
                label="Address"
             >
-               <Input />
+               <Input placeholder="Enter Address" />
             </Form.Item>
 
             <Form.Item
@@ -182,7 +180,7 @@ export default function SignUpForm({ setActiveTab }) {
                      message: "Please input your Zip Code",
                   },
                   {
-                     pattern: zipcodeRegex,
+                     pattern: ZIPCODE,
                      message: "Please enter a valid Zip Code!",
                   },
                ]}
@@ -258,14 +256,14 @@ export default function SignUpForm({ setActiveTab }) {
                      message: "Please input your password!",
                   },
                   {
-                     pattern: passwordRegex,
+                     pattern: PASSWORD,
                      message: "Enter Password as per instruction",
                   },
                ]}
                help="Your Password must contains 8 latters having at-least one capital latter, one special character and one digit !"
                label="Password"
             >
-               <Input.Password />
+               <Input.Password placeholder="Enter password as per description"/>
             </Form.Item>
             <div className={css.buttons}>
                <Button type="primary" htmlType="submit">
