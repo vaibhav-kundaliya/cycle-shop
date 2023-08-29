@@ -7,38 +7,37 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-
 export default function SignUpForm({ setActiveTab }) {
    const phoneNumberRegex = /^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/;
    const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{8,}$/;
-   const zipcodeRegex = /\d{5}/;
+   const zipcodeRegex = /\d{6}/;
    const [messageApi, contextHolder] = message.useMessage();
    const [form] = Form.useForm();
-   const dispatch = useDispatch()
+   const dispatch = useDispatch();
 
-   const countryList = useSelector((state)=>{
-      return state.countryReducer.countries
-   })
+   const countryList = useSelector((state) => {
+      return state.countryReducer.countries;
+   });
 
-   const stateList = useSelector((state)=>{
-      return state.countryReducer.states
-   })
+   const stateList = useSelector((state) => {
+      return state.countryReducer.states;
+   });
 
-   const cityList = useSelector((state)=>{
-      return state.countryReducer.cities
-   })
-   
-   useEffect(()=>{
-      dispatch(getAllCountries())
-   }, [])
+   const cityList = useSelector((state) => {
+      return state.countryReducer.cities;
+   });
+
+   useEffect(() => {
+      dispatch(getAllCountries());
+   }, []);
 
    const onClickCountry = (target) => {
-      dispatch(getAllStates(target))
-   }
+      dispatch(getAllStates(target));
+   };
 
    const onClickState = (target) => {
-      dispatch(getAllCities(target))
-   }
+      dispatch(getAllCities(target));
+   };
 
    const userSignUp = async (req_body) => {
       try {
@@ -67,8 +66,7 @@ export default function SignUpForm({ setActiveTab }) {
       }
    };
 
-   const country = [], states = [], city = []
-   
+
    const onFinish = (values) => {
       const req_body = {
          firstName: values.firstname,
@@ -87,7 +85,6 @@ export default function SignUpForm({ setActiveTab }) {
       };
       userSignUp(req_body);
    };
-   
 
    const prefixSelector = (
       <Form.Item name="prefix" noStyle>
@@ -98,10 +95,16 @@ export default function SignUpForm({ setActiveTab }) {
       </Form.Item>
    );
    return (
-      <div>
+      <div className={css.box}>
          {contextHolder}
-         <Form form={form} name="signup" onFinish={onFinish} autoComplete="off">
-            <div>
+         <Form 
+            form={form} 
+            name="signup" 
+            onFinish={onFinish} 
+            autoComplete="off"
+            layout="vertical"
+            style={{ maxWidth: 600 }}
+         >
                <Form.Item
                   name="firstname"
                   rules={[
@@ -110,8 +113,9 @@ export default function SignUpForm({ setActiveTab }) {
                         message: "Please enter First Name!",
                      },
                   ]}
+                  label="First Name"
                >
-                  <Input placeholder="First Name" />
+                  <Input />
                </Form.Item>
 
                <Form.Item
@@ -122,12 +126,11 @@ export default function SignUpForm({ setActiveTab }) {
                         message: "Please enter Last Name!",
                      },
                   ]}
+                  label="Last Name"
                >
-                  <Input placeholder="Last Name" />
+                  <Input />
                </Form.Item>
-            </div>
 
-            <div>
                <Form.Item
                   name="email"
                   rules={[
@@ -137,10 +140,10 @@ export default function SignUpForm({ setActiveTab }) {
                         message: "Please Enter Email!",
                      },
                   ]}
+                  label="Email"
                >
-                  <Input placeholder="Email" />
+                  <Input placeholder="Ex. abc@xyz.com" />
                </Form.Item>
-            </div>
             <Form.Item
                name="phone"
                rules={[
@@ -153,8 +156,9 @@ export default function SignUpForm({ setActiveTab }) {
                      message: "Input valid phone number !",
                   },
                ]}
+               label="Phone Number"
             >
-               <Input placeholder="Phone Number" addonBefore={prefixSelector} style={{ width: "100%" }} />
+               <Input placeholder="Ex. 0123456789" addonBefore={prefixSelector} style={{ width: "100%" }} />
             </Form.Item>
 
             <Form.Item
@@ -165,8 +169,9 @@ export default function SignUpForm({ setActiveTab }) {
                   },
                ]}
                name="address"
+               label="Address"
             >
-               <Input placeholder="Address" />
+               <Input />
             </Form.Item>
 
             <Form.Item
@@ -181,47 +186,70 @@ export default function SignUpForm({ setActiveTab }) {
                      message: "Please enter a valid Zip Code!",
                   },
                ]}
+               label="Zip Code"
             >
-               <Input placeholder="Zip Code" />
+               <Input placeholder="Ex. 123456" />
             </Form.Item>
 
-            <div className={css.inline_fields + " " + css.three_inline_fields}>
-               <Form.Item
-                  name="country"
-                  rules={[
-                     {
-                        required: true,
-                        message: "Please select country",
-                     },
-                  ]}
+            <Form.Item
+               name="country"
+               rules={[
+                  {
+                     required: true,
+                     message: "Please select country",
+                  },
+               ]}
+               label="Country"
+            >
+               <Select
                   onChange={onClickCountry}
-               >
-                  <Select options={[...countryList, { label: "None", value: "none" }]} placeholder="Select Country" />
-               </Form.Item>
-               <Form.Item
-                  name="state"
-                  rules={[
-                     {
-                        required: true,
-                        message: "Please input your State",
-                     },
-                  ]}
+                  options={[...countryList, { label: "None", value: "none" }]}
+                  placeholder="Select Country"
+                  showSearch
+                  optionFilterProp="children"
+                  filterOption={(input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase())}
+                  filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())}
+               />
+            </Form.Item>
+            <Form.Item
+               name="state"
+               rules={[
+                  {
+                     required: true,
+                     message: "Please input your State",
+                  },
+               ]}
+               label="State"
+            >
+               <Select
                   onChange={onClickState}
-               >
-                  <Select options={[...stateList, { label: "None", value: "none" }]} placeholder="Select State" />
-               </Form.Item>
-               <Form.Item
-                  name="city"
-                  rules={[
-                     {
-                        required: true,
-                        message: "Please input your City",
-                     },
-                  ]}
-               >
-                  <Select options={[...cityList, { label: "None", value: "none" }]} placeholder="Select City" />
-               </Form.Item>
-            </div>
+                  options={[...stateList, { label: "None", value: "none" }]}
+                  placeholder="Select State"
+                  showSearch
+                  optionFilterProp="children"
+                  filterOption={(input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase())}
+                  filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())}
+               />
+            </Form.Item>
+            <Form.Item
+               name="city"
+               rules={[
+                  {
+                     required: true,
+                     message: "Please input your City",
+                  },
+               ]}
+               label="City"
+            >
+               <Select
+                  options={[...cityList, { label: "None", value: "none" }]}
+                  placeholder="Select City"
+                  showSearch
+                  optionFilterProp="children"
+                  filterOption={(input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase())}
+                  filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())}
+               />
+            </Form.Item>
             <Form.Item
                name="password"
                rules={[
@@ -235,8 +263,9 @@ export default function SignUpForm({ setActiveTab }) {
                   },
                ]}
                help="Your Password must contains 8 latters having at-least one capital latter, one special character and one digit !"
+               label="Password"
             >
-               <Input.Password placeholder="Password" />
+               <Input.Password />
             </Form.Item>
             <div className={css.buttons}>
                <Button type="primary" htmlType="submit">
