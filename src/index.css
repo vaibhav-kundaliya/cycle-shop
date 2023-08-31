@@ -3,8 +3,6 @@
   --website-color: rgb(223, 69, 62);
   --bg-color: rgb(245, 245, 245);
   --block-color: rgb(255, 255, 255);
-  --nav-hover-color:var(--website-color);
-  --nav-color: var(--website-color)
 }
 
 a{

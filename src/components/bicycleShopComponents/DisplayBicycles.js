@@ -3,13 +3,7 @@ import css from "./design/DisplayItems.module.css";
 import { Select, Spin } from "antd";
 import CardList from "../cardListComponents/CardList";
 import {useSelector} from "react-redux"
-const sortByPropertyName = (property) => (a, b) => {
-   if (a[property] < b[property]) return -1;
-   if (a[property] > b[property]) return 1;
-   return 0;
-};
-
-const sortByPropertyPrice = (property) => (a, b) => a[property] - b[property];
+import {sortByPropertyName, sortByPropertyPrice} from "../../utilities/sortingfun"
 
 export default function DisplayAccessories({ bicycles }) {
 

@@ -11,7 +11,6 @@ export default function ContactUs() {
       setModal2Open(true);
       form.resetFields();
    };
-   const onFinishFailed = (element) => {};
 
    return (
       <>

@@ -12,7 +12,7 @@
    height: 2px;
    bottom: 0;
    left: 0;
-   background-color: var(--nav-hover-color);
+   background-color: var(--bg-color);
    transform-origin: center;
    transition: transform 0.25s ;
  }

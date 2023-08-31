@@ -1,8 +1,8 @@
-import { React, useState } from "react";
+import { React } from "react";
 import { Modal, Tabs, Spin } from "antd";
+import { useSelector } from "react-redux";
 import SignInForm from "../components/authenticationComponents/SignInForm";
 import SignUpForm from "../components/authenticationComponents/SignUpForm";
-import { useSelector } from "react-redux";
 
 export default function Authentication({ isModalOpen, setIsModalOpen }) {
    const isLoading = useSelector((state) => {

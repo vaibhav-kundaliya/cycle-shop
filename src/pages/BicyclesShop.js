@@ -1,20 +1,21 @@
-import { React, useEffect, useState, useRef } from "react";
 import { Input, Slider, Button, Spin } from "antd";
-import DisplayAccessories from "../components/bicycleShopComponents/DisplayAccessories";
-import DisplayBicycles from "../components/bicycleShopComponents/DisplayBicycles";
-import DisplayAllProducts from "../components/bicycleShopComponents/DisplayAllProducts";
-import { useLocation, useNavigate, Routes, Route, Link } from "react-router-dom";
+import { React, useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAccessories, getBicycles, getAllProducts, getAllProducts_keyword } from "../actions/fetchActions";
+import { useLocation, useNavigate, Routes, Route, Link } from "react-router-dom";
+import DisplayBicycles from "../components/bicycleShopComponents/DisplayBicycles";
 import css from "../components/bicycleShopComponents/design/DisplayItems.module.css";
+import DisplayAllProducts from "../components/bicycleShopComponents/DisplayAllProducts";
+import DisplayAccessories from "../components/bicycleShopComponents/DisplayAccessories";
+import { getAccessories, getBicycles, getAllProducts, getAllProducts_keyword } from "../actions/fetchActions";
+
 const { Search } = Input;
 
 export default function BicyclesShop() {
-   const focusOnLoad = useRef(null)
+   const focusOnLoad = useRef(null);
 
-   useEffect(()=>{
-      focusOnLoad.current.focus(focusOnLoad)
-   },[])
+   useEffect(() => {
+      focusOnLoad.current.focus(focusOnLoad);
+   }, []);
 
    const minPrice = 0;
    const maxPrice = 1000;
@@ -81,11 +82,13 @@ export default function BicyclesShop() {
    return (
       <div className={css.outer}>
          <div className={css.itemsandfilters}>
-            <Spin size="large" style={{marginTop:"50%"}} spinning={isLoading} tip="Loading...">
+            <Spin size="large" style={{ marginTop: "50%" }} spinning={isLoading} tip="Loading...">
                <Routes path="/">
-                  <Route exact path="bicycles" element={<DisplayBicycles bicycles={bicycles} />} />
-                  <Route exact path="accessories" element={<DisplayAccessories accessories={accessories} />} />
-                  <Route exact path="" element={<DisplayAllProducts products={all_products} />} />
+                  <Route>
+                     <Route exact path="bicycles" element={<DisplayBicycles bicycles={bicycles} />} />
+                     <Route exact path="accessories" element={<DisplayAccessories accessories={accessories} />} />
+                     <Route exact path="" element={<DisplayAllProducts products={all_products} />} />
+                  </Route>
                </Routes>
             </Spin>
             <div className={css.filters}>

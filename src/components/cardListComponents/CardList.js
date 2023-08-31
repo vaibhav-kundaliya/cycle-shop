@@ -1,7 +1,7 @@
 import React from "react";
-import "./design/CardList.css";
-import { List } from "antd";
 import Card from "./Card";
+import { List } from "antd";
+import "./design/CardList.css";
 
 export default function CardList({ product_list }) {
    

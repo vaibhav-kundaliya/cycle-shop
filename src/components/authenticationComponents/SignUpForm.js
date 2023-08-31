@@ -1,12 +1,11 @@
-import { React } from "react";
-import { Form, Input, Button, Select, message, Spin } from "antd";
-import css from "./design/SignUpForm.module.css";
+import { React, useEffect } from "react";
 import postRequest from "../../API/postRequest";
-import { getAllCountries, getAllStates, getAllCities, getAllCountryCodes } from "../../actions/fetchCountryActions";
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { PHONENUMBER, ZIPCODE, PASSWORD } from "../../utilities/regex";
+import css from "./design/SignUpForm.module.css";
 import { authLoading } from "../../actions/setLoader";
+import { useSelector, useDispatch } from "react-redux";
+import { Form, Input, Button, Select, message, Spin } from "antd";
+import { PHONENUMBER, ZIPCODE, PASSWORD } from "../../utilities/regex";
+import { getAllCountries, getAllStates, getAllCities, getAllCountryCodes } from "../../actions/fetchCountryActions";
 
 export default function SignUpForm({setIsModalOpen}) {
    const [messageApi, contextHolder] = message.useMessage();

@@ -1,26 +1,25 @@
 import React from "react";
 import "./design/SubNavbar.css";
-import StickyBox from "react-sticky-box";
-import { Tabs, ConfigProvider } from "antd";
 import ReviewForm from "./ReviewForm";
 import OldReviews from "./OldReviews";
+import StickyBox from "react-sticky-box";
+import { Tabs, ConfigProvider } from "antd";
 
-export default function SubNavbar({product}) {
+export default function SubNavbar({ product }) {
    const list = [
       {
          name: "Description",
-         content: product.productDetails
+         content: product.productDetails,
       },
       {
          name: "Additional information",
          content: (
             <table>
                <tbody>
-               <tr>
-
-               <td>Size</td>
-               <td>{product.size?.join(', ') || "NA"}</td>
-               </tr>
+                  <tr>
+                     <td>Size</td>
+                     <td>{product.size?.join(", ") || "NA"}</td>
+                  </tr>
                </tbody>
             </table>
          ),

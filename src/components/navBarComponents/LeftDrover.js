@@ -1,26 +1,22 @@
-import React from "react";
-import css from "./design/LeftDrover.module.css";
-import { useEffect, useRef} from "react";
-import { CloseOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import { Divider, Button } from "antd";
 import { Link } from "react-router-dom";
+import { React, useEffect, useRef } from "react";
+import css from "./design/LeftDrover.module.css";
 import img from "../../assets/imgs/bicycle-1.jpg";
-import { useSelector, useDispatch } from "react-redux";
+import { CloseOutlined, CloseCircleOutlined } from "@ant-design/icons";
 
 export default function LeftDrover({ isvisible, open_close }) {
-
    const bodyRef = useRef(document.querySelector("body"));
-   const extraRef = useRef(null)
-   const cart_list_ = useRef(null)
+   const extraRef = useRef(null);
+   const cart_list_ = useRef(null);
    useEffect(() => {
       if (isvisible === "block") {
          bodyRef.current.style.overflow = "hidden";
          extraRef.current.style.display = "block";
-         cart_list_.current.style.right = "0"
-      } else
-      {
+         cart_list_.current.style.right = "0";
+      } else {
          extraRef.current.style.display = "none";
-         cart_list_.current.style.right = "-2000px"
+         cart_list_.current.style.right = "-2000px";
          bodyRef.current.style.cursor = "";
          bodyRef.current.style.overflow = "";
       }
@@ -61,7 +57,7 @@ export default function LeftDrover({ isvisible, open_close }) {
          image: img,
          card_price: "$350",
          quantity: "1",
-      }
+      },
    ];
 
    const iter = cart_list?.map((item) => {
@@ -69,13 +65,11 @@ export default function LeftDrover({ isvisible, open_close }) {
          <div key={item.productID}>
             <div className={css.card_item}>
                <div className={css.card_img}>
-                  <img src={process.env.REACT_APP_CONSUMER_URL+""+item.image} alt={item.name} />
+                  <img src={process.env.REACT_APP_CONSUMER_URL + "" + item.image} alt={item.name} />
                </div>
                <div className={css.card_details}>
                   <div className={css.card_name}>{item.name}</div>
-                  <div className={css.card_price}>
-                     {item.price}
-                  </div>
+                  <div className={css.card_price}>{item.price}</div>
                </div>
                <div className={css.card_remove}>
                   <CloseCircleOutlined />
@@ -88,8 +82,7 @@ export default function LeftDrover({ isvisible, open_close }) {
 
    return (
       <>
-         <div className={css.extra_container} ref={extraRef} onClick={open_close}>
-         </div>
+         <div className={css.extra_container} ref={extraRef} onClick={open_close}></div>
          <div className={css.l_drover} ref={cart_list_}>
             <div className={css.closed_sign}>
                <CloseOutlined style={{ fontSize: "24px", cursor: "pointer" }} onClick={open_close} />
@@ -102,7 +95,7 @@ export default function LeftDrover({ isvisible, open_close }) {
             </div>
             <hr />
             <Button className={css.cart_btn} onClick={open_close} type="primary" block>
-            <Link to="shopping-cart">View Cart</Link>
+               <Link to="shopping-cart">View Cart</Link>
             </Button>
             <br />
             <br />

@@ -1,9 +1,9 @@
-import { fetchProductReducer } from "./fetchProductReducer";
+import { combineReducers } from "redux";
 import { cartReducer } from "./cartReducer";
-import { fetchCountryReducer } from "./fetchCountryReducer";
 import { authReducer } from "./authReducer";
 import { loaderReducer } from "./loaderReducer";
-import { combineReducers } from "redux";
+import { fetchProductReducer } from "./fetchProductReducer";
+import { fetchCountryReducer } from "./fetchCountryReducer";
 
 export const rootReducer = combineReducers({
    productReducer: fetchProductReducer,

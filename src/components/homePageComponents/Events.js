@@ -1,14 +1,17 @@
 import React from "react";
+import { Button } from "antd";
 import css from "./design/Events.module.css";
 import outercss from "./design/AboutUs.module.css";
 import img2 from "../../assets/imgs/cycling-img.jpg";
 import { PlayCircleFilled } from "@ant-design/icons";
-import {Button} from "antd"
+
 export default function Events() {
    return (
       <div className={css.event_div}>
          <div>
-            <div className="group-3" style={{textAlign:"center"}}>Join #GoEcoBiking Programme</div>
+            <div className="group-3" style={{ textAlign: "center" }}>
+               Join #GoEcoBiking Programme
+            </div>
          </div>
 
          <div className={outercss.wp_caption + " " + css.wp_caption}>
@@ -18,9 +21,7 @@ export default function Events() {
                <div>
                   <PlayCircleFilled style={{ fontSize: "60px", cursor: "pointer" }} />
                </div>
-               <div className="group-4">
-                  Watch Full Video
-               </div>
+               <div className="group-4">Watch Full Video</div>
             </div>
          </div>
          <div className={css.text_button}>

@@ -1,14 +1,12 @@
-import { React, useState, useEffect } from "react";
-import HomePageOne from "../components/homePageComponents/HomePageOne";
-import Catalog from "../components/homePageComponents/Catalog";
-import CardList from "../components/cardListComponents/CardList";
-import AboutUs from "../components/homePageComponents/AboutUs";
-import Events from "../components/homePageComponents/Events";
-import FeaturedCycle from "../components/homePageComponents/FeaturedCycle";
+import { React } from "react";
 import { Button } from "antd";
 import css from "./design/Home.module.css";
-import { useSelector } from "react-redux";
-import getRequest from "../API/getRequest";
+import Events from "../components/homePageComponents/Events";
+import Catalog from "../components/homePageComponents/Catalog";
+import AboutUs from "../components/homePageComponents/AboutUs";
+import CardList from "../components/cardListComponents/CardList";
+import HomePageOne from "../components/homePageComponents/HomePageOne";
+import FeaturedCycle from "../components/homePageComponents/FeaturedCycle";
 
 export default function Home() {
 

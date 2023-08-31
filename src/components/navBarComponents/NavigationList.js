@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import css from "./design/NavigationList.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { removeAuthUser } from "../../actions/authActions";
-import css from "./design/NavigationList.module.css";
 
 export default function NavigationList({ showModal }) {
    const dispatch = useDispatch();

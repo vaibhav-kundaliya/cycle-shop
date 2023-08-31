@@ -10,7 +10,7 @@
    box-sizing: border-box;
    z-index: 1000;
    color: white;
-   background-color: var(--nav-color);
+   background-color: var(--website-color);
 }
 
 

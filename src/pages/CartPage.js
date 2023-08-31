@@ -1,7 +1,7 @@
 import React from "react";
-import CartTable from "../components/cartTableComponents/CartTable";
-import css from "./design/CartPage.module.css";
 import { Button } from "antd";
+import css from "./design/CartPage.module.css";
+import CartTable from "../components/cartTableComponents/CartTable";
 
 export default function CartPage() {
    return (

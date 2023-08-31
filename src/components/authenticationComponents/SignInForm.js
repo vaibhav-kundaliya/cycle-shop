@@ -1,11 +1,11 @@
 import { React } from "react";
-import { Button, Form, Input, message, Checkbox, Spin } from "antd";
+import { useDispatch } from "react-redux";
 import postRequest from "../../API/postRequest";
 import css from "./design/SignInForm.module.css";
-import { LockOutlined, MailOutlined } from "@ant-design/icons";
-import { setAuthUser } from "../../actions/authActions";
-import { useDispatch } from "react-redux";
 import { authLoading } from "../../actions/setLoader";
+import { setAuthUser } from "../../actions/authActions";
+import { LockOutlined, MailOutlined } from "@ant-design/icons";
+import { Button, Form, Input, message, Checkbox } from "antd";
 
 export default function SignInForm({ signInRef, setIsModalOpen }) {
    const [messageApi, contextHolder] = message.useMessage();

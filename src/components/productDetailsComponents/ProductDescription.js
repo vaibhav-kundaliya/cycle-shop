@@ -1,13 +1,12 @@
-import { React, useState, useRef, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import css from "./design/ProductDescription.module.css";
 import SubNavbar from "./SubNavbar";
-import CardList from "../cardListComponents/CardList";
-import { Radio, Image, Button, Tooltip } from "antd";
-import axios from "axios";
+import { useLocation } from "react-router-dom";
 import getRequest from "../../API/getRequest";
 import ErrorPage from "../../pages/ErrorPage";
 import postRequest from "../../API/postRequest";
+import { React, useState, useEffect } from "react";
+import { Radio, Image, Button, Tooltip } from "antd";
+import CardList from "../cardListComponents/CardList";
+import css from "./design/ProductDescription.module.css";
 
 export default function ProductDescription() {
    window.scrollTo({ top: 0 });
