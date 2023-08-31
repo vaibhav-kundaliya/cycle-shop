@@ -6,14 +6,14 @@ import { CloseOutlined } from "@ant-design/icons";
 import ColorTheme from "./ColorTheme";
 
 export default function ThemePallate({ setColor, setFont }) {
+   const [isvisible, setisvisible] = useState("none");
+   const theme_cart_list_ = useRef(null);
+   const button_ref = useRef(null);
+   
    const open_close = () => {
       if (isvisible == "none") setisvisible("block");
       else setisvisible("none");
    };
-
-   const [isvisible, setisvisible] = useState("none");
-   const theme_cart_list_ = useRef(null);
-   const button_ref = useRef(null);
 
    useEffect(() => {
       if (isvisible === "block") {

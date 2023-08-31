@@ -34,11 +34,10 @@ function App() {
    const [color, setColor] = useState(
       sessionStorage.getItem("website_color") ? sessionStorage.getItem("website_color") : getComputedStyle(document.documentElement).getPropertyValue("--website-color")
    );
-
    const [font, setFont] = useState(sessionStorage.getItem("website_font") ? sessionStorage.getItem("website_font") : getComputedStyle(document.documentElement).getPropertyValue("--website-font"));
 
    useEffect(() => {
-      sessionStorage.setItem("website_color", color);
+            sessionStorage.setItem("website_color", color);
       sessionStorage.setItem("website_font", font);
       document.documentElement.style.setProperty("--website-color", sessionStorage.getItem("website_color"));
       document.documentElement.style.setProperty("--website-font", sessionStorage.getItem("website_font"));

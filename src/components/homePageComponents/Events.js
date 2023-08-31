@@ -3,7 +3,7 @@ import css from "./design/Events.module.css";
 import outercss from "./design/AboutUs.module.css";
 import img2 from "../../assets/imgs/cycling-img.jpg";
 import { PlayCircleFilled } from "@ant-design/icons";
-import CustomButton from "../buttonComponents/CustomButton";
+import {Button} from "antd"
 export default function Events() {
    return (
       <div className={css.event_div}>
@@ -30,7 +30,7 @@ export default function Events() {
             </div>
             <br></br>
             <div className={css.button}>
-               <CustomButton text="Join Telegram Group" />
+               <Button type="primary">Join Telegram Group</Button>
             </div>
          </div>
       </div>

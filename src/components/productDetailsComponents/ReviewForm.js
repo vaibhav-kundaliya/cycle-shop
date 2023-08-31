@@ -1,8 +1,7 @@
 import React from "react";
 import css from "./design/ReviewForm.module.css";
 import { Form, Input, Rate, Checkbox } from "antd";
-import CustomButton from "../buttonComponents/CustomButton";
-
+import {Button} from "antd"
 export default function ReviewForm() {
    return (
       <div className={css.review_form}>
@@ -39,7 +38,7 @@ export default function ReviewForm() {
                <Checkbox /> <span>&nbsp;&nbsp;Save my name, email, and website in this browser for the next time I comment.</span>
             </div>
             <div className={css.submit_button}>
-               <CustomButton text="SUBMIT" />
+               <Button type="primary">SUBMIT</Button>
             </div>
          </Form>
       </div>

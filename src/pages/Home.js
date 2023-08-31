@@ -6,13 +6,18 @@ import CardList from "../components/cardListComponents/CardList";
 import AboutUs from "../components/homePageComponents/AboutUs";
 import Events from "../components/homePageComponents/Events";
 import FeaturedCycle from "../components/homePageComponents/FeaturedCycle";
-import { Button, List } from "antd";
+import { Button } from "antd";
 import css from "./design/Home.module.css";
+import { useSelector } from "react-redux";
 import getRequest from "../API/getRequest";
+
 export default function Home() {
    const [new_arrivals_list, setNewArrivalList] = useState([]);
    const [accessories, setAccessories] = useState([]);
-   const [isAuthenticated, setIsAuthenticated] = useState(sessionStorage.getItem("user"));
+   
+   const isAuthenticated = useSelector((state) => {
+      return state.authReducer;
+   });
 
    useEffect(() => {
       const fetchData = async () => {
@@ -26,10 +31,6 @@ export default function Home() {
          }
       };
       fetchData();
-   }, [isAuthenticated]);
-
-   useEffect(() => {
-      setIsAuthenticated(sessionStorage.getItem("user"));
    }, [isAuthenticated]);
 
    return (

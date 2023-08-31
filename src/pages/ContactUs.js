@@ -128,7 +128,7 @@ export default function ContactUs() {
                         </Form.Item>
                      </div>
                      <div className={css.buttons}>
-                        {/* <CustomButton text="SEND MESSAGE" /> */}
+
                         <Button type="primary" htmlType="submit">
                            SEND MESSAGE
                         </Button>

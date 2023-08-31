@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import css from "./design/DisplayItems.module.css";
 import { Select, List} from "antd";
-import Card from "../cardListComponents/Card";
+import CardList from "../cardListComponents/CardList";
 
 const sortByPropertyName = (property) => (a, b) => {
    if (a[property] < b[property]) return -1;
@@ -11,15 +11,13 @@ const sortByPropertyName = (property) => (a, b) => {
 
 const sortByPropertyPrice = (property) => (a, b) => a[property] - b[property];
 
-
-export default function DisplayAccessories({path, accessories}) {
+export default function DisplayAccessories({accessories}) {
    const options = [
       { value: 0, label: "Sort By New Arrival" },
       { value: 1, label: "Sort By Name" },
       { value: 2, label: "Sort By Price: Low to High" },
       { value: 3, label: "Sort By Price: Hight to Low" },
    ];
-   
    const [sorting, setSorting] = useState(0)
 
    const sortfun = (perameter) => {
@@ -32,7 +30,6 @@ export default function DisplayAccessories({path, accessories}) {
    const handleSort = (value) => {
       setSorting(value)
    };
-
 
    return (
       <div className={css.displayItems}>
@@ -58,23 +55,7 @@ export default function DisplayAccessories({path, accessories}) {
             </div>
          </div>
          <div className={css.cardlist}>
-            <List
-               grid={{
-                  gutter: 16,
-                  xs: 1,
-                  sm: 2,
-                  md: 2,
-                  lg: 3,
-                  xl: 3,
-                  xxl: 3,
-               }}
-               dataSource={sortfun(sorting)}
-               renderItem={(element) => (
-                  <List.Item>
-                     <Card element={element} style={{ borderRadius: "0px" }} />
-                  </List.Item>
-               )}
-            />
+            <CardList product_list={sortfun(sorting)} />
          </div>
       </div>
    );

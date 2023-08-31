@@ -1,14 +1,12 @@
 import React, { useState } from "react";
-import { Card, Rate } from "antd";
+import { Card } from "antd";
 import {useNavigate} from "react-router-dom";
-import PriceRange from "../productDetailsComponents/PriceRange";
 import { ShoppingFilled } from "@ant-design/icons";
 import css from "./design/Card.module.css";
 
 const { Meta } = Card;
 
-function Cards({ element, width }) {
-   const [price, setPrice] = useState(element.price);
+function Cards({ element }) {
    const [visibility, setVisibility] = useState("none");
    
    const navigate = useNavigate();

@@ -7,26 +7,27 @@ import { Radio, Image, Button, Tooltip } from "antd";
 import axios from "axios";
 import getRequest from "../../API/getRequest";
 import ErrorPage from "../../pages/ErrorPage";
+import postRequest from "../../API/postRequest";
 
 export default function ProductDescription() {
    window.scrollTo({ top: 0 });
    const location = useLocation();
    const SKU = location.pathname.split("/")[2];
-
    const [product, setProduct] = useState({});
-
    const [relatedProduct, setRelatedProducs] = useState([]);
    const [isValidSKU, setIsValidSKU] = useState(true);
+   const [value3, setValue3] = useState("");
+
    const fetchData = async (category, SKU) => {
       if (category === "Bicycle") {
-         let bicycle_list = await getRequest(process.env.REACT_APP_CONSUMER_URL+"productFilter?minPrice=0&maxPrice=100000&category=Bicycle");
+         let bicycle_list = await getRequest(process.env.REACT_APP_CONSUMER_URL + "productFilter?minPrice=0&maxPrice=100000&category=Bicycle");
          bicycle_list = bicycle_list.data.data
             ?.reverse()
             .filter((item) => item.SKU !== SKU)
             .slice(0, 4);
          setRelatedProducs(bicycle_list);
       } else if (category === "Accessory") {
-         let accessory_list = await getRequest(process.env.REACT_APP_CONSUMER_URL+"productFilter?minPrice=0&maxPrice=100000&category=Accessory");
+         let accessory_list = await getRequest(process.env.REACT_APP_CONSUMER_URL + "productFilter?minPrice=0&maxPrice=100000&category=Accessory");
          accessory_list = accessory_list.data.data
             ?.reverse()
             ?.filter((item) => item.SKU !== SKU)
@@ -36,23 +37,15 @@ export default function ProductDescription() {
    };
 
    useEffect(() => {
-      axios
-         .post(process.env.REACT_APP_CONSUMER_URL+"getBySKU", { SKU: SKU }, { headers: { "Content-Type": "application/json" }, withCredentials: true })
-         .then((response) => {
-            console.log(response);
-            setProduct(response.data.data);
-            fetchData(response.data.data.category, response.data.data.SKU);
-            return "success";
-         })
-         .catch((error) => {
-            if (error.response) {
-               console.error(error.response);
-               setIsValidSKU(false);
-            } else {
-               console.error("Network error: " + error.message);
-            }
-         });
-   }, [SKU]);
+      const getProduct = async () => {
+         const response = await postRequest(process.env.REACT_APP_CONSUMER_URL + "getBySKU", { SKU: SKU });
+         console.log(response);
+         setProduct(response.data.data);
+         fetchData(response.data.data.category, response.data.data.SKU);
+      };
+
+      getProduct();
+   }, []);
 
    const sizeArray = () => {
       const pair = [];
@@ -63,7 +56,6 @@ export default function ProductDescription() {
       return [];
    };
 
-   const [value3, setValue3] = useState("");
    const onChange3 = ({ target: { value } }) => {
       setValue3(value);
    };
@@ -97,7 +89,7 @@ export default function ProductDescription() {
                   <div className={css.product_description_inner}>
                      <div className={css.img_text}>
                         <div className={css.product_description_img + " product_description_img"}>
-                           <Image className={css.zoom_image + " zoom-image"} src={process.env.REACT_APP_ADMIN_URL+"" + product?.image} onMouseMove={fun} onMouseLeave={revfun} alt="Image" />
+                           <Image className={css.zoom_image + " zoom-image"} src={process.env.REACT_APP_ADMIN_URL + "" + product?.image} onMouseMove={fun} onMouseLeave={revfun} alt="Image" />
                         </div>
 
                         <div className={css.product_description_text}>

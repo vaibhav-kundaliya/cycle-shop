@@ -3,14 +3,16 @@ import { Button, Form, Input, message, Checkbox } from "antd";
 import postRequest from "../../API/postRequest";
 import css from "./design/SignInForm.module.css"
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
+import { setAuthUser } from "../../actions/authActions";
+import {useDispatch} from "react-redux"
 
 export default function SignInForm({ signInRef, setIsModalOpen }) {
    const [messageApi, contextHolder] = message.useMessage();
-
+   const dispatch = useDispatch()
    const userLogIn = async (req_body) => {
       try {
          const responseData = await postRequest(process.env.REACT_APP_CONSUMER_URL + "login", req_body);
-         sessionStorage.setItem("user", responseData.data.data.email);
+         dispatch(setAuthUser(responseData.data.data._id));
          setIsModalOpen(false);
          messageApi.open({
             type: "success",
