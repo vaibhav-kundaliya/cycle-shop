@@ -10,7 +10,7 @@ export default function ThemePallate({ setColor, setFont }) {
    const button_ref = useRef(null);
 
    const open_close = () => {
-      if (isvisible == "none") setisvisible("block");
+      if (isvisible === "none") setisvisible("block");
       else setisvisible("none");
    };
 

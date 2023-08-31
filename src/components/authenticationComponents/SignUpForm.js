@@ -3,7 +3,7 @@ import postRequest from "../../API/postRequest";
 import css from "./design/SignUpForm.module.css";
 import { authLoading } from "../../actions/setLoader";
 import { useSelector, useDispatch } from "react-redux";
-import { Form, Input, Button, Select, message, Spin } from "antd";
+import { Form, Input, Button, Select, message } from "antd";
 import { PHONENUMBER, ZIPCODE, PASSWORD } from "../../utilities/regex";
 import { getAllCountries, getAllStates, getAllCities, getAllCountryCodes } from "../../actions/fetchCountryActions";
 
@@ -28,9 +28,6 @@ export default function SignUpForm({setIsModalOpen}) {
       return state.countryReducer.countryCode
    })
 
-   const isAddressLoading = useSelector((state) => {
-      return state.loaderReducer.addressLoader;
-   });
 
    useEffect(() => {
       dispatch(getAllCountries());
@@ -48,7 +45,6 @@ export default function SignUpForm({setIsModalOpen}) {
    const userSignUp = async (req_body) => {
       try {
          dispatch(authLoading());
-
          const responseData = await postRequest(process.env.REACT_APP_CONSUMER_URL + "signup", req_body);
          messageApi.open({
             type: "success",
@@ -204,16 +200,9 @@ export default function SignUpForm({setIsModalOpen}) {
                   options={[...countryList, { label: "None", value: "none" }]}
                   placeholder="Select Country"
                   showSearch
-                  optionFilterProp="children"
+                  // optionFilterProp="children"
                   filterOption={(input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase())}
                   filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())}
-                  dropdownRender={(menu) => {
-                     return (
-                        <>
-                           <Spin spinning={isAddressLoading}>{menu}</Spin>
-                        </>
-                     );
-                  }}
                />
             </Form.Item>
             <Form.Item
@@ -231,16 +220,9 @@ export default function SignUpForm({setIsModalOpen}) {
                   options={[...stateList, { label: "None", value: "none" }]}
                   placeholder="Select State"
                   showSearch
-                  optionFilterProp="children"
+                  // optionFilterProp="children"
                   filterOption={(input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase())}
                   filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())}
-                  dropdownRender={(menu) => {
-                     return (
-                        <>
-                           <Spin spinning={isAddressLoading}>{menu}</Spin>
-                        </>
-                     );
-                  }}
                />
             </Form.Item>
             <Form.Item
@@ -256,17 +238,8 @@ export default function SignUpForm({setIsModalOpen}) {
                <Select
                   options={[...cityList, { label: "None", value: "none" }]}
                   placeholder="Select City"
-                  showSearch
-                  optionFilterProp="children"
                   filterOption={(input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase())}
                   filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())}
-                  dropdownRender={(menu) => {
-                     return (
-                        <>
-                           <Spin spinning={isAddressLoading}>{menu}</Spin>
-                        </>
-                     );
-                  }}
                />
             </Form.Item>
             <Form.Item

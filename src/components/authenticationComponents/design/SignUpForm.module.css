@@ -9,8 +9,6 @@
    scroll-behavior: auto;
    height: 25rem;
    padding: 0.5rem;
-   /* box-shadow: inset 0px 0px 0px 2px rgba(0, 0, 0, 0.148); */
-   box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.148);
 }
 
 

@@ -30,6 +30,7 @@ export default function ContactUs() {
                   style={{ border: 0 }}
                   onLoad={()=>{setLoading(false)}}
                   referrerPolicy="no-referrer-when-downgrade"
+                  title="googleMAP"
                ></iframe>
             </Spin>
          </div>
@@ -67,7 +68,6 @@ export default function ContactUs() {
                      }}
                      name="signup"
                      onFinish={onFinish}
-                     onFinishFailed={onFinishFailed}
                   >
                      <div className={css.inline_fields}>
                         <Form.Item
