@@ -14,10 +14,10 @@ export default function Events() {
             </div>
          </div>
 
-         <div className={outercss.wp_caption + " " + css.wp_caption}>
-            <div className={outercss.gradient_overlay}></div>
-            <img className={outercss.demo} src={img2} alt="Image" />
-            <div className={outercss.wp_caption_text}>
+         <div className={css.wp_caption + " " + css.wp_caption}>
+            <div className={css.gradient_overlay}></div>
+            <img className={css.demo} src={img2} alt="Image" />
+            <div className={css.wp_caption_text}>
                <div>
                   <PlayCircleFilled style={{ fontSize: "60px", cursor: "pointer" }} />
                </div>
