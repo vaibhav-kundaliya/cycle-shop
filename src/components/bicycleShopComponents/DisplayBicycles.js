@@ -1,8 +1,8 @@
 import { React, useState } from "react";
 import css from "./design/DisplayItems.module.css";
-import { Select } from "antd";
+import { Select, Spin } from "antd";
 import CardList from "../cardListComponents/CardList";
-
+import {useSelector} from "react-redux"
 const sortByPropertyName = (property) => (a, b) => {
    if (a[property] < b[property]) return -1;
    if (a[property] > b[property]) return 1;
@@ -12,14 +12,19 @@ const sortByPropertyName = (property) => (a, b) => {
 const sortByPropertyPrice = (property) => (a, b) => a[property] - b[property];
 
 export default function DisplayAccessories({ bicycles }) {
+
+   const isLoading = useSelector((state) => {
+      return state.loaderReducer.productLoader
+   })
+
    const options = [
       { value: 0, label: "Sort By New Arrival" },
       { value: 1, label: "Sort By Name" },
       { value: 2, label: "Sort By Price: Low to High" },
       { value: 3, label: "Sort By Price: Hight to Low" },
    ];
-   
-   const [sorting, setSorting] = useState(0)
+
+   const [sorting, setSorting] = useState(0);
 
    const sortfun = (perameter) => {
       if (perameter === 0) return bicycles?.reverse();
@@ -29,7 +34,7 @@ export default function DisplayAccessories({ bicycles }) {
    };
 
    const handleSort = (value) => {
-      setSorting(value)
+      setSorting(value);
    };
 
    return (
@@ -57,7 +62,7 @@ export default function DisplayAccessories({ bicycles }) {
             </div>
          </div>
          <div className={css.cardlist}>
-            <CardList product_list={sortfun(sorting)} />
+               <CardList product_list={sortfun(sorting)} />
          </div>
       </div>
    );

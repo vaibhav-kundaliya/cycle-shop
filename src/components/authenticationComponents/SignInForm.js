@@ -1,43 +1,45 @@
 import { React } from "react";
-import { Button, Form, Input, message, Checkbox } from "antd";
+import { Button, Form, Input, message, Checkbox, Spin } from "antd";
 import postRequest from "../../API/postRequest";
-import css from "./design/SignInForm.module.css"
-import { LockOutlined, MailOutlined } from '@ant-design/icons';
+import css from "./design/SignInForm.module.css";
+import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { setAuthUser } from "../../actions/authActions";
-import {useDispatch} from "react-redux"
+import { useDispatch } from "react-redux";
+import { authLoading } from "../../actions/setLoader";
 
 export default function SignInForm({ signInRef, setIsModalOpen }) {
    const [messageApi, contextHolder] = message.useMessage();
-   const dispatch = useDispatch()
+   const dispatch = useDispatch();
+
    const userLogIn = async (req_body) => {
       try {
+         dispatch(authLoading());
          const responseData = await postRequest(process.env.REACT_APP_CONSUMER_URL + "login", req_body);
          dispatch(setAuthUser(responseData.data.data._id));
          setIsModalOpen(false);
+         dispatch(authLoading());
          messageApi.open({
             type: "success",
             content: `Welcome ${responseData.data.data.firstName}, :)`,
          });
       } catch (error) {
-         if (error.message === "Network Error")
+         if (error.status >= 400 && error.status < 500) {
             messageApi.open({
                type: "error",
-               content: "Server not respond, try after sometime :(",
+               content: error.data.message,
+            });
+         } else if (error.message === "Network Error")
+            messageApi.open({
+               type: "error",
+               content: "Network Error :(",
             });
          else {
-            if (error.status === 403) {
-               messageApi.open({
-                  type: "error",
-                  content: error.data.message,
-               });
-            } else {
-               messageApi.open({
-                  type: "error",
-                  content: "Some error occured :(",
-               });
-               console.error(error);
-            }
+            messageApi.open({
+               type: "error",
+               content: "Some error occured :(",
+            });
          }
+         dispatch(authLoading());
       }
    };
 
@@ -64,10 +66,8 @@ export default function SignInForm({ signInRef, setIsModalOpen }) {
                <Form.Item name="remember" valuePropName="checked" noStyle>
                   <Checkbox>Remember me</Checkbox>
                </Form.Item>
-               
-               <span className={css.login_form_forgot}>
-                  Forgot password
-               </span>
+
+               <span className={css.login_form_forgot}>Forgot password</span>
             </Form.Item>
 
             <Form.Item>

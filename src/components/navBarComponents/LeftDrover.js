@@ -22,7 +22,7 @@ export default function LeftDrover({ isvisible, open_close }) {
          extraRef.current.style.display = "none";
          cart_list_.current.style.right = "-2000px"
          bodyRef.current.style.cursor = "";
-         bodyRef.current.style.overflow = "scroll";
+         bodyRef.current.style.overflow = "";
       }
    }, [isvisible]);
 

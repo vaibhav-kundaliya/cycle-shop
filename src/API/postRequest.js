@@ -13,7 +13,7 @@ const postRequest = async (url, body, header={}) => {
          console.error("Error response:", error.response);
          throw error.response;
       } else {
-         throw new Error(error.message);
+         throw error;
       }
    }
 };

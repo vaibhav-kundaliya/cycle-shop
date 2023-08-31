@@ -1,5 +1,5 @@
-import { React, useEffect, useState } from "react";
-import { Input, Slider, Button } from "antd";
+import { React, useEffect, useState, useRef } from "react";
+import { Input, Slider, Button, Spin } from "antd";
 import DisplayAccessories from "../components/bicycleShopComponents/DisplayAccessories";
 import DisplayBicycles from "../components/bicycleShopComponents/DisplayBicycles";
 import DisplayAllProducts from "../components/bicycleShopComponents/DisplayAllProducts";
@@ -10,6 +10,12 @@ import css from "../components/bicycleShopComponents/design/DisplayItems.module.
 const { Search } = Input;
 
 export default function BicyclesShop() {
+   const focusOnLoad = useRef(null)
+
+   useEffect(()=>{
+      focusOnLoad.current.focus(focusOnLoad)
+   },[])
+
    const minPrice = 0;
    const maxPrice = 1000;
    const location = useLocation();
@@ -68,20 +74,27 @@ export default function BicyclesShop() {
       return state.productReducer.accessories;
    });
 
+   const isLoading = useSelector((state) => {
+      return state.loaderReducer.productLoader;
+   });
+
    return (
-      <>
+      <div className={css.outer}>
          <div className={css.itemsandfilters}>
-            <Routes path="/">
-               <Route exact path="bicycles" element={<DisplayBicycles bicycles={bicycles} />} />
-               <Route exact path="accessories" element={<DisplayAccessories accessories={accessories} />} />
-               <Route exact path="" element={<DisplayAllProducts products={all_products} />} />
-            </Routes>
+            <Spin size="large" style={{marginTop:"50%"}} spinning={isLoading} tip="Loading...">
+               <Routes path="/">
+                  <Route exact path="bicycles" element={<DisplayBicycles bicycles={bicycles} />} />
+                  <Route exact path="accessories" element={<DisplayAccessories accessories={accessories} />} />
+                  <Route exact path="" element={<DisplayAllProducts products={all_products} />} />
+               </Routes>
+            </Spin>
             <div className={css.filters}>
                <div className={css.searchbar}>
                   <div className="group-4">
                      <span>Search</span>
                   </div>
                   <Search
+                     ref={focusOnLoad}
                      placeholder="Search Products..."
                      value={searchValue}
                      onChange={(e) => setSearchValue(e.target.value)}
@@ -144,21 +157,8 @@ export default function BicyclesShop() {
                      </li>
                   </ul>
                </div>
-
-               <div className={css.resentlyviewedproducts}>
-                  <div className="group-4">
-                     <span>Recently viewed products</span>
-                  </div>
-                  <div className={css.recently_item}>
-                     <div>{/* <img src={items[0].img} alt={items[0].img} /> */}</div>
-                     <div>
-                        {/* <div className="">{items[0].name}</div>
-                     <div className="">{items[0].price}</div> */}
-                     </div>
-                  </div>
-               </div>
             </div>
          </div>
-      </>
+      </div>
    );
 }

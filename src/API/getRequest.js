@@ -13,7 +13,7 @@ const getRequest = async (url, headers = {}) => {
          console.error("Error response:", error.response);
          throw error.response;
       } else {
-         throw new Error(error.message);
+         throw error.message;
       }
    }
 };

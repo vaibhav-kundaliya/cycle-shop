@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { removeAuthUser } from "../../actions/authActions";
+import css from "./design/NavigationList.module.css";
 
 export default function NavigationList({ showModal }) {
    const dispatch = useDispatch();
@@ -16,27 +17,27 @@ export default function NavigationList({ showModal }) {
       <>
          <div>
             <Link to="/" style={{ textDecoration: "none", color: "White" }}>
-               HOME
+               <b className={css.hover_effect}>HOME</b>
             </Link>
          </div>
          <div>
             <Link to="/store" style={{ textDecoration: "none", color: "White" }}>
-               STORE
+               <b className={css.hover_effect}>STORE</b>
             </Link>
          </div>
          <div>
             <Link to="/contact" style={{ textDecoration: "none", color: "White" }}>
-               CONTACT
+               <b className={css.hover_effect}>CONTACT</b>
             </Link>
          </div>
          <div>
             {isAuthenticated ? (
                <Link to="/" style={{ textDecoration: "none", color: "White" }} onClick={signOut}>
-                  SIGN-OUT
+                  <b className={css.hover_effect}>SIGN-OUT</b>
                </Link>
             ) : (
                <Link style={{ textDecoration: "none", color: "White" }} onClick={showModal}>
-                  SIGN-IN/SIGN-UP
+                  <b className={css.hover_effect}>SIGN-IN/SIGN-UP</b>
                </Link>
             )}
          </div>

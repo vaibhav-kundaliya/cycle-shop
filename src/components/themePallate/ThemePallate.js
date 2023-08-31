@@ -44,7 +44,7 @@ export default function ThemePallate({ setColor, setFont }) {
                Use the template as-is or try different colors and fonts from the options below.
                <div className={css.tryOtherClrs}>
                   <div className={css.text}>Try Other Colors</div>
-                  <div className={css.resetclr} onClick={() => setColor("rgb(223, 69, 62)")}>Default</div>
+                  <div className={css.resetclr} onClick={() => setColor(["rgb(223, 69, 62)", "rgb(182, 45, 37)"])}>Default</div>
                </div>
                <div className={css.ThemeButton} style={{ marginTop: "10px", width: "90%" }}>
                   <p style={{ margin: "0", fontSize: "Small" }}>DEFAULT COLORS</p>
@@ -54,42 +54,42 @@ export default function ThemePallate({ setColor, setFont }) {
                </div>
                <div className={css.diffTheme}>
                   <div>
-                     <div className={css.dfThemeButton} onClick={() => setColor("rgb(142, 67, 240)")}>
+                     <div className={css.dfThemeButton} onClick={() => setColor(["rgb(142, 67, 240)", "rgb(99, 0, 226)"])}>
                         <ColorTheme mainColors={["rgb(142, 67, 240)", "rgb(99, 0, 226)"]} />
                      </div>
-                     <div className={css.dfThemeButton} onClick={() => setColor("rgb(223, 69, 62)")}>
+                     <div className={css.dfThemeButton} onClick={() => setColor(["rgb(223, 69, 62)", "rgb(182, 45, 37)"])}>
                         <ColorTheme mainColors={["rgb(223, 69, 62)", "rgb(182, 45, 37)"]} />
                      </div>
                   </div>
                   <div>
-                     <div className={css.dfThemeButton} onClick={() => setColor("rgb(255, 66, 179)")}>
+                     <div className={css.dfThemeButton} onClick={() => setColor(["rgb(255, 66, 179)", "rgb(255, 0, 153)"])}>
                         <ColorTheme mainColors={["rgb(255, 66, 179)", "rgb(255, 0, 153)"]} />
                      </div>
-                     <div className={css.dfThemeButton} onClick={() => setColor("rgb(255, 106, 151)")}>
+                     <div className={css.dfThemeButton} onClick={() => setColor(["rgb(255, 106, 151)", "rgb(250, 3, 107)"])}>
                         <ColorTheme mainColors={["rgb(255, 106, 151)", "rgb(250, 3, 107)"]} />
                      </div>
                   </div>
                   <div>
-                     <div className={css.dfThemeButton} onClick={() => setColor("rgb(249, 195, 73)")}>
+                     <div className={css.dfThemeButton} onClick={() => setColor(["rgb(249, 195, 73)", "rgb(255, 177, 0)"])}>
                         <ColorTheme mainColors={["rgb(249, 195, 73)", "rgb(255, 177, 0)"]} />
                      </div>
-                     <div className={css.dfThemeButton} onClick={() => setColor("rgb(48, 199, 181)")}>
+                     <div className={css.dfThemeButton} onClick={() => setColor(["rgb(48, 199, 181)", "rgb(182, 45, 37)"])}>
                         <ColorTheme mainColors={["rgb(48, 199, 181)", "rgb(182, 45, 37)"]} />
                      </div>
                   </div>
                   <div>
-                     <div className={css.dfThemeButton} onClick={() => setColor("rgb(48, 199, 181)")}>
+                     <div className={css.dfThemeButton} onClick={() => setColor(["rgb(48, 199, 181)", "rgb(0, 172, 151)"])}>
                         <ColorTheme mainColors={["rgb(48, 199, 181)", "rgb(0, 172, 151)"]} />
                      </div>
-                     <div className={css.dfThemeButton} onClick={() => setColor("rgb(27, 174, 112)")}>
+                     <div className={css.dfThemeButton} onClick={() => setColor(["rgb(27, 174, 112)", "rgb(6, 117, 46)"])}>
                         <ColorTheme mainColors={["rgb(27, 174, 112)", "rgb(6, 117, 46)"]} />
                      </div>
                   </div>
                   <div>
-                     <div className={css.dfThemeButton} onClick={() => setColor("rgb(47, 193, 255)")}>
+                     <div className={css.dfThemeButton} onClick={() => setColor(["rgb(47, 193, 255)", "rgb(8, 172, 242)"])}>
                         <ColorTheme mainColors={["rgb(47, 193, 255)", "rgb(8, 172, 242)"]} />
                      </div>
-                     <div className={css.dfThemeButton} onClick={() => setColor("rgb(65, 117, 252)")}>
+                     <div className={css.dfThemeButton} onClick={() => setColor(["rgb(65, 117, 252)", "rgb(8, 74, 243)"])}>
                         <ColorTheme mainColors={["rgb(65, 117, 252)", "rgb(8, 74, 243)"]} />
                      </div>
                   </div>

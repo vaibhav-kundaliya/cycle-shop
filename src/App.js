@@ -31,16 +31,22 @@ function App() {
       setIsModalOpen(true);
    };
 
-   const [color, setColor] = useState(
-      sessionStorage.getItem("website_color") ? sessionStorage.getItem("website_color") : getComputedStyle(document.documentElement).getPropertyValue("--website-color")
-   );
+   const [color, setColor] = useState([
+      sessionStorage.getItem("website_color") ? sessionStorage.getItem("website_color") : getComputedStyle(document.documentElement).getPropertyValue("--website-color"),
+      sessionStorage.getItem("website_color") ? sessionStorage.getItem("website_color") : getComputedStyle(document.documentElement).getPropertyValue("--nav-hover-color"),
+   ]);
    const [font, setFont] = useState(sessionStorage.getItem("website_font") ? sessionStorage.getItem("website_font") : getComputedStyle(document.documentElement).getPropertyValue("--website-font"));
 
    useEffect(() => {
-            sessionStorage.setItem("website_color", color);
+      sessionStorage.setItem("website_color", color[0]);
       sessionStorage.setItem("website_font", font);
+      // sessionStorage.setItem("nav_hover_color", color[0]);
+      sessionStorage.setItem("nav_color", color[1]);
+   
       document.documentElement.style.setProperty("--website-color", sessionStorage.getItem("website_color"));
       document.documentElement.style.setProperty("--website-font", sessionStorage.getItem("website_font"));
+      document.documentElement.style.setProperty("--nav-hover-color", sessionStorage.getItem("nav_hover_color"));
+      document.documentElement.style.setProperty("--nav-color", sessionStorage.getItem("nav_color"));
    });
 
    return (
@@ -48,7 +54,7 @@ function App() {
          <ConfigProvider
             theme={{
                token: {
-                  colorPrimary: color,
+                  colorPrimary: color[0],
                },
                components: {
                   Button: {

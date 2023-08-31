@@ -36,14 +36,19 @@ export default function ProductDescription() {
       }
    };
 
-   useEffect(() => {
-      const getProduct = async () => {
+   const getProduct = async () => {
+      try{
          const response = await postRequest(process.env.REACT_APP_CONSUMER_URL + "getBySKU", { SKU: SKU });
          console.log(response);
          setProduct(response.data.data);
          fetchData(response.data.data.category, response.data.data.SKU);
-      };
-
+      }
+      catch(error)
+      {
+         setIsValidSKU(false)
+      }
+   };
+   useEffect(() => {
       getProduct();
    }, []);
 

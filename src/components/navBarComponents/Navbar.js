@@ -1,4 +1,4 @@
-import React from "react";
+import {React, useEffect }from "react";
 import css from "./design/Navbar.module.css";
 import logoimg from "../../assets/imgs/logo-1-80x48.png";
 import { Badge } from "antd";
@@ -10,8 +10,19 @@ function Navbar(props) {
    
    let total_money = 0.0;
    const location = useLocation();
-   const style = (location.pathname==="/" || location.pathname==="/contact") ?{backgroundColor:"transparent"}:{}
-
+   useEffect(()=>{
+      if(location.pathname==="/" || location.pathname==="/contact") {
+         document.documentElement.style.setProperty("--nav-hover-color", sessionStorage.getItem("website_color"));
+         sessionStorage.setItem("nav_hover_color", sessionStorage.getItem("website_color"))
+         document.documentElement.style.setProperty("--nav-color", "transparent");
+      }
+      else{
+         document.documentElement.style.setProperty("--nav-hover-color", "rgb(245,245,245)");
+         sessionStorage.setItem("nav_hover_color", "rgb(245,245,245)")
+         document.documentElement.style.setProperty("--nav-color", sessionStorage.getItem("nav_color"));
+      }
+   })
+      
    function display_hide_list() {
       let dropdownlist = document.getElementsByClassName("dropdown_list")[0];
       if (dropdownlist.style.display === "block") {
@@ -23,11 +34,10 @@ function Navbar(props) {
 
    return (
       <>
-         <div className={css.Navbar} style={style}>
+         <div className={css.Navbar}>
             <span className={css.logo}>
-               <img src={logoimg} />
+               <img src={logoimg} height="50px"/>
             </span>
-
             <div className={css.navigation}>
                <NavigationList showModal={props.showModal} />
             </div>
@@ -45,7 +55,7 @@ function Navbar(props) {
          </div>
 
          <div className={css.dropdown_list+" dropdown_list"}>
-            <NavigationList showModal={props.showModal} outercss={css}/>
+            <NavigationList showModal={props.showModal} />
          </div>
       </>
    );
