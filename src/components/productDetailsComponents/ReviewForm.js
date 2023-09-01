@@ -1,7 +1,8 @@
 import React from "react";
+import { Button } from "antd";
 import css from "./design/ReviewForm.module.css";
 import { Form, Input, Rate, Checkbox } from "antd";
-import {Button} from "antd"
+
 export default function ReviewForm() {
    return (
       <div className={css.review_form}>
@@ -11,7 +12,7 @@ export default function ReviewForm() {
             <div className={css.rating_field}>
                <div>Your Rating*</div>
                <div>
-                  <Rate style={{color:"gray"}} />
+                  <Rate style={{ color: "gray" }} />
                </div>
             </div>
             <div className={css.review_field}>

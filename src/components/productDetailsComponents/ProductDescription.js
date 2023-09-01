@@ -1,22 +1,21 @@
-import { React, useState, useRef, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import css from "./design/ProductDescription.module.css";
 import SubNavbar from "./SubNavbar";
-import CardList from "../cardListComponents/CardList";
-import { Radio, Image, Button, Tooltip } from "antd";
-import axios from "axios";
 import getRequest from "../../API/getRequest";
 import ErrorPage from "../../pages/ErrorPage";
 import postRequest from "../../API/postRequest";
+import { React, useState, useEffect } from "react";
+import { useLocation, Link } from "react-router-dom";
+import { Radio, Image, Button, Tooltip } from "antd";
+import CardList from "../cardListComponents/CardList";
+import css from "./design/ProductDescription.module.css";
 
 export default function ProductDescription() {
    window.scrollTo({ top: 0 });
    const location = useLocation();
    const SKU = location.pathname.split("/")[2];
-   const [product, setProduct] = useState({});
-   const [relatedProduct, setRelatedProducs] = useState([]);
-   const [isValidSKU, setIsValidSKU] = useState(true);
    const [value3, setValue3] = useState("");
+   const [product, setProduct] = useState({});
+   const [isValidSKU, setIsValidSKU] = useState(true);
+   const [relatedProduct, setRelatedProducs] = useState([]);
 
    const fetchData = async (category, SKU) => {
       if (category === "Bicycle") {
@@ -36,14 +35,19 @@ export default function ProductDescription() {
       }
    };
 
-   useEffect(() => {
-      const getProduct = async () => {
+   const getProduct = async () => {
+      try{
          const response = await postRequest(process.env.REACT_APP_CONSUMER_URL + "getBySKU", { SKU: SKU });
          console.log(response);
          setProduct(response.data.data);
          fetchData(response.data.data.category, response.data.data.SKU);
-      };
-
+      }
+      catch(error)
+      {
+         setIsValidSKU(false)
+      }
+   };
+   useEffect(() => {
       getProduct();
    }, []);
 
@@ -94,7 +98,7 @@ export default function ProductDescription() {
 
                         <div className={css.product_description_text}>
                            <div className="path">
-                              Home / {product?.category} / {product?.name}
+                              <Link className="links" to="/">Home</Link> / <Link className="links" to={product?.category==="Bicycle"?"/store/bicycles":"/store/accessories"}>{product?.category}</Link> / {product?.name}
                            </div>
                            <div className={css.catagory}>
                               <h3>{product?.category}</h3>

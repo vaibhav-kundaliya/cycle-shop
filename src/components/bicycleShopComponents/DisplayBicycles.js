@@ -1,25 +1,24 @@
-import { React, useState } from "react";
-import css from "./design/DisplayItems.module.css";
 import { Select } from "antd";
+import { React, useState } from "react";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import css from "./design/DisplayItems.module.css";
 import CardList from "../cardListComponents/CardList";
-
-const sortByPropertyName = (property) => (a, b) => {
-   if (a[property] < b[property]) return -1;
-   if (a[property] > b[property]) return 1;
-   return 0;
-};
-
-const sortByPropertyPrice = (property) => (a, b) => a[property] - b[property];
+import { sortByPropertyName, sortByPropertyPrice } from "../../utilities/sortingfun";
 
 export default function DisplayAccessories({ bicycles }) {
+   const isLoading = useSelector((state) => {
+      return state.loaderReducer.productLoader;
+   });
+
    const options = [
       { value: 0, label: "Sort By New Arrival" },
       { value: 1, label: "Sort By Name" },
       { value: 2, label: "Sort By Price: Low to High" },
       { value: 3, label: "Sort By Price: Hight to Low" },
    ];
-   
-   const [sorting, setSorting] = useState(0)
+
+   const [sorting, setSorting] = useState(0);
 
    const sortfun = (perameter) => {
       if (perameter === 0) return bicycles?.reverse();
@@ -29,12 +28,27 @@ export default function DisplayAccessories({ bicycles }) {
    };
 
    const handleSort = (value) => {
-      setSorting(value)
+      setSorting(value);
    };
 
    return (
       <div className={css.displayItems}>
-         Home / Store / Bicycles
+         <div className="path">
+
+         <Link className="links" to="/">
+            Home
+         </Link>{" "}
+         /
+         <Link className="links" to="/store">
+            {" "}
+            Store
+         </Link>{" "}
+         /
+         <Link className="links" to="">
+            {" "}
+            Bicycles
+         </Link>
+         </div>
          <div className={css.title + " group-3"}>
             <h1>Bicycles</h1>
          </div>

@@ -1,9 +1,9 @@
 import React from "react";
+import { Button, Input } from "antd";
 import css from "./design/CartTable.module.css";
 import img from "../../assets/imgs/gloves-1.jpg";
-import { Input } from "antd";
 import { CloseCircleOutlined } from "@ant-design/icons";
-import {Button} from "antd"
+
 export default function CartTable() {
    return (
       <div className={css.cartTable}>

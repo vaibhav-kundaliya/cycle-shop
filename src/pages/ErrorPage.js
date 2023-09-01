@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button, Result } from 'antd';
 import { Link } from 'react-router-dom';
+
 export default function ErrorPage({status_code}) {
   let message
   if(status_code==="404")

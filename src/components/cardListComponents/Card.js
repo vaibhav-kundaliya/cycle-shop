@@ -1,8 +1,8 @@
-import React, { useState } from "react";
 import { Card } from "antd";
+import { React, useState } from "react";
+import css from "./design/Card.module.css";
 import {useNavigate} from "react-router-dom";
 import { ShoppingFilled } from "@ant-design/icons";
-import css from "./design/Card.module.css";
 
 const { Meta } = Card;
 

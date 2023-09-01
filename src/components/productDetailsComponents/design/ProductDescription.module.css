@@ -30,9 +30,6 @@
    transition: transform 0.03s;
 }
 
-.product_description_text .path {
-   color: gray;
-}
 
 .product_description_text .catagory {
    color: var(--website-color);

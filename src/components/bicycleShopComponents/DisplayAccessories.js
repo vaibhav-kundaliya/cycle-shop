@@ -1,24 +1,18 @@
+import { Select } from "antd";
 import { React, useState } from "react";
+import { Link } from "react-router-dom";
 import css from "./design/DisplayItems.module.css";
-import { Select, List} from "antd";
 import CardList from "../cardListComponents/CardList";
+import { sortByPropertyName, sortByPropertyPrice } from "../../utilities/sortingfun";
 
-const sortByPropertyName = (property) => (a, b) => {
-   if (a[property] < b[property]) return -1;
-   if (a[property] > b[property]) return 1;
-   return 0;
-};
-
-const sortByPropertyPrice = (property) => (a, b) => a[property] - b[property];
-
-export default function DisplayAccessories({accessories}) {
+export default function DisplayAccessories({ accessories }) {
    const options = [
       { value: 0, label: "Sort By New Arrival" },
       { value: 1, label: "Sort By Name" },
       { value: 2, label: "Sort By Price: Low to High" },
       { value: 3, label: "Sort By Price: Hight to Low" },
    ];
-   const [sorting, setSorting] = useState(0)
+   const [sorting, setSorting] = useState(0);
 
    const sortfun = (perameter) => {
       if (perameter === 0) return accessories?.slice()?.reverse();
@@ -28,12 +22,24 @@ export default function DisplayAccessories({accessories}) {
    };
 
    const handleSort = (value) => {
-      setSorting(value)
+      setSorting(value);
    };
 
    return (
       <div className={css.displayItems}>
-         Home / Store / Accessories
+         <div className="path">
+            <Link className="links" to="/">
+               Home
+            </Link>{" "}
+            /
+            <Link className="links" to="/store">{" "}
+            Store
+            </Link>{" "}
+            /
+            <Link className="links" to="">{" "}
+            Accessories
+            </Link>
+         </div>
          <div className={css.title + " group-3"}>
             <h1>Accessories</h1>
          </div>
