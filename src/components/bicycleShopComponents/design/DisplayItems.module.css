@@ -1,8 +1,27 @@
+.outer{
+   background-color: var(--bg-color);
+   padding-top: 8rem;
+   padding-bottom: 4rem;
+}
+
+.itemsandfilters {
+   display: flex;
+   flex-direction: row-reverse;
+   justify-content: space-between;
+   gap: 20px;
+   width: 80%;
+   margin: auto;
+}
+
+.filters {
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+}
+
 .displayItems {
-   width: 67%;
-   padding: 80px;
+   padding: 50px;
    background-color: var(--block-color);
-   margin-top: 4rem;
 }
 
 .displayItems h1{
@@ -17,9 +36,7 @@
 
 .listitems {
    display: flex;
-   flex-wrap: nowrap;
    justify-content: space-between;
-   gap: 10px;
 }
 
 .resultCount p {
@@ -49,7 +66,6 @@
 }
 
 .recently_item {
-   margin-top: 20px;
    padding: 5px;
    display: flex;
    justify-content: start;
@@ -58,30 +74,6 @@
 
 .recently_item img {
    height: 50px;
-}
-
-.recently_item div {
-   width: fit-content;
-   padding: auto;
-}
-
-.itemsandfilters {
-   display: flex;
-   flex-direction: row-reverse;
-   justify-content: space-between;
-   padding: 4% 6%;
-   margin: 0px auto;
-   gap: 30px;
-   background-color: var(--bg-color);
-}
-
-.filters {
-   display: flex;
-   flex-direction: column;
-   gap: 30px;
-   margin-left: 20px;
-   width: 35%;
-   margin-top: 4rem;
 }
 
 .searchbar,
@@ -93,13 +85,10 @@
    }
 
    .cardlist {
-    margin: 30px auto;  
+   margin: 30px auto;  
    }
 
 @media only screen and (max-width: 920px) {
-   .displayItems{
-      padding: 10%;
-   }
    
    .displayItems h1{
       font-size: 3.23rem;
@@ -108,29 +97,19 @@
    .itemsandfilters {
       display: flex;
       flex-direction: column;
+      width: 90%;
    }
 
    .cardlist {
-      width: 90%;
       margin: 20px auto;
-      margin-left: 20px;
-   }
-   
-   .filters{
-      width: inherit;
-      margin-left: 0;
-
-   }
-   .displayItems{
-      width: inherit;
    }
 }
 
 @media only screen and (max-width: 450px) {
-   .listitems {
+   .listitems{
       flex-direction: column;
+      gap: 1rem;
    }
-
    .displayItems h1{
       font-size: 2.1rem;
    }

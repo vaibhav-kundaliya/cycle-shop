@@ -1,7 +1,7 @@
 import React from "react";
-import css from "./design/HomePageOne.module.css";
 import { Button } from "antd";
 import { Link } from "react-router-dom";
+import css from "./design/HomePageOne.module.css";
 
 function HomePageOne() {
    return (

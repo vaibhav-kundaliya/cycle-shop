@@ -9,6 +9,7 @@
    width: fit-content;
    height: 15rem;
    width: 100%;
+   cursor: pointer;
 }
 
 .imgTableSecRow .wp_caption{
@@ -52,7 +53,7 @@
   pointer-events: none;
 }
 
-.gradient_overlay:hover{
+.wp_caption:hover{
   background: linear-gradient(to top, rgba(0, 0, 0, 0.746), rgba(0, 0, 0, 0));
 }
 

@@ -1,7 +1,7 @@
 import React from "react";
-import css from "./design/OldReviews.module.css";
 import { Avatar, Rate, Empty } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import css from "./design/OldReviews.module.css";
 
 export default function OldReviews({ reviews }) {
    if (!reviews?.length)

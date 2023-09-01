@@ -1,4 +1,5 @@
 import axios from "axios";
+
 const postRequest = async (url, body, header={}) => {
    try {
       const response = await axios.post(url, body, {
@@ -13,7 +14,7 @@ const postRequest = async (url, body, header={}) => {
          console.error("Error response:", error.response);
          throw error.response;
       } else {
-         throw new Error(error.message);
+         throw error;
       }
    }
 };

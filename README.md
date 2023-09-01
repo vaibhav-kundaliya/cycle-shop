@@ -1,4 +1,5 @@
-# Bicycle Website ReactJS Project
+# CYCLE SPOT
+### Bicycle Website ReactJS Project
 
 Welcome to the Bicycle Website ReactJS project! This project is aimed at creating a dynamic and engaging website for bicycle enthusiasts using the ReactJS framework. This README file provides essential information to help you understand, set up, and contribute to the project.
 
@@ -54,6 +55,7 @@ The project follows a structured organization to keep the codebase manageable:
    -  `components/*/design`: CSS file for that component
    -  `pages/`: Top-level components representing different pages of the website.
    - `reducers`: Contains Ridux reducers
+   - `utilities/`: General utility functions and regex
    -  `App.js`: The root component of the application.
    - `context.js`: React context file for fatching data
    -  `index.js`: Entry point of the application.

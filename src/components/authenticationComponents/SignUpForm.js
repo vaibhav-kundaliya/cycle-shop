@@ -1,13 +1,13 @@
-import { React } from "react";
-import { Form, Input, Button, Select, message } from "antd";
-import css from "./design/SignUpForm.module.css";
+import { React, useEffect } from "react";
 import postRequest from "../../API/postRequest";
-import { getAllCountries, getAllStates, getAllCities } from "../../actions/fetchCountryActions";
-import { useEffect } from "react";
+import css from "./design/SignUpForm.module.css";
+import { authLoading } from "../../actions/setLoader";
 import { useSelector, useDispatch } from "react-redux";
+import { Form, Input, Button, Select, message } from "antd";
 import { PHONENUMBER, ZIPCODE, PASSWORD } from "../../utilities/regex";
+import { getAllCountries, getAllStates, getAllCities, getAllCountryCodes } from "../../actions/fetchCountryActions";
 
-export default function SignUpForm({ setActiveTab }) {
+export default function SignUpForm({setIsModalOpen}) {
    const [messageApi, contextHolder] = message.useMessage();
    const [form] = Form.useForm();
    const dispatch = useDispatch();
@@ -24,8 +24,14 @@ export default function SignUpForm({ setActiveTab }) {
       return state.countryReducer.cities;
    });
 
+   const countryCode = useSelector((state)=>{
+      return state.countryReducer.countryCode
+   })
+
+
    useEffect(() => {
       dispatch(getAllCountries());
+      dispatch(getAllCountryCodes());
    }, []);
 
    const onClickCountry = (target) => {
@@ -38,15 +44,17 @@ export default function SignUpForm({ setActiveTab }) {
 
    const userSignUp = async (req_body) => {
       try {
+         dispatch(authLoading());
          const responseData = await postRequest(process.env.REACT_APP_CONSUMER_URL + "signup", req_body);
          messageApi.open({
             type: "success",
             content: `Welcome ${responseData.data.data.firstName}, Please Sign In :)`,
          });
-
-         setActiveTab("1");
+         dispatch(authLoading());
          form.resetFields();
+         setIsModalOpen(false)
       } catch (error) {
+         console.error(error);
          if (error.message === "Network Error")
             messageApi.open({
                type: "error",
@@ -57,11 +65,10 @@ export default function SignUpForm({ setActiveTab }) {
                type: "error",
                content: error.data.message,
             });
-            console.error(error);
          }
+         dispatch(authLoading());
       }
    };
-
 
    const onFinish = (values) => {
       const req_body = {
@@ -84,64 +91,55 @@ export default function SignUpForm({ setActiveTab }) {
 
    const prefixSelector = (
       <Form.Item name="prefix" noStyle>
-         <Select style={{ width: 70 }}>
-            <Select.Option value="86">+86</Select.Option>
-            <Select.Option value="87">+87</Select.Option>
+         <Select style={{ width: 70 }} options={countryCode} showSearch>
          </Select>
       </Form.Item>
    );
    return (
       <div className={css.box}>
          {contextHolder}
-         <Form 
-            form={form} 
-            name="signup" 
-            onFinish={onFinish} 
-            autoComplete="off"
-            layout="vertical"
-            style={{ maxWidth: 600 }}
-         >
-               <Form.Item
-                  name="firstname"
-                  rules={[
-                     {
-                        required: true,
-                        message: "Please enter First Name!",
-                     },
-                  ]}
-                  label="First Name"
-               >
-                  <Input placeholder="Enter First Name"/>
-               </Form.Item>
-
-               <Form.Item
-                  name="lastname"
-                  rules={[
-                     {
-                        required: true,
-                        message: "Please enter Last Name!",
-                     },
-                  ]}
-                  label="Last Name"
-               >
-                  <Input placeholder="Enter Last Name"/>
-               </Form.Item>
-
-               <Form.Item
-                  name="email"
-                  rules={[
-                     {
-                        required: true,
-                        type: "email",
-                        message: "Please Enter Email!",
-                     },
-                  ]}
-                  label="Email"
-               >
-                  <Input placeholder="Ex. abc@xyz.com" />
-               </Form.Item>
+         <Form form={form} name="signup" onFinish={onFinish} autoComplete="off" layout="vertical" style={{ maxWidth: 600 }}>
             <Form.Item
-               name="phone"
+               name="firstname"
+               rules={[
+                  {
+                     required: true,
+                     message: "Please enter First Name!",
+                  },
+               ]}
+               label="First Name"
+            >
+               <Input placeholder="Enter First Name" />
+            </Form.Item>
+
+            <Form.Item
+               name="lastname"
+               rules={[
+                  {
+                     required: true,
+                     message: "Please enter Last Name!",
+                  },
+               ]}
+               label="Last Name"
+            >
+               <Input placeholder="Enter Last Name" />
+            </Form.Item>
+
+            <Form.Item
+               name="email"
+               rules={[
+                  {
+                     required: true,
+                     type: "email",
+                     message: "Please Enter Email!",
+                  },
+               ]}
+               label="Email"
+            >
+               <Input placeholder="Ex. abc@xyz.com" />
+            </Form.Item>
+            <Form.Item
+               name="phonenumber"
                rules={[
                   {
                      required: true,
@@ -202,7 +200,7 @@ export default function SignUpForm({ setActiveTab }) {
                   options={[...countryList, { label: "None", value: "none" }]}
                   placeholder="Select Country"
                   showSearch
-                  optionFilterProp="children"
+                  // optionFilterProp="children"
                   filterOption={(input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase())}
                   filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())}
                />
@@ -222,7 +220,7 @@ export default function SignUpForm({ setActiveTab }) {
                   options={[...stateList, { label: "None", value: "none" }]}
                   placeholder="Select State"
                   showSearch
-                  optionFilterProp="children"
+                  // optionFilterProp="children"
                   filterOption={(input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase())}
                   filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())}
                />
@@ -240,8 +238,6 @@ export default function SignUpForm({ setActiveTab }) {
                <Select
                   options={[...cityList, { label: "None", value: "none" }]}
                   placeholder="Select City"
-                  showSearch
-                  optionFilterProp="children"
                   filterOption={(input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase())}
                   filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())}
                />
@@ -261,7 +257,7 @@ export default function SignUpForm({ setActiveTab }) {
                help="Your Password must contains 8 latters having at-least one capital latter, one special character and one digit !"
                label="Password"
             >
-               <Input.Password placeholder="Enter password as per description"/>
+               <Input.Password placeholder="Enter password as per description" />
             </Form.Item>
             <div className={css.buttons}>
                <Button type="primary" htmlType="submit">

@@ -10,6 +10,15 @@ a{
   color: inherit;
 }
 
+.links:hover{
+  color: var(--website-color);
+}
+
+.path {
+  color: gray;
+  font-weight: bold;
+}
+
 *::selection{
   background-color: var(--website-color);
 }
@@ -58,7 +67,6 @@ a{
 
 body {
   margin: 0px;
-  overflow-x: hidden;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;

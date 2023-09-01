@@ -1,8 +1,8 @@
 import React from "react";
-import css from "./design/FeaturedCycle.module.css";
-import img from "../../assets/imgs/bicycle-1.jpg";
 import { Button } from "antd";
 import { Link } from "react-router-dom";
+import img from "../../assets/imgs/bicycle-1.jpg";
+import css from "./design/FeaturedCycle.module.css";
 
 export default function FeaturedCycle() {
    const content_css = {

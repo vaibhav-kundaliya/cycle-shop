@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "antd";
 import css from "./design/PriceRange.module.css";
+
 export default function PriceRange({ setPrice, price_pair }) {
    if (!price_pair) return <></>;
 

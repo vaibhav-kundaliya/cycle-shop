@@ -1,7 +1,8 @@
 const initial_state = {
    countries: [],
    states: [],
-   cities: []
+   cities: [],
+   countryCode: []
 }
 
 
@@ -13,6 +14,8 @@ export const fetchCountryReducer = (state=initial_state, action) =>{
          return {...state, states:action.payload}
       case "SET_CITY":
          return {...state, cities:action.payload}
+      case "SET_COUTNRY_CODE":
+         return {...state, countryCode:action.payload}
       default:
          return state
    }
