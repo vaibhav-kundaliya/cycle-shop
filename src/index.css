@@ -10,6 +10,15 @@ a{
   color: inherit;
 }
 
+.links:hover{
+  color: var(--website-color);
+}
+
+.path {
+  color: gray;
+  font-weight: bold;
+}
+
 *::selection{
   background-color: var(--website-color);
 }

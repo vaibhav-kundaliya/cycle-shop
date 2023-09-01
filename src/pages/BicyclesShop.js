@@ -1,11 +1,11 @@
 import { Input, Slider, Button, Spin } from "antd";
 import { React, useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useLocation, useNavigate, Routes, Route, Link } from "react-router-dom";
 import DisplayBicycles from "../components/bicycleShopComponents/DisplayBicycles";
 import css from "../components/bicycleShopComponents/design/DisplayItems.module.css";
 import DisplayAllProducts from "../components/bicycleShopComponents/DisplayAllProducts";
 import DisplayAccessories from "../components/bicycleShopComponents/DisplayAccessories";
+import { useLocation, useNavigate, Routes, Route, Link, Navigate } from "react-router-dom";
 import { getAccessories, getBicycles, getAllProducts, getAllProducts_keyword } from "../actions/fetchActions";
 
 const { Search } = Input;
@@ -85,9 +85,10 @@ export default function BicyclesShop() {
             <Spin size="large" style={{ marginTop: "50%" }} spinning={isLoading} tip="Loading...">
                <Routes path="/">
                   <Route>
-                     <Route exact path="bicycles" element={<DisplayBicycles bicycles={bicycles} />} />
-                     <Route exact path="accessories" element={<DisplayAccessories accessories={accessories} />} />
-                     <Route exact path="" element={<DisplayAllProducts products={all_products} />} />
+                     <Route path="/accessories" element={<DisplayAccessories accessories={accessories} />} />
+                     <Route exact path="/bicycles" element={<DisplayBicycles bicycles={bicycles} />} />
+                     <Route path="/" element={<DisplayAllProducts products={all_products} />} />
+                     <Route path="/*" element={<Navigate to="/ErrorPage" replace />} />
                   </Route>
                </Routes>
             </Spin>

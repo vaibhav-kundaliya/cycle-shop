@@ -1,8 +1,9 @@
-import { React, useState } from "react";
-import css from "./design/DisplayItems.module.css";
 import { Select } from "antd";
+import { React, useState } from "react";
+import { Link } from "react-router-dom";
+import css from "./design/DisplayItems.module.css";
 import CardList from "../cardListComponents/CardList";
-import {sortByPropertyName, sortByPropertyPrice} from "../../utilities/sortingfun"
+import { sortByPropertyName, sortByPropertyPrice } from "../../utilities/sortingfun";
 
 export default function DisplayAccessories({ accessories }) {
    const options = [
@@ -26,7 +27,19 @@ export default function DisplayAccessories({ accessories }) {
 
    return (
       <div className={css.displayItems}>
-         Home / Store / Accessories
+         <div className="path">
+            <Link className="links" to="/">
+               Home
+            </Link>{" "}
+            /
+            <Link className="links" to="/store">{" "}
+            Store
+            </Link>{" "}
+            /
+            <Link className="links" to="">{" "}
+            Accessories
+            </Link>
+         </div>
          <div className={css.title + " group-3"}>
             <h1>Accessories</h1>
          </div>

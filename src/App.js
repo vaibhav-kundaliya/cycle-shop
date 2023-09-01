@@ -81,9 +81,11 @@ function App() {
                      <Route exact path="" element={<Home />} />
                      <Route exact path="contact" element={<ContactUs />} />
                      <Route element={<PrivateRoute />}>
-                        <Route exact path="product-details/*" element={<ProductDetails />} />
-                        <Route exact order={2} path="store/*" element={<BicyclesShop />} />
                         <Route exact path="shopping-cart" element={<CartPage />} />
+                        <Route exact path="store/*" element={<BicyclesShop />} />
+                        {/* <Route exact path="store/accessories" element={<BicyclesShop />} />
+                        <Route exact path="store/all" element={<BicyclesShop />} /> */}
+                        <Route exact path="product-details/*" element={<ProductDetails />} />
                      </Route>
                      <Route path="*" element={<ErrorPage status_code="404" />} />
                   </Routes>

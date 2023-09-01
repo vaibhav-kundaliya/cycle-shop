@@ -1,15 +1,15 @@
+import { Select } from "antd";
 import { React, useState } from "react";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import css from "./design/DisplayItems.module.css";
-import { Select, Spin } from "antd";
 import CardList from "../cardListComponents/CardList";
-import {useSelector} from "react-redux"
-import {sortByPropertyName, sortByPropertyPrice} from "../../utilities/sortingfun"
+import { sortByPropertyName, sortByPropertyPrice } from "../../utilities/sortingfun";
 
 export default function DisplayAccessories({ bicycles }) {
-
    const isLoading = useSelector((state) => {
-      return state.loaderReducer.productLoader
-   })
+      return state.loaderReducer.productLoader;
+   });
 
    const options = [
       { value: 0, label: "Sort By New Arrival" },
@@ -33,7 +33,22 @@ export default function DisplayAccessories({ bicycles }) {
 
    return (
       <div className={css.displayItems}>
-         Home / Store / Bicycles
+         <div className="path">
+
+         <Link className="links" to="/">
+            Home
+         </Link>{" "}
+         /
+         <Link className="links" to="/store">
+            {" "}
+            Store
+         </Link>{" "}
+         /
+         <Link className="links" to="">
+            {" "}
+            Bicycles
+         </Link>
+         </div>
          <div className={css.title + " group-3"}>
             <h1>Bicycles</h1>
          </div>
@@ -56,7 +71,7 @@ export default function DisplayAccessories({ bicycles }) {
             </div>
          </div>
          <div className={css.cardlist}>
-               <CardList product_list={sortfun(sorting)} />
+            <CardList product_list={sortfun(sorting)} />
          </div>
       </div>
    );
