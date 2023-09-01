@@ -1,9 +1,12 @@
-import {React, useEffect} from 'react'
-import {Outlet, Navigate, Route} from "react-router-dom"
+import {React} from 'react'
+import {Outlet} from "react-router-dom"
+import {useSelector} from "react-redux"
 import ErrorPage from '../../pages/ErrorPage'
-import { useGlobalContext } from '../../context'
+
 export default function PrivateRoute() {
-  const isAuthenticated = sessionStorage.getItem("user")
+  const isAuthenticated = useSelector((state)=>{
+    return state.authReducer
+  })
   
   return (
     isAuthenticated ? <Outlet /> : <ErrorPage status_code="403" />

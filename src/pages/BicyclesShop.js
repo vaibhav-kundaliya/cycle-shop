@@ -1,31 +1,35 @@
-import { React, useEffect, useState } from "react";
-import { Input, Slider, Button } from "antd";
-import CustomButton from "../components/buttonComponents/CustomButton";
-import DisplayAccessories from "../components/bicycleShopComponents/DisplayAccessories";
-import DisplayBicycles from "../components/bicycleShopComponents/DisplayBicycles";
-import DisplayAllProducts from "../components/bicycleShopComponents/DisplayAllProducts";
-import { useLocation, useNavigate, Routes, Route, Link } from "react-router-dom";
+import { Input, Slider, Button, Spin } from "antd";
+import { React, useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAccessories, getBicycles, getAllProducts } from "../actions/fetchActions";
+import DisplayBicycles from "../components/bicycleShopComponents/DisplayBicycles";
 import css from "../components/bicycleShopComponents/design/DisplayItems.module.css";
+import DisplayAllProducts from "../components/bicycleShopComponents/DisplayAllProducts";
+import DisplayAccessories from "../components/bicycleShopComponents/DisplayAccessories";
+import { useLocation, useNavigate, Routes, Route, Link, Navigate } from "react-router-dom";
+import { getAccessories, getBicycles, getAllProducts, getAllProducts_keyword } from "../actions/fetchActions";
+
 const { Search } = Input;
 
 export default function BicyclesShop() {
-   const minPrice = 0,
-      maxPrice = 1000;
+   const focusOnLoad = useRef(null);
+
+   useEffect(() => {
+      focusOnLoad.current.focus(focusOnLoad);
+   }, []);
+
+   const minPrice = 0;
+   const maxPrice = 1000;
    const location = useLocation();
+   const navigate = useNavigate();
+   const dispatch = useDispatch();
    const queryParams = new URLSearchParams(location.search);
    const [range, setRange] = useState([queryParams.get("minPrice") || minPrice, queryParams.get("maxPrice") || maxPrice]);
+   const [url, setUrl] = useState(window.location.href);
+   const [searchValue, setSearchValue] = useState("");
 
    const displayRange = (element) => {
       setRange([element[0], element[1]]);
    };
-
-   const navigate = useNavigate();
-
-   let path = location.pathname;
-
-   const [url, setUrl] = useState(window.location.href);
 
    const AssignFilters = (min, max) => {
       const newSearchParams = new URLSearchParams();
@@ -41,7 +45,23 @@ export default function BicyclesShop() {
       AssignFilters(range[0], range[1]);
    };
 
-   const dispatch = useDispatch();
+   const handleReset = (event) => {
+      event.preventDefault();
+      AssignFilters(minPrice, maxPrice);
+      setRange([minPrice, maxPrice]);
+   };
+
+   const handleSearch = (keyword) => {
+      navigate("");
+      dispatch(getAllProducts_keyword(keyword));
+      setSearchValue("");
+   };
+
+   useEffect(() => {
+      dispatch(getAllProducts(range));
+      dispatch(getBicycles(range));
+      dispatch(getAccessories(range));
+   }, [url]);
 
    const all_products = useSelector((state) => {
       return state.productReducer.all_products;
@@ -55,33 +75,30 @@ export default function BicyclesShop() {
       return state.productReducer.accessories;
    });
 
-   useEffect(() => {
-      dispatch(getAllProducts(`http://localhost:8001/productFilter?minPrice=${range[0]}&maxPrice=${range[1]}&category=`));
-      dispatch(getBicycles(`http://localhost:8001/productFilter?minPrice=${range[0]}&maxPrice=${range[1]}&category=Bicycle`));
-      dispatch(getAccessories(`http://localhost:8001/productFilter?minPrice=${range[0]}&maxPrice=${range[1]}&category=Accessory`));
-   }, [url]);
-
-   const [searchValue, setSearchValue] = useState("");
-   const handleSearch = (event) => {
-     navigate("");
-     dispatch(getAllProducts(`http://localhost:8001/searchProduct/keyword?keyword=${event}`));
-     setSearchValue("");
-   };
+   const isLoading = useSelector((state) => {
+      return state.loaderReducer.productLoader;
+   });
 
    return (
-      <>
+      <div className={css.outer}>
          <div className={css.itemsandfilters}>
-            <Routes path="/">
-               <Route exact path="bicycles" element={<DisplayBicycles bicycles={bicycles} />} />
-               <Route exact path="accessories" element={<DisplayAccessories accessories={accessories} />} />
-               <Route exact path="" element={<DisplayAllProducts products={all_products} />} />
-            </Routes>
+            <Spin size="large" style={{ marginTop: "50%" }} spinning={isLoading} tip="Loading...">
+               <Routes path="/">
+                  <Route>
+                     <Route path="/accessories" element={<DisplayAccessories accessories={accessories} />} />
+                     <Route exact path="/bicycles" element={<DisplayBicycles bicycles={bicycles} />} />
+                     <Route path="/" element={<DisplayAllProducts products={all_products} />} />
+                     <Route path="/*" element={<Navigate to="/ErrorPage" replace />} />
+                  </Route>
+               </Routes>
+            </Spin>
             <div className={css.filters}>
                <div className={css.searchbar}>
                   <div className="group-4">
                      <span>Search</span>
                   </div>
                   <Search
+                     ref={focusOnLoad}
                      placeholder="Search Products..."
                      value={searchValue}
                      onChange={(e) => setSearchValue(e.target.value)}
@@ -112,9 +129,9 @@ export default function BicyclesShop() {
                         <div>${range[1]}</div>
                      </div>
                      <div className={css.filterbuttons}>
-                        <div onClick={() => setRange([minPrice, maxPrice])}>
-                           <CustomButton text="RESET" />
-                        </div>
+                        <Button onClick={handleReset} htmlType="reset">
+                           RESET
+                        </Button>
                         <Button type="primary" htmlType="submit">
                            APPLY
                         </Button>
@@ -144,21 +161,8 @@ export default function BicyclesShop() {
                      </li>
                   </ul>
                </div>
-
-               <div className={css.resentlyviewedproducts}>
-                  <div className="group-4">
-                     <span>Recently viewed products</span>
-                  </div>
-                  <div className={css.recently_item}>
-                     <div>{/* <img src={items[0].img} alt={items[0].img} /> */}</div>
-                     <div>
-                        {/* <div className="">{items[0].name}</div>
-                     <div className="">{items[0].price}</div> */}
-                     </div>
-                  </div>
-               </div>
             </div>
          </div>
-      </>
+      </div>
    );
 }

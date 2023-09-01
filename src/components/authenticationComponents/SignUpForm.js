@@ -1,67 +1,75 @@
-import { React, useState } from "react";
-import { Form, Input, Button, InputNumber, Select, message } from "antd";
+import { React, useEffect } from "react";
+import postRequest from "../../API/postRequest";
 import css from "./design/SignUpForm.module.css";
-import { LoadingOutlined } from "@ant-design/icons";
-import { useGlobalContext } from "../../context";
-import { useLocation } from "react-router-dom";
-import axios from "axios";
-const singUpAPI = "http://localhost:8001/signup";
+import { authLoading } from "../../actions/setLoader";
+import { useSelector, useDispatch } from "react-redux";
+import { Form, Input, Button, Select, message } from "antd";
+import { PHONENUMBER, ZIPCODE, PASSWORD } from "../../utilities/regex";
+import { getAllCountries, getAllStates, getAllCities, getAllCountryCodes } from "../../actions/fetchCountryActions";
 
-export default function SignUpForm({ setIsModalOpen, setActiveTab }) {
-   const [form] = Form.useForm();
-   const { states, country, city, fetchState, fetchCity } = useGlobalContext();
+export default function SignUpForm({setIsModalOpen}) {
    const [messageApi, contextHolder] = message.useMessage();
-   const [isLoading, setLoading] = useState();
-   const location = useLocation();
+   const [form] = Form.useForm();
+   const dispatch = useDispatch();
+
+   const countryList = useSelector((state) => {
+      return state.countryReducer.countries;
+   });
+
+   const stateList = useSelector((state) => {
+      return state.countryReducer.states;
+   });
+
+   const cityList = useSelector((state) => {
+      return state.countryReducer.cities;
+   });
+
+   const countryCode = useSelector((state)=>{
+      return state.countryReducer.countryCode
+   })
+
+
+   useEffect(() => {
+      dispatch(getAllCountries());
+      dispatch(getAllCountryCodes());
+   }, []);
+
+   const onClickCountry = (target) => {
+      dispatch(getAllStates(target));
+   };
+
+   const onClickState = (target) => {
+      dispatch(getAllCities(target));
+   };
 
    const userSignUp = async (req_body) => {
-      setLoading(true);
-      axios
-         .post(singUpAPI, req_body, { headers: { "Content-Type": "application/json" }, withCredentials: true })
-         .then((response) => {
-            messageApi.open({
-               content: `Hello ${response.data.data.firstName}, Please Sign In`,
-               type: "success",
-            });
-            console.log("Tab stuck")
-            setActiveTab("1")
-         })
-         .catch((error) => {
-            if (error.response) {
-               console.error("adada", error.response);
-               messageApi.open({
-                  content: error.response.data.message,
-                  type: "error",
-               });
-            } else {
-               messageApi.open({
-                  content: error.message,
-                  type: "error",
-               });
-            }
+      try {
+         dispatch(authLoading());
+         const responseData = await postRequest(process.env.REACT_APP_CONSUMER_URL + "signup", req_body);
+         messageApi.open({
+            type: "success",
+            content: `Welcome ${responseData.data.data.firstName}, Please Sign In :)`,
          });
-      setLoading(false);
+         dispatch(authLoading());
+         form.resetFields();
+         setIsModalOpen(false)
+      } catch (error) {
+         console.error(error);
+         if (error.message === "Network Error")
+            messageApi.open({
+               type: "error",
+               content: "Server not respond, try after sometime :(",
+            });
+         else {
+            messageApi.open({
+               type: "error",
+               content: error.data.message,
+            });
+         }
+         dispatch(authLoading());
+      }
    };
 
-   const onLoading = () => {
-      return (
-         <Button type="primary" disabled htmlType="submit">
-            <LoadingOutlined />
-         </Button>
-      );
-   };
-
-   const setStates = (element) => {
-      if (element !== "none") fetchState(element);
-   };
-
-   const setCity = (element) => {
-      if (element !== "none") fetchCity(element);
-   };
-
-   const phoneNumberRegex = /^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/;
-   const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{8,}$/;
-   const zipcodeRegex = /\d{5}/;
    const onFinish = (values) => {
       const req_body = {
          firstName: values.firstname,
@@ -71,8 +79,7 @@ export default function SignUpForm({ setIsModalOpen, setActiveTab }) {
          confirmPassword: values.password,
          phoneNumber: values.phonenumber,
          address: {
-            address1: values.address1,
-            address2: values.address2,
+            address1: values.address,
             pincode: values.pincode,
             city: values.city,
             state: values.state,
@@ -81,97 +88,71 @@ export default function SignUpForm({ setIsModalOpen, setActiveTab }) {
       };
       userSignUp(req_body);
    };
-   const onFinishFailed = (errorInfo) => {
-      console.log("Failed:", errorInfo);
-   };
+
+   const prefixSelector = (
+      <Form.Item name="prefix" noStyle>
+         <Select style={{ width: 70 }} options={countryCode} showSearch>
+         </Select>
+      </Form.Item>
+   );
    return (
-      <div>
+      <div className={css.box}>
          {contextHolder}
-         <Form
-            form={form}
-            style={{
-               height: "fit-content",
-            }}
-            name="signup"
-            initialValues={{
-               remember: true,
-            }}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-            autoComplete="off"
-         >
-            <div className={css.two_inline_fields + " " + css.inline_fields}>
-               <Form.Item
-                  name="firstname"
-                  rules={[
-                     {
-                        required: true,
-                        message: "Please enter First Name!",
-                     },
-                  ]}
-               >
-                  <Input placeholder="First Name" />
-               </Form.Item>
-
-               <Form.Item
-                  name="lastname"
-                  rules={[
-                     {
-                        required: true,
-                        message: "Please enter Last Name!",
-                     },
-                  ]}
-               >
-                  <Input placeholder="Last Name" />
-               </Form.Item>
-            </div>
-
-            <div>
-               <Form.Item
-                  name="email"
-                  rules={[
-                     {
-                        required: true,
-                        message: "Please Enter Email!",
-                     },
-                     {
-                        type: "email",
-                     },
-                  ]}
-               >
-                  <Input placeholder="Email" />
-               </Form.Item>
-            </div>
-               <Form.Item
-                  name="phonenumber"
-                  rules={[
-                     {
-                        required: true,
-                        message: "Please enter Phone Number!",
-                     },
-                     {
-                        pattern: phoneNumberRegex,
-                        message: "Please enter a valid phone number!",
-                     },
-                  ]}
-               >
-                  <Input placeholder="Phone Number" />
-               </Form.Item>
-
+         <Form form={form} name="signup" onFinish={onFinish} autoComplete="off" layout="vertical" style={{ maxWidth: 600 }}>
             <Form.Item
-               name="zipcode"
+               name="firstname"
                rules={[
                   {
                      required: true,
-                     message: "Please input your Zip Code",
-                  },
-                  {
-                     pattern: zipcodeRegex,
-                     message: "Please enter a valid Zip Code!",
+                     message: "Please enter First Name!",
                   },
                ]}
+               label="First Name"
             >
-               <Input placeholder="Zip Code" />
+               <Input placeholder="Enter First Name" />
+            </Form.Item>
+
+            <Form.Item
+               name="lastname"
+               rules={[
+                  {
+                     required: true,
+                     message: "Please enter Last Name!",
+                  },
+               ]}
+               label="Last Name"
+            >
+               <Input placeholder="Enter Last Name" />
+            </Form.Item>
+
+            <Form.Item
+               name="email"
+               rules={[
+                  {
+                     required: true,
+                     type: "email",
+                     message: "Please Enter Email!",
+                  },
+               ]}
+               label="Email"
+            >
+               <Input placeholder="Ex. abc@xyz.com" />
+            </Form.Item>
+            <Form.Item
+               name="phonenumber"
+               rules={[
+                  {
+                     required: true,
+                     message: "Please input your phone number!",
+                  },
+                  {
+                     pattern: PHONENUMBER,
+                     message: "Input valid phone number !",
+                  },
+               ]}
+               label="Phone Number"
+            >
+               <Input placeholder="Ex. 0123456789" addonBefore={prefixSelector} style={{ width: "100%" }} />
             </Form.Item>
 
             <Form.Item
@@ -181,69 +162,86 @@ export default function SignUpForm({ setIsModalOpen, setActiveTab }) {
                      message: "Please input your Address!",
                   },
                ]}
-               name="address1"
+               name="address"
+               label="Address"
             >
-               <Input placeholder="Address Line 1" />
+               <Input placeholder="Enter Address" />
             </Form.Item>
 
-            <Form.Item name="address2">
-               <Input placeholder="Address Line 2" />
+            <Form.Item
+               name="zipcode"
+               rules={[
+                  {
+                     required: true,
+                     message: "Please input your Zip Code",
+                  },
+                  {
+                     pattern: ZIPCODE,
+                     message: "Please enter a valid Zip Code!",
+                  },
+               ]}
+               label="Zip Code"
+            >
+               <Input placeholder="Ex. 123456" />
             </Form.Item>
-            <div className={css.inline_fields + " " + css.three_inline_fields}>
-               <Form.Item
-                  name="country"
-                  rules={[
-                     {
-                        required: true,
-                        message: "Please select country",
-                     },
-                  ]}
-               >
-                  <Select
-                     style={{
-                        width: 150,
-                     }}
-                     options={[...country, { label: "None", value: "none" }]}
-                     onChange={setStates}
-                     placeholder="Select Country"
-                  />
-               </Form.Item>
-               <Form.Item
-                  name="state"
-                  rules={[
-                     {
-                        required: true,
-                        message: "Please input your State",
-                     },
-                  ]}
-               >
-                  <Select
-                     style={{
-                        width: 150,
-                     }}
-                     options={[...states, { label: "None", value: "none" }]}
-                     onChange={setCity}
-                     placeholder="Select State"
-                  />
-               </Form.Item>
-               <Form.Item
-                  name="city"
-                  rules={[
-                     {
-                        required: true,
-                        message: "Please input your City",
-                     },
-                  ]}
-               >
-                  <Select
-                     style={{
-                        width: 150,
-                     }}
-                     options={[...city, { label: "None", value: "none" }]}
-                     placeholder="Select City"
-                  />
-               </Form.Item>
-            </div>
+
+            <Form.Item
+               name="country"
+               rules={[
+                  {
+                     required: true,
+                     message: "Please select country",
+                  },
+               ]}
+               label="Country"
+            >
+               <Select
+                  onChange={onClickCountry}
+                  options={[...countryList, { label: "None", value: "none" }]}
+                  placeholder="Select Country"
+                  showSearch
+                  // optionFilterProp="children"
+                  filterOption={(input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase())}
+                  filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())}
+               />
+            </Form.Item>
+            <Form.Item
+               name="state"
+               rules={[
+                  {
+                     required: true,
+                     message: "Please input your State",
+                  },
+               ]}
+               label="State"
+            >
+               <Select
+                  onChange={onClickState}
+                  options={[...stateList, { label: "None", value: "none" }]}
+                  placeholder="Select State"
+                  showSearch
+                  // optionFilterProp="children"
+                  filterOption={(input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase())}
+                  filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())}
+               />
+            </Form.Item>
+            <Form.Item
+               name="city"
+               rules={[
+                  {
+                     required: true,
+                     message: "Please input your City",
+                  },
+               ]}
+               label="City"
+            >
+               <Select
+                  options={[...cityList, { label: "None", value: "none" }]}
+                  placeholder="Select City"
+                  filterOption={(input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase())}
+                  filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())}
+               />
+            </Form.Item>
             <Form.Item
                name="password"
                rules={[
@@ -252,13 +250,14 @@ export default function SignUpForm({ setIsModalOpen, setActiveTab }) {
                      message: "Please input your password!",
                   },
                   {
-                     pattern: passwordRegex,
+                     pattern: PASSWORD,
                      message: "Enter Password as per instruction",
                   },
                ]}
                help="Your Password must contains 8 latters having at-least one capital latter, one special character and one digit !"
+               label="Password"
             >
-               <Input.Password placeholder="Password" />
+               <Input.Password placeholder="Enter password as per description" />
             </Form.Item>
             <div className={css.buttons}>
                <Button type="primary" htmlType="submit">

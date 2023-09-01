@@ -1,97 +1,80 @@
 import { React } from "react";
-import { Button, Form, Input, message } from "antd";
-import css from "./design/SignUpForm.module.css";
-import { useGlobalContext } from "../../context";
-import { LoadingOutlined } from "@ant-design/icons";
-import axios from "axios";
-const singInAPI = "http://localhost:8001/login";
+import { useDispatch } from "react-redux";
+import postRequest from "../../API/postRequest";
+import css from "./design/SignInForm.module.css";
+import { authLoading } from "../../actions/setLoader";
+import { setAuthUser } from "../../actions/authActions";
+import { LockOutlined, MailOutlined } from "@ant-design/icons";
+import { Button, Form, Input, message, Checkbox } from "antd";
 
 export default function SignInForm({ signInRef, setIsModalOpen }) {
    const [messageApi, contextHolder] = message.useMessage();
+   const dispatch = useDispatch();
 
    const userLogIn = async (req_body) => {
-      axios
-         .post(singInAPI, req_body, { headers: { "Content-Type": "application/json" }, timeout: 5000, responseType: 'json', withCredentials: true })
-         .then((response) => {
-            sessionStorage.setItem("user", response.data.data.email);
-            setIsModalOpen(false)
-            window.location.reload();
-            messageApi.open({
-               content: `Hello ${response.data.data.firstName}, Welcome to our store`,
-               type: "success",
-            });
-         })
-         .catch((error) => {
-            if (error.response) {
-               messageApi.open({
-                  content: error.response.data.message,
-                  type: "error"
-               })
-            } else {
-               messageApi.open({
-                  content: error.message,
-                  type: "error",
-               });
-            }
+      try {
+         dispatch(authLoading());
+         const responseData = await postRequest(process.env.REACT_APP_CONSUMER_URL + "login", req_body);
+         dispatch(setAuthUser(responseData.data.data._id));
+         setIsModalOpen(false);
+         dispatch(authLoading());
+         messageApi.open({
+            type: "success",
+            content: `Welcome ${responseData.data.data.firstName}, :)`,
          });
+      } catch (error) {
+         if (error.status >= 400 && error.status < 500) {
+            messageApi.open({
+               type: "error",
+               content: error.data.message,
+            });
+         } else if (error.message === "Network Error")
+            messageApi.open({
+               type: "error",
+               content: "Network Error :(",
+            });
+         else {
+            messageApi.open({
+               type: "error",
+               content: "Some error occured :(",
+            });
+         }
+         dispatch(authLoading());
+      }
    };
 
    const onFinish = (values) => {
-      const req_body = JSON.stringify({
+      const req_body = {
          email: values.email,
          password: values.password,
-      });
+      };
       userLogIn(req_body);
-   };
-   const onFinishFailed = (errorInfo) => {
-      console.log("Failed:", errorInfo);
    };
 
    return (
       <div>
          {contextHolder}
-         <Form
-            ref={signInRef}
-            style={{
-               height: "fit-content",
-            }}
-            name="signin"
-            initialValues={{
-               remember: true,
-            }}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-            autoComplete="off"
-         >
-            <Form.Item
-               name="email"
-               rules={[
-                  {
-                     required: true,
-                     message: "Please input your email!",
-                  },
-               ]}
-            >
-               <Input placeholder="Email" />
+         <Form ref={signInRef} name="signin" onFinish={onFinish}>
+            <Form.Item name="email" rules={[{ required: true, message: "Please input your Username!" }]}>
+               <Input prefix={<MailOutlined className={css.site_form_item_icon} />} placeholder="Username" />
+            </Form.Item>
+            <Form.Item name="password" rules={[{ required: true, message: "Please input your Password!" }]}>
+               <Input.Password prefix={<LockOutlined className={css.site_form_item_icon} />} type="password" placeholder="Password" />
             </Form.Item>
 
-            <Form.Item
-               name="password"
-               rules={[
-                  {
-                     required: true,
-                     message: "Please input your password!",
-                  },
-               ]}
-            >
-               <Input.Password placeholder="Password" />
+            <Form.Item>
+               <Form.Item name="remember" valuePropName="checked" noStyle>
+                  <Checkbox>Remember me</Checkbox>
+               </Form.Item>
+
+               <span className={css.login_form_forgot}>Forgot password</span>
             </Form.Item>
-            <div className={css.buttons}>
-               <Button type="primary" htmlType="submit">
-                  Sign In
+
+            <Form.Item>
+               <Button type="primary" htmlType="submit" className={css.login_form_button}>
+                  Log in
                </Button>
-               <Button htmlType="button">Reset</Button>
-            </div>
+            </Form.Item>
          </Form>
       </div>
    );

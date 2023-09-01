@@ -1,23 +1,21 @@
-import logo from "./logo.svg";
-import Navbar from "./components/navBarComponents/Navbar";
-import LeftDrover from "./components/navBarComponents/LeftDrover";
-import BicyclesShop from "./pages/BicyclesShop";
-import ContactUs from "./pages/ContactUs";
-import Home from "./pages/Home";
-import ProductDetails from "./pages/ProductDetails";
 import "./App.css";
-import Footer from "./components/footerComponents/Footer";
-import ThemePallate from "./components/themePallate/ThemePallate";
-import CartPage from "./pages/CartPage.js";
-import { Component, useEffect, useState } from "react";
-import { BrowserRouter as Router, useLocation, Routes, Route } from "react-router-dom";
-import { ConfigProvider, Switch } from "antd";
-import Authentication from "./pages/Authentication";
-import { AppProvider } from "./context";
+import Home from "./pages/Home";
+import { store } from "./store";
+import { ConfigProvider } from "antd";
 import { Provider } from "react-redux";
-import {store} from "./store";
-import PrivateRoute from "./components/authenticationComponents/PrivateRoute";
 import ErrorPage from "./pages/ErrorPage";
+import ContactUs from "./pages/ContactUs";
+import CartPage from "./pages/CartPage.js";
+import { useEffect, useState } from "react";
+import BicyclesShop from "./pages/BicyclesShop";
+import Authentication from "./pages/Authentication";
+import ProductDetails from "./pages/ProductDetails";
+import Footer from "./components/footerComponents/Footer";
+import Navbar from "./components/navBarComponents/Navbar";
+import ThemePallate from "./components/themePallate/ThemePallate";
+import LeftDrover from "./components/navBarComponents/LeftDrover";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import PrivateRoute from "./components/authenticationComponents/PrivateRoute";
 
 function App() {
    const [isvisible, setisvisible] = useState("none");
@@ -73,27 +71,27 @@ function App() {
                },
             }}
          >
-            <AppProvider>
-               <Provider store={store}>
-                  <Router>
-                     <ThemePallate setColor={setColor} setFont={setFont} />
-                     <LeftDrover isvisible={isvisible} setisvisible={setisvisible} open_close={open_close} bg={"transparent"} />
-                     <Navbar open_close={open_close} showModal={showModal} />
-                     <Authentication isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} showModal={showModal} />
-                     <Routes>
-                        <Route exact path="" element={<Home />} />
-                        <Route exact path="contact" element={<ContactUs />} />
-                        <Route element={<PrivateRoute />}>
-                           <Route exact path="product-details/*" element={<ProductDetails />} />
-                           <Route exact path="store/*" element={<BicyclesShop />} />
-                           <Route exact path="shopping-cart" element={<CartPage />} />
-                        </Route>
-                        <Route path="*" element={<ErrorPage status_code="404" />} />
-                     </Routes>
-                  </Router>
-               </Provider>
-               <Footer />
-            </AppProvider>
+            <Provider store={store}>
+               <Router>
+                  <ThemePallate setColor={setColor} setFont={setFont} />
+                  <LeftDrover isvisible={isvisible} setisvisible={setisvisible} open_close={open_close} bg={"transparent"} />
+                  <Navbar open_close={open_close} showModal={showModal} />
+                  <Authentication isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} showModal={showModal} />
+                  <Routes>
+                     <Route exact path="" element={<Home />} />
+                     <Route exact path="contact" element={<ContactUs />} />
+                     <Route element={<PrivateRoute />}>
+                        <Route exact path="shopping-cart" element={<CartPage />} />
+                        <Route exact path="store/*" element={<BicyclesShop />} />
+                        {/* <Route exact path="store/accessories" element={<BicyclesShop />} />
+                        <Route exact path="store/all" element={<BicyclesShop />} /> */}
+                        <Route exact path="product-details/*" element={<ProductDetails />} />
+                     </Route>
+                     <Route path="*" element={<ErrorPage status_code="404" />} />
+                  </Routes>
+                  <Footer />
+               </Router>
+            </Provider>
          </ConfigProvider>
       </div>
    );

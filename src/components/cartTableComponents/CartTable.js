@@ -1,9 +1,9 @@
 import React from "react";
+import { Button, Input } from "antd";
 import css from "./design/CartTable.module.css";
 import img from "../../assets/imgs/gloves-1.jpg";
-import { Input } from "antd";
 import { CloseCircleOutlined } from "@ant-design/icons";
-import CustomButton from "../buttonComponents/CustomButton";
+
 export default function CartTable() {
    return (
       <div className={css.cartTable}>
@@ -44,10 +44,10 @@ export default function CartTable() {
          <div className={css.tableFooter}>
             <div>
                <Input placeholder="Coupon code" />
-               <CustomButton text="APPLY COUPON" />
+               <Button type="primary">APPLY COUPON</Button>
             </div>
             <div>
-               <CustomButton text="UPDATE CART" />
+               <Button type="primary">UPDATE CART</Button>
             </div>
          </div>
       </div>

@@ -1,7 +1,7 @@
 import React from "react";
+import { Button } from "antd";
 import css from "./design/ReviewForm.module.css";
 import { Form, Input, Rate, Checkbox } from "antd";
-import CustomButton from "../buttonComponents/CustomButton";
 
 export default function ReviewForm() {
    return (
@@ -12,7 +12,7 @@ export default function ReviewForm() {
             <div className={css.rating_field}>
                <div>Your Rating*</div>
                <div>
-                  <Rate style={{color:"gray"}} />
+                  <Rate style={{ color: "gray" }} />
                </div>
             </div>
             <div className={css.review_field}>
@@ -39,7 +39,7 @@ export default function ReviewForm() {
                <Checkbox /> <span>&nbsp;&nbsp;Save my name, email, and website in this browser for the next time I comment.</span>
             </div>
             <div className={css.submit_button}>
-               <CustomButton text="SUBMIT" />
+               <Button type="primary">SUBMIT</Button>
             </div>
          </Form>
       </div>

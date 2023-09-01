@@ -1,19 +1,18 @@
-import React, { useState } from "react";
-import css from "./design/ThemePallate.module.css";
-import themelogo from "../../assets/imgs/icons8-theme-50.png";
-import { useEffect, useRef } from "react";
-import { CloseOutlined } from "@ant-design/icons";
 import ColorTheme from "./ColorTheme";
+import { CloseOutlined } from "@ant-design/icons";
+import css from "./design/ThemePallate.module.css";
+import { React, useState, useEffect, useRef } from "react";
+import themelogo from "../../assets/imgs/icons8-theme-50.png";
 
 export default function ThemePallate({ setColor, setFont }) {
-   const open_close = () => {
-      if (isvisible == "none") setisvisible("block");
-      else setisvisible("none");
-   };
-
    const [isvisible, setisvisible] = useState("none");
    const theme_cart_list_ = useRef(null);
    const button_ref = useRef(null);
+
+   const open_close = () => {
+      if (isvisible === "none") setisvisible("block");
+      else setisvisible("none");
+   };
 
    useEffect(() => {
       if (isvisible === "block") {
@@ -44,7 +43,9 @@ export default function ThemePallate({ setColor, setFont }) {
                Use the template as-is or try different colors and fonts from the options below.
                <div className={css.tryOtherClrs}>
                   <div className={css.text}>Try Other Colors</div>
-                  <div className={css.resetclr} onClick={() => setColor("rgb(223, 69, 62)")}>Default</div>
+                  <div className={css.resetclr} onClick={() => setColor("rgb(223, 69, 62)")}>
+                     Default
+                  </div>
                </div>
                <div className={css.ThemeButton} style={{ marginTop: "10px", width: "90%" }}>
                   <p style={{ margin: "0", fontSize: "Small" }}>DEFAULT COLORS</p>
@@ -98,21 +99,92 @@ export default function ThemePallate({ setColor, setFont }) {
                <hr />
                <div className={css.tryOtherClrs}>
                   <div className={css.text}>Try Other Fonts</div>
-                  <div className={css.resetclr} onClick={()=>{setFont("Racing Sans One")}}>Default</div>
+                  <div
+                     className={css.resetclr}
+                     onClick={() => {
+                        setFont("Racing Sans One");
+                     }}
+                  >
+                     Default
+                  </div>
                </div>
-               <div className={css.FontButton} style={{fontFamily:"Racing Sans One"}}  onClick={()=>{setFont("Racing Sans One")}}>Racing Sans One / Roboto</div>
+               <div
+                  className={css.FontButton}
+                  style={{ fontFamily: "Racing Sans One" }}
+                  onClick={() => {
+                     setFont("Racing Sans One");
+                  }}
+               >
+                  Racing Sans One / Roboto
+               </div>
                <div className={css.FontTheme}>
                   <div>
-                     <div style={{fontFamily:"Bebas Neue"}} onClick={()=>{setFont("Bebas Neue")}}>Aa</div>
-                     <div style={{fontFamily:"Josefin Sans"}} onClick={()=>{setFont("Josefin Sans")}}>Aa</div>
-                     <div style={{fontFamily:"Lato"}}  onClick={()=>{setFont("Lato")}}>Aa</div>
-                     <div style={{fontFamily:"Lobster"}}  onClick={()=>{setFont("Lobster")}}>Aa</div>
+                     <div
+                        style={{ fontFamily: "Bebas Neue" }}
+                        onClick={() => {
+                           setFont("Bebas Neue");
+                        }}
+                     >
+                        Aa
+                     </div>
+                     <div
+                        style={{ fontFamily: "Josefin Sans" }}
+                        onClick={() => {
+                           setFont("Josefin Sans");
+                        }}
+                     >
+                        Aa
+                     </div>
+                     <div
+                        style={{ fontFamily: "Lato" }}
+                        onClick={() => {
+                           setFont("Lato");
+                        }}
+                     >
+                        Aa
+                     </div>
+                     <div
+                        style={{ fontFamily: "Lobster" }}
+                        onClick={() => {
+                           setFont("Lobster");
+                        }}
+                     >
+                        Aa
+                     </div>
                   </div>
                   <div>
-                     <div style={{fontFamily:"Oswald"}}  onClick={()=>{setFont("Oswald")}}>Aa</div>
-                     <div style={{fontFamily:"Playfair Display"}}  onClick={()=>{setFont("Playfair Display")}}>Aa</div>
-                     <div style={{fontFamily:"Preahvihear"}}  onClick={()=>{setFont("Preahvihear")}}>Aa</div>
-                     <div style={{fontFamily:"Roboto Mono"}}  onClick={()=>{setFont("Roboto Mono")}}>Aa</div>
+                     <div
+                        style={{ fontFamily: "Oswald" }}
+                        onClick={() => {
+                           setFont("Oswald");
+                        }}
+                     >
+                        Aa
+                     </div>
+                     <div
+                        style={{ fontFamily: "Playfair Display" }}
+                        onClick={() => {
+                           setFont("Playfair Display");
+                        }}
+                     >
+                        Aa
+                     </div>
+                     <div
+                        style={{ fontFamily: "Preahvihear" }}
+                        onClick={() => {
+                           setFont("Preahvihear");
+                        }}
+                     >
+                        Aa
+                     </div>
+                     <div
+                        style={{ fontFamily: "Roboto Mono" }}
+                        onClick={() => {
+                           setFont("Roboto Mono");
+                        }}
+                     >
+                        Aa
+                     </div>
                   </div>
                </div>
             </div>

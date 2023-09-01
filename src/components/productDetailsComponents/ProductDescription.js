@@ -1,33 +1,33 @@
-import { React, useState, useRef, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import css from "./design/ProductDescription.module.css";
 import SubNavbar from "./SubNavbar";
-import CardList from "../cardListComponents/CardList";
-import { Radio, Image, Button, Tooltip } from "antd";
-import axios from "axios";
-import fetchProduct from "../../API/fetchProduct";
+import getRequest from "../../API/getRequest";
 import ErrorPage from "../../pages/ErrorPage";
+import postRequest from "../../API/postRequest";
+import { React, useState, useEffect } from "react";
+import { useLocation, Link } from "react-router-dom";
+import { Radio, Image, Button, Tooltip } from "antd";
+import CardList from "../cardListComponents/CardList";
+import css from "./design/ProductDescription.module.css";
 
 export default function ProductDescription() {
    window.scrollTo({ top: 0 });
    const location = useLocation();
    const SKU = location.pathname.split("/")[2];
-
+   const [value3, setValue3] = useState("");
    const [product, setProduct] = useState({});
-
-   const [relatedProduct, setRelatedProducs] = useState([]);
    const [isValidSKU, setIsValidSKU] = useState(true);
+   const [relatedProduct, setRelatedProducs] = useState([]);
+
    const fetchData = async (category, SKU) => {
       if (category === "Bicycle") {
-         let bicycle_list = await fetchProduct("http://localhost:8001/productFilter?minPrice=0&maxPrice=100000&category=Bicycle");
-         bicycle_list = bicycle_list
+         let bicycle_list = await getRequest(process.env.REACT_APP_CONSUMER_URL + "productFilter?minPrice=0&maxPrice=100000&category=Bicycle");
+         bicycle_list = bicycle_list.data.data
             ?.reverse()
             .filter((item) => item.SKU !== SKU)
             .slice(0, 4);
          setRelatedProducs(bicycle_list);
       } else if (category === "Accessory") {
-         let accessory_list = await fetchProduct("http://localhost:8001/productFilter?minPrice=0&maxPrice=100000&category=Accessory");
-         accessory_list = accessory_list
+         let accessory_list = await getRequest(process.env.REACT_APP_CONSUMER_URL + "productFilter?minPrice=0&maxPrice=100000&category=Accessory");
+         accessory_list = accessory_list.data.data
             ?.reverse()
             ?.filter((item) => item.SKU !== SKU)
             ?.slice(0, 4);
@@ -35,24 +35,21 @@ export default function ProductDescription() {
       }
    };
 
+   const getProduct = async () => {
+      try{
+         const response = await postRequest(process.env.REACT_APP_CONSUMER_URL + "getBySKU", { SKU: SKU });
+         console.log(response);
+         setProduct(response.data.data);
+         fetchData(response.data.data.category, response.data.data.SKU);
+      }
+      catch(error)
+      {
+         setIsValidSKU(false)
+      }
+   };
    useEffect(() => {
-      axios
-         .post("http://localhost:8001/getBySKU", { SKU: SKU }, { headers: { "Content-Type": "application/json" }, withCredentials: true })
-         .then((response) => {
-            console.log(response);
-            setProduct(response.data.data);
-            fetchData(response.data.data.category, response.data.data.SKU);
-            return "success";
-         })
-         .catch((error) => {
-            if (error.response) {
-               console.error(error.response);
-               setIsValidSKU(false);
-            } else {
-               console.error("Network error: " + error.message);
-            }
-         });
-   }, [SKU]);
+      getProduct();
+   }, []);
 
    const sizeArray = () => {
       const pair = [];
@@ -63,7 +60,6 @@ export default function ProductDescription() {
       return [];
    };
 
-   const [value3, setValue3] = useState("");
    const onChange3 = ({ target: { value } }) => {
       setValue3(value);
    };
@@ -97,12 +93,12 @@ export default function ProductDescription() {
                   <div className={css.product_description_inner}>
                      <div className={css.img_text}>
                         <div className={css.product_description_img + " product_description_img"}>
-                           <Image className={css.zoom_image + " zoom-image"} src={"http://localhost:8000/" + product?.image} onMouseMove={fun} onMouseLeave={revfun} alt="Image" />
+                           <Image className={css.zoom_image + " zoom-image"} src={process.env.REACT_APP_ADMIN_URL + "" + product?.image} onMouseMove={fun} onMouseLeave={revfun} alt="Image" />
                         </div>
 
                         <div className={css.product_description_text}>
                            <div className="path">
-                              Home / {product?.category} / {product?.name}
+                              <Link className="links" to="/">Home</Link> / <Link className="links" to={product?.category==="Bicycle"?"/store/bicycles":"/store/accessories"}>{product?.category}</Link> / {product?.name}
                            </div>
                            <div className={css.catagory}>
                               <h3>{product?.category}</h3>

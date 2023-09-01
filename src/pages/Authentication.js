@@ -1,12 +1,13 @@
-import { React, useState} from "react";
-import { Modal, Tabs } from "antd";
+import { React } from "react";
+import { Modal, Tabs, Spin } from "antd";
+import { useSelector } from "react-redux";
 import SignInForm from "../components/authenticationComponents/SignInForm";
 import SignUpForm from "../components/authenticationComponents/SignUpForm";
 
-
 export default function Authentication({ isModalOpen, setIsModalOpen }) {
-
-   const [activeTab, setActiveTab] = useState()
+   const isLoading = useSelector((state) => {
+      return state.loaderReducer.authLoader;
+   });
 
    const items = [
       {
@@ -17,14 +18,9 @@ export default function Authentication({ isModalOpen, setIsModalOpen }) {
       {
          key: "2",
          label: `Sign Up`,
-         children: <SignUpForm setIsModalOpen={setIsModalOpen} setActiveTab={setActiveTab}/>,
+         children: <SignUpForm setIsModalOpen={setIsModalOpen}/>,
       },
    ];
-
-
-   const onChange = (key) => {
-      // setOkButtonText(items[key - 1].label);
-   };
 
    const handleOk = () => {
       setIsModalOpen(false);
@@ -35,8 +31,10 @@ export default function Authentication({ isModalOpen, setIsModalOpen }) {
 
    return (
       <>
-      <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={null} cancelText="RESET">
-            <Tabs items={items} activeKey={activeTab} onChange={onChange} />
+         <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={null} cancelText="RESET">
+            <Spin size="large" spinning={isLoading} tip="Loading...">
+               <Tabs items={items} defaultActiveKey={1} />
+            </Spin>
          </Modal>
       </>
    );

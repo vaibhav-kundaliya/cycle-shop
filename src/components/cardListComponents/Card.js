@@ -1,14 +1,12 @@
-import React, { useState } from "react";
-import { Card, Rate } from "antd";
-import {useNavigate} from "react-router-dom";
-import PriceRange from "../productDetailsComponents/PriceRange";
-import { ShoppingFilled } from "@ant-design/icons";
+import { Card } from "antd";
+import { React, useState } from "react";
 import css from "./design/Card.module.css";
+import {useNavigate} from "react-router-dom";
+import { ShoppingFilled } from "@ant-design/icons";
 
 const { Meta } = Card;
 
-function Cards({ element, width }) {
-   const [price, setPrice] = useState(element.price);
+function Cards({ element }) {
    const [visibility, setVisibility] = useState("none");
    
    const navigate = useNavigate();
@@ -23,7 +21,7 @@ function Cards({ element, width }) {
             onMouseLeave={()=>setVisibility("none")}
             hoverable
             style={{borderRadius:0}}
-            cover={<img alt={element.name} onClick={gotoProductDetails} src={"http://localhost:8000/"+element.image} style={{borderRadius: "0px"}}/>}
+            cover={<img alt={element.name} onClick={gotoProductDetails} src={process.env.REACT_APP_ADMIN_URL+""+element.image} style={{borderRadius: "0px"}}/>}
          >
             <div>
             {/* <Rate disabled defaultValue={element.rating} style={{color:"gray"}} /> */}

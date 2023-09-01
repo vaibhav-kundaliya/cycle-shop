@@ -43,3 +43,8 @@
    padding-left: 10%;
    z-index: 5;
 }
+
+.view_all_button_center{
+   width: fit-content;
+   margin: auto;
+}

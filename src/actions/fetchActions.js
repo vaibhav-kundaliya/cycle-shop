@@ -1,4 +1,5 @@
-import fetchProduct from "../API/fetchProduct";
+import getRequest from "../API/getRequest";
+import {productLoading} from "./setLoader";
 
 export const fetchAllProducts = (products) => {
    return { type: "FETCH_ALL_PRODUCTS", payload: products };
@@ -10,23 +11,58 @@ export const fetchAccessories = (products) => {
    return { type: "FETCH_ACCESSORIES", payload: products };
 };
 
-export const getAllProducts = (url) => {
+export const getAllProducts_keyword = (keyword) => {
    return async function (dispatch) {
-      const response = await fetchProduct(url);
-      dispatch(fetchAllProducts(response));
+      try {
+         dispatch(productLoading())
+         const response = await getRequest(`${process.env.REACT_APP_CONSUMER_URL}searchProduct/keyword?keyword=${keyword}`);
+         dispatch(fetchAllProducts(response.data.data));
+         dispatch(productLoading())
+      } catch (Error) {
+         console.error(Error);
+         dispatch(productLoading())
+      }
    };
 };
 
-export const getBicycles = (url) => {
+export const getAllProducts = (range) => {
    return async function (dispatch) {
-      const response = await fetchProduct(url);
-      dispatch(fetchBicycles(response));
+      try {
+         dispatch(productLoading())
+         const response = await getRequest(`${process.env.REACT_APP_CONSUMER_URL}productFilter?minPrice=${range[0]}&maxPrice=${range[1]}&category=`);
+         dispatch(fetchAllProducts(response.data.data));
+         dispatch(productLoading())
+      } catch (Error) {
+         console.error(Error);
+         dispatch(productLoading())
+      }
    };
 };
 
-export const getAccessories = (url) => {
+export const getBicycles = (range) => {
    return async function (dispatch) {
-      const response = await fetchProduct(url);
-      dispatch(fetchAccessories(response));
+      try {
+         dispatch(productLoading())
+         const response = await getRequest(`${process.env.REACT_APP_CONSUMER_URL}productFilter?minPrice=${range[0]}&maxPrice=${range[1]}&category=Bicycle`);
+         dispatch(fetchBicycles(response.data.data));
+         dispatch(productLoading())
+      } catch (Error) {
+         console.error(Error);
+         dispatch(productLoading())
+      }
+   };
+};
+
+export const getAccessories = (range) => {
+   return async function (dispatch) {
+      try {
+         dispatch(productLoading())
+         const response = await getRequest(`${process.env.REACT_APP_CONSUMER_URL}productFilter?minPrice=${range[0]}&maxPrice=${range[1]}&category=Accessory`);
+         dispatch(fetchAccessories(response.data.data));
+         dispatch(productLoading())
+      } catch (Error) {
+         console.error(Error);
+         dispatch(productLoading())
+      }
    };
 };

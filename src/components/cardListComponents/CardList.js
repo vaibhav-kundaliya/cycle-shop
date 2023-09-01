@@ -1,7 +1,7 @@
 import React from "react";
-import "./design/CardList.css";
-import { List } from "antd";
 import Card from "./Card";
+import { List } from "antd";
+import "./design/CardList.css";
 
 export default function CardList({ product_list }) {
    
@@ -14,8 +14,8 @@ export default function CardList({ product_list }) {
                sm: 2,
                md: 4,
                lg: 4,
-               xl: 5,
-               xxl: 5,
+               xl: 4,
+               xxl: 4,
             }}
             dataSource={product_list?product_list:[]}
             renderItem={(element) => (
